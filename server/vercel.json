@@ -1,0 +1,4 @@
+{
+  "functions": { "api/analyze.mjs": { "maxDuration": 30 } },
+  "outputDirectory": "public"
+}

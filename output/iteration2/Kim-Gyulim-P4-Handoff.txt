@@ -1,0 +1,141 @@
+NoTouch — Iteration 2 / P4 handoff
+Prepared: 2026-10-18
+Assigned owners: 김규림 + 안나
+
+1. 전달할 파일
+
+NoTouch-Runtime-Pipeline.png
+  발표 본문에 넣을 현재 실행 파이프라인. 16:9, 2400 × 1350.
+NoTouch-Training-and-IR-Roadmap.png
+  개인 보정 학습과 적외선 확장 계획. 두 번째 장 또는 부록용.
+NoTouch-Iteration2-Pipeline.drawio
+  diagrams.net / draw.io에서 열어 박스, 글자, 화살표를 수정할 수 있는 2페이지 원본.
+NoTouch-Iteration2-Pipeline.pdf
+  두 다이어그램을 합친 벡터 PDF.
+같은 이름의 SVG 2개
+  확대해 사용할 수 있는 벡터 이미지. 텍스트 수정은 draw.io 원본 사용.
+iteration2-pipeline.md / iteration2-device-validation.md
+  구현 및 프런트엔드 연결 문서 / 실제 폰 검증 절차.
+
+APK는 별도 파일:
+C:\Users\gyulimkim\Documents\New project\eye-tracking-phone-control\app\build\outputs\apk\debug\NoTouch-0.7.0-debug.apk
+
+2. 현재 작업 상태
+
+[준비됨] 전면 카메라 기반 파이프라인 코드와 APK
+[준비됨] 독립된 GazePipeline과 GazeSample 결과 형식
+[준비됨] 지연 / 추적 실패 / 모델 변경 시 상태 초기화
+[준비됨] 파이프라인 다이어그램 및 발표 설명
+[준비됨] 테스트 41개 통과, Android lint 오류 0개 / 경고 30개
+[대기] 실제 폰의 좌우 반응, 흔들림, 머리·거리 변화 평가
+[대기] 사용자 학습 데이터 수집 및 개인 모델 평가
+[대기] 실제 기기에서 클릭·스크롤·음성 입력 검증
+[미구현] USB 적외선 영상 입력, 홍채 무늬 추적, RGB/IR 동기화·융합
+
+실제 폰이 연결되지 않았고 적외선 카메라도 없으므로 P4 전체를 실기기
+검증 완료로 표시하면 안 됨. 본 기록은 기존 코드와 이번 변경을 함께
+설명하며 팀원별 실제 기여량이나 작업 시간을 임의로 배분하지 않음.
+
+3. 발표자료용 영어 요약
+
+We implemented an Android gaze-control pipeline using the phone's front RGB
+camera and the bundled MediaPipe Face Landmarker. The extracted features include
+iris displacement, eye openness, face position and scale, head pose, and an
+optional iris-size-based distance estimate. A compatible saved personal model
+maps these features to normalized screen coordinates; otherwise, the app uses
+a heuristic pointer mapping.
+
+The GazePipeline separates local prediction, validity checks, temporal smoothing,
+and interaction state. Delayed frames and invalid predictions are rejected,
+and camera interruptions clear stale tracking and pending clicks. The pipeline
+supports a red-dot overlay, long-blink click confirmation, vertical dwell
+scrolling, and double-blink-triggered speech input. Optional cloud assistance
+suggests UI click targets; it does not replace the local red-dot prediction.
+
+Personal correction is supervised ridge regression rather than reinforcement
+learning. Touch-labelled sessions are split by session into training and held-out
+evaluation data. Models with and without a distance feature are compared using
+normalized prediction errors and coverage. The current training procedure saves
+the full distance-aware model; it does not automatically select whichever model
+has the lowest held-out error. Therefore, improvement must be checked rather than
+assumed. No measured human accuracy results are claimed yet.
+
+The build passed 41 unit tests and produced a debug APK. These results validate
+software behavior but not real-world gaze accuracy. Device testing and personal
+data collection are the next acceptance steps. IR capture, iris-texture tracking,
+and dual-camera fusion are future work because the team has not acquired an IR
+camera.
+
+4. 발표 대본 — 약 1분 30초, 실제 속도에 따라 조정
+
+저희 파이프라인은 현재 스마트폰 전면 카메라를 기준으로 구현했습니다.
+먼저 CameraX로 받은 영상을 MediaPipe에 넣어 얼굴과 홍채의 특징점을
+찾고, 눈 안에서의 홍채 위치와 눈을 감았는지, 머리 자세 등을 추출합니다.
+거리도 홍채 크기와 카메라 정보로 추정하지만 실제 깊이 센서 측정값은
+아니기 때문에 사용할 수 없는 경우를 따로 처리합니다.
+
+다음으로 로컬 모델이 화면 좌표를 예측하고, 지연되거나 잘못된 결과를
+걸러낸 뒤 흔들림을 줄여 빨간 포인터를 표시합니다. 클릭과 스크롤은
+이 결과와 눈 상태를 함께 사용하는 별도의 상태 머신에서 처리합니다.
+특히 얼굴이 사라진 상황을 눈을 감은 것으로 오해하지 않게 했습니다.
+
+개인별 보정은 터치한 위치를 바라봤다는 가정으로 데이터를 모아
+작은 회귀 모델을 학습하는 방식입니다. 마지막 세션은 학습에 넣지 않고
+평가용으로 남겨 거리 특징의 효과를 비교하도록 구현했습니다.
+
+현재 자동 테스트 41개와 APK 빌드는 통과했습니다. 다만 실제 사용자의
+시선 정확도를 측정한 것은 아니고, 폰에서 데이터를 모아 평가하는
+단계가 남았습니다. 적외선 카메라는 아직 없기 때문에 별도의 향후
+확장 경로로 표시했습니다.
+
+5. 예상 질문과 답변
+
+Q. AI 모델이 들어 있는가?
+A. MediaPipe 얼굴·홍채 특징점 모델은 포함돼 있다. 화면 시선 좌표를
+   정확히 예측하는 개인 모델은 실제 수집 데이터로 학습해야 한다.
+   개인 모델이 없을 때도 기본 휴리스틱 포인터 경로는 존재한다.
+
+Q. 보정 없이 정확한 클릭이 가능한가?
+A. 아직 그런 정확도를 확인하지 않았다. 기본 포인터 작동과 정확한
+   응시 위치 추정은 구분해야 하며 실기기 평가가 필요하다.
+
+Q. LLM으로 시선을 추적하는가?
+A. 빨간 포인터는 로컬 예측으로 움직인다. LLM은 선택적 화면 후보
+   추천에 사용한다. 얼굴 분석 요청도 실험 기능이며 포인터를 대체하지 않는다.
+
+Q. 홍채 무늬를 인식하는가?
+A. 현재는 MediaPipe 홍채 특징점 기반이다. 개인 홍채 무늬 등록이나
+   무늬의 회전을 추적하는 방식은 구현하지 않았다.
+
+Q. 왜 IR 카메라가 없는데 거리 추정을 하는가?
+A. RGB 영상에서 보이는 홍채 크기와 카메라 정보로 근사할 수 있게
+   구현한 것이다. 실제 거리 정확도는 아직 평가하지 않았다.
+
+Q. 41개 테스트 통과는 무엇을 의미하는가?
+A. 좌표 유효성, 상태 전환, 회귀 계산, 프로토콜 등의 자동 검증이다.
+   실제 시선 오차나 접근성 조작 성공률을 측정한 숫자는 아니다.
+
+6. 팀원에게 전달할 메시지 초안 — 아직 발송하지 않음
+
+파이프라인 업데이트랑 발표용 다이어그램 준비했어!
+현재 실행 흐름 PNG, 학습/IR 확장 계획 PNG, 수정 가능한 draw.io 원본,
+PDF를 같이 넣었어. 발표 본문에는 Runtime Pipeline 그림을 넣으면 되고,
+두 번째 그림은 학습 설명이나 부록에 쓰면 돼.
+전면 카메라 + MediaPipe 기반 코드와 APK는 준비됐고 자동 테스트 41개는
+통과했어. 실제 폰 정확도와 클릭/스크롤/음성 입력은 검증이 남아 있어.
+적외선 입력과 홍채 무늬 추적은 아직 미구현이라 그림에서도 구분했어.
+
+7. 프런트엔드 연결
+
+TrackerState.sample에서 GazeSample을 읽는다. 좌표는 화면 좌상단 기준의
+정규화 좌표이고, 스크롤 때문에 0~1 범위를 벗어날 수 있다.
+화면에 그릴 때만 범위를 제한하고 입력 상태 머신 앞에서는 제한하지 않는다.
+sample.actions를 UI에서 다시 실행하지 않는다. TrackingService가 이미
+실행한다. sample이 null이면 이전 결과를 계속 표시하지 않는다.
+자세한 계약은 iteration2-pipeline.md 참조.
+
+8. 사용자 협조가 필요한 남은 일
+
+USB 디버깅이 허용된 폰을 PC에 연결하고, 카메라를 보고 목표를 응시하는
+검증 및 학습 세션을 진행해야 한다. 자동으로 대신 수집하거나 결과를
+추정해서 기입할 수 없는 단계다. 현재 준비물에는 실측 결과를 넣지 않았다.

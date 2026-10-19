@@ -1,0 +1,67 @@
+7. Current Implementation — Iteration 1
+
+7.1 Implementation Scope and Architecture
+
+NoTouch version 0.6.0 is a native Android prototype written in Kotlin. Its current objective is to estimate a user's gaze position using the phone's front camera and improve pointer stability by incorporating eye position, head pose, and estimated camera-to-eye distance. It also implements blink-based clicking, gaze-based scrolling, and speech input. The current build is an experimental prototype; its build and unit-test results do not establish real-world gaze accuracy or accessibility readiness.
+
+The processing pipeline is: CameraX frame acquisition, MediaPipe facial landmark detection, numerical feature extraction, gaze estimation, adaptive temporal smoothing, and pointer or interaction output. CameraX requests a 1280 × 720 stream and uses a keep-only-latest strategy to avoid accumulating old frames. Analysis is limited to approximately 30 frames per second, although the actual processing rate depends on the device. A foreground service supports camera operation while the user moves to other applications, and an overlay displays the gaze pointer. Android's accessibility service performs supported tap and scroll gestures. The user must grant the relevant camera, overlay, accessibility, and microphone permissions for the corresponding functions.
+
+7.2 Pretrained Landmark Detection and Gaze Features
+
+The APK includes the pretrained MediaPipe Face Landmarker asset. It detects 478 facial landmarks, including eye and iris landmarks, and produces a facial transformation matrix. This model supplies facial geometry; it does not directly return the point on the phone screen that the user is looking at.
+
+The gaze estimator uses 13 numerical features. The original ten features describe each iris's horizontal and vertical position relative to the eye, face position, face scale, approximate yaw and pitch, and roll. Three additional features represent estimated distance normalized by 40 cm and head yaw and pitch derived from the facial transformation matrix. Iris position is measured relative to the eye corners and normalized by eye width to reduce dependence on image position and scale.
+
+Head rotation is estimated from MediaPipe's canonical-face transformation matrix. These values provide additional explanatory inputs for the correction model; they have not yet been validated as precise physical head angles on the target phone. The implementation does not register iris patterns, identify users from iris texture, or require an external infrared camera.
+
+7.3 Approximate Camera-to-Eye Distance
+
+Distance is estimated from the apparent iris diameter and camera metadata. The implementation assumes an average physical iris diameter of 11.7 mm and approximates focal length in pixels using the camera's focal length, physical sensor dimensions, active sensor area, and stream aspect ratio. It uses a central-crop approximation at 1× zoom. MediaPipe landmark z coordinates are not treated as absolute distance measurements.
+
+The two eyes produce separate distance estimates, which are combined only when the measurements pass quality checks. Distance is marked unavailable if the estimated value is outside 15–100 cm, the measured iris diameter is below four pixels, the two estimates disagree by more than 25%, or estimated head yaw or pitch exceeds approximately 26 degrees. Missing camera metadata or head-pose information also prevents a valid distance estimate.
+
+This is an approximate axial camera-to-eye distance. Individual iris size, lens distortion, manufacturer-specific cropping, and iris foreshortening can introduce error. A ruler-based comparison on the actual phone is still required before interpreting the displayed centimetre value as a reliable measurement.
+
+7.4 Developer Data Collection
+
+An in-app collection screen gathers supervised training examples. Each session presents 60 targets selected from a five-by-five screen grid. The participant looks at the target for at least one second and then touches near its centre while maintaining a stable posture. The displayed target centre is the training label. The actual touch position is stored separately, rather than automatically assuming that every arbitrary touch provides a correct gaze label.
+
+For each target, the collector uses valid frames from 50–450 milliseconds before the touch. It requires at least five frames, open eyes, recent tracking data, valid distance and pose, and sufficiently stable eye, face, and distance measurements. The median feature values form one training example. Unstable samples are rejected rather than added to the training set.
+
+Each CSV records the participant code, session identifier, device and display configuration, target index, contributing frame count, target and touch coordinates, and 13 features. Raw face images are not saved by this collector. Eye-control actions are disabled during collection to avoid unintended clicks or scrolling. Incomplete sessions are retained but excluded from training. Dataset version 3 is stored separately from older data and can be exported through Android's file picker.
+
+7.5 On-Device Supervised Correction
+
+The new correction model is a standardized ridge regression model trained locally on the phone. It predicts normalized horizontal and vertical screen coordinates from the collected features. In addition to the 13 inputs, it includes four interaction terms between iris position and distance, allowing the relationship between eye movement and screen position to change with viewing distance.
+
+Training requires at least three completed sessions. The most recently modified completed session is reserved for evaluation, and the remaining completed sessions supply training data. The training set must cover a sufficient range of screen positions and eye movement. The distance-aware model additionally requires at least 8 cm of variation in estimated training distance. Collection should therefore include separate sessions at different viewing distances, with small changes in head position between targets.
+
+The resulting model is saved locally and reloaded for the matching device and display configuration, so training is not required at every launch. Predictions outside the supported pose and distance range are rejected. Existing nine-point calibration and imported-model options remain available; selecting one replaces the active distance-model choice.
+
+The distinction between the two models is important: MediaPipe is already pretrained and bundled, while the new gaze-correction weights are produced by developer data collection and training. No human training dataset or pretrained distance-correction weights have yet been supplied with this build. Before such a model is trained, the basic pointer uses the existing heuristic estimator. This training procedure is supervised regression, not reinforcement learning or LLM fine-tuning.
+
+7.6 Evaluation of the Distance Feature
+
+Training produces two models from the same training sessions: one with the explicit distance feature and iris–distance interactions, and one without them. Both are evaluated on the same held-out session. The comparison model still contains face-scale information, so it is not completely independent of distance-related visual cues.
+
+The evaluation report includes mean, median, and 95th-percentile Euclidean errors in normalized screen coordinates. These values are not errors in centimetres or degrees of visual angle. The report separately records results for all predictions, results for predictions accepted by the model's support checks, and accepted-prediction coverage. This makes rejected cases visible instead of reporting only successful predictions.
+
+The held-out session is not reused to fit the installed model. The current implementation installs the distance-aware model after training even if its reported error is worse than the comparison model; automatic selection of the better model is not implemented. Developers must inspect the results before concluding that distance improves accuracy. Evaluation currently uses the median feature sample for each target, so it does not measure frame-by-frame fixation jitter, interaction latency, or generalization to unseen participants.
+
+7.7 Pointer Stabilization and Eye Controls
+
+The pointer uses adaptive temporal smoothing. Small changes receive stronger smoothing to reduce visible jitter, while larger movements receive a faster response. The filter accounts for elapsed time between samples and resets after tracking interruptions. This mechanism is intended to balance stability and responsiveness; its effect on real fixation accuracy remains to be measured.
+
+Clicking uses a two-step confirmation sequence. Closing the eyes for at least one second arms a click at the last valid position before eye closure. After reopening the eyes, another closure lasting at least one second confirms the click. The pending click expires after six seconds, and tracking loss cancels it. This avoids estimating a new click location from closed-eye frames.
+
+Scrolling is triggered when the estimated vertical gaze coordinate remains sufficiently above or below the screen for 650 milliseconds, with a 900-millisecond interval between scroll actions. Two short blinks trigger speech input. The recognizer uses an on-device service when available; otherwise, the system speech provider may require a network connection. Recognized speech is intended for the selected text field. A practice screen provides a controlled place to try clicking, scrolling, and text entry.
+
+Stale or missing tracking data suppresses interaction. The service also stops camera tracking when the screen turns off or the display configuration changes. These checks prevent old gaze coordinates from continuing to trigger actions after tracking becomes invalid.
+
+7.8 Cloud Assistance, Verification, and Remaining Work
+
+The existing optional GPT-based experiment is separate from the new local correction pipeline. Its server-side API key is kept outside the APK. When the new distance-aware model is active, cloud-generated gaze coordinates do not replace its local predictions. The current implementation does not demonstrate that an LLM improves geometric gaze accuracy, and cloud assistance is not required for local feature extraction, dataset collection, or regression training.
+
+The 0.6.0 debug APK was built successfully. Verification completed with 32 passing unit tests and Android lint reporting zero errors and 30 warnings. Tests cover numerical geometry, model fitting and serialization, smoothing, interaction timing, and other existing components. Synthetic tests establish implementation behaviour under their test conditions; they do not substitute for measurements from real eyes. No connected phone or emulator was available for end-to-end validation during this implementation pass.
+
+The next validation step is to collect complete sessions on the target phone at measured distances, train the correction models, and compare their held-out errors and coverage. Further measurements should quantify fixation jitter, response latency, failure rates, and accidental actions under changes in lighting, glasses, head pose, and phone position. Testing with separate participants is necessary before claiming that the correction generalizes beyond the people and conditions represented in the training data.

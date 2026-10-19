@@ -8,3 +8,13 @@ local.properties
 build-log*.txt
 *.jks
 *.keystore
+__pycache__/
+datasets/
+gaze-model*.json
+
+.vercel/
+node_modules/
+.env*
+!.env.example
+.device-token.txt
+.token-hash.txt

@@ -2,7 +2,32 @@ package dev.gazedot
 
 import kotlin.math.*
 
-data class EyeFeatures(val x: Double, val y: Double, val faceX: Double, val faceY: Double, val scale: Double)
+data class EyeFeatures(val x: Double, val y: Double, val faceX: Double, val faceY: Double, val scale: Double,
+    val leftX: Double = x, val leftY: Double = y, val rightX: Double = x, val rightY: Double = y,
+    val yawProxy: Double = 0.0, val pitchProxy: Double = 0.0, val roll: Double = 0.0,
+    val distanceCm: Double = Double.NaN, val headYaw: Double = Double.NaN, val headPitch: Double = Double.NaN) {
+    fun depthVector() = vector() + doubleArrayOf(distanceCm / 40.0, headYaw, headPitch)
+    fun vector() = doubleArrayOf(leftX, leftY, rightX, rightY, faceX, faceY, scale, yawProxy, pitchProxy, roll)
+    companion object {
+        val names = listOf("left_x", "left_y", "right_x", "right_y", "face_x", "face_y", "scale", "yaw_proxy", "pitch_proxy", "roll")
+        fun from(v: DoubleArray) = EyeFeatures((v[0]+v[2])/2, (v[1]+v[3])/2, v[4], v[5], v[6], v[0], v[1], v[2], v[3], v[7], v[8], v[9])
+    }
+}
+interface GazePredictor { fun predict(f: EyeFeatures): Pair<Double, Double>? }
+
+/** Uncalibrated iris pointer. Fixed gains are a usable starting mapping, not measured gaze accuracy.
+ * Eye coordinates already remove face translation, scale and in-plane roll.
+ * Front-camera images are unmirrored: image-left corresponds to the user's screen-right.
+ */
+object BasicGazePredictor : GazePredictor {
+    override fun predict(f: EyeFeatures): Pair<Double, Double>? {
+        if (!f.vector().all { it.isFinite() } || f.scale <= 0) return null
+        val x = (f.leftX + f.rightX) / 2
+        val y = (f.leftY + f.rightY) / 2
+        return (0.5 - 4.0 * x).coerceIn(-0.3, 1.3) to
+            (0.5 + 6.0 * (y - 0.02)).coerceIn(-0.3, 1.3)
+    }
+}
 data class Anchor(val eye: EyeFeatures, val x: Double, val y: Double)
 
 /** Calibration maps iris displacement inside the eye to display coordinates.
@@ -13,14 +38,15 @@ class GazeModel private constructor(
     private val wx: DoubleArray, private val wy: DoubleArray,
     private val reference: EyeFeatures,
     val fitError: Double,
-) {
-    fun predict(f: EyeFeatures): Pair<Double, Double>? {
+) : GazePredictor {
+    override fun predict(f: EyeFeatures): Pair<Double, Double>? {
         if (!listOf(f.x, f.y, f.faceX, f.faceY, f.scale).all { it.isFinite() }) return null
         // A changed pose/distance invalidates this simple calibration. Do not invent a point.
         if (f.scale !in reference.scale * 0.72..reference.scale * 1.28 ||
             abs(f.faceX - reference.faceX) > 0.12 || abs(f.faceY - reference.faceY) > 0.12) return null
         val v = doubleArrayOf(1.0, (f.x - meanX) / stdX, (f.y - meanY) / stdY)
-        return dot(wx, v).coerceIn(0.0, 1.0) to dot(wy, v).coerceIn(0.0, 1.0)
+        // Preserve outside-screen estimates for scroll intent; clamp only when drawing.
+        return dot(wx, v) to dot(wy, v)
     }
 
     companion object {
@@ -67,6 +93,8 @@ class GazeModel private constructor(
 }
 
 fun medianFeatures(samples: List<EyeFeatures>): EyeFeatures {
-    fun median(selector: (EyeFeatures) -> Double): Double = samples.map(selector).sorted()[samples.size / 2]
-    return EyeFeatures(median { it.x }, median { it.y }, median { it.faceX }, median { it.faceY }, median { it.scale })
+    require(samples.isNotEmpty())
+    fun med(values: List<Double>) = values.filter { it.isFinite() }.sorted().let { if(it.isEmpty()) Double.NaN else it[it.size/2] }
+    return EyeFeatures.from(DoubleArray(EyeFeatures.names.size) { i -> med(samples.map { it.vector()[i] }) }).copy(
+        distanceCm=med(samples.map { it.distanceCm }), headYaw=med(samples.map { it.headYaw }), headPitch=med(samples.map { it.headPitch }))
 }

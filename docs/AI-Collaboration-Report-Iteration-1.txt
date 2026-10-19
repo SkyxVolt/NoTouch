@@ -1,0 +1,54 @@
+AI Collaboration Report – Iteration 1
+Team 17 | NoTouch | Prepared: 9 October 2026
+Tools: OpenAI Codex / ChatGPT. Exact model versions for earlier exchanges were not consistently recorded.
+Scope: This report covers the available conversation with Gyulim Kim; other members' individual prompt and edit logs have not been supplied.
+
+1. Where AI Was Used
+
+We used AI to develop the Kotlin Android prototype, investigate gaze-tracking approaches, implement eye-control interactions, and draft documentation. The latest work combines MediaPipe landmarks, estimated camera-to-eye distance, head pose, supervised regression, and pointer smoothing. Evidence includes DepthModel.kt:43, DepthTraining.kt:13, DepthGeometry.kt:37, and InteractionEngine.kt:13 under app/src/main/java/dev/gazedot/.
+
+Human responsibilities included selecting the project, specifying gestures, installing the APK, and reporting observed problems. AI was not used to manufacture participant measurements or real-device accuracy results. The local correction path uses regression rather than an LLM. These are scope boundaries, not a claim that we independently implemented an AI-free subsystem.
+
+2. Actual Prompt History
+
+The following excerpts preserve the original Korean wording:
+
+“지금 모델이 없어서 앱이 작동이 안 된다는데”
+
+“모델을 처음부터 학습시켜야 하는지, LLM 연결만으로 왜 안되는지, 공개 데이터가 있는지부터 말해”
+
+“시선점 고정의 정확도에 초점을 맞췄으면 좋겠어
+최대한 잘 하려면 어떻게 하지”
+
+“mediapipe를 결합해서 여기에 거리까지 포함하는 건 어떄”
+
+These prompts document a shift from requesting functionality to questioning dependencies and defining a measurable technical direction. Individual message dates are not reconstructed because they are unavailable in the supplied history.
+
+3. What AI Did Well
+
+AI implemented an inspectable development workflow: collect target-labelled samples, train two correction models, and evaluate both on a separate session. DepthTraining.kt:13 keeps the final completed session out of training and reports error and coverage. This makes the proposed benefit of distance testable rather than assumed.
+
+It also implemented explicit interaction timing and synthetic numerical checks. Evidence includes app/src/test/java/dev/gazedot/DepthModelTest.kt:7 and InteractionEngineTest.kt:6. The implementation pass recorded a successful APK build, 32 passing unit tests, and lint results of zero errors and 30 warnings. These results support buildability and tested logic, not gaze accuracy. We did not measure time saved.
+
+4. Errors and Overclaims
+
+The clearest failure was treating implementation progress as readiness for use before the model dependency and training requirements were made clear. The user discovered the gap by installing the APK and reporting a missing-model problem and poor horizontal tracking. The conversation does not preserve enough earlier assistant output to quote a specific false assertion; we therefore report the observed failure rather than inventing one.
+
+The correction was to distinguish the bundled pretrained MediaPipe landmark detector from the personalized gaze-correction weights, which still require collected data. The cost was repeated installation, feedback, and rework; elapsed time was not logged. A successful build did not establish that the intended interaction worked on the phone.
+
+5. Prompt Revisions
+
+An early implementation request was: “동작하는 걸 만들라고”. Later instructions narrowed the objective: “시선점 고정의 정확도에 초점을 맞췄으면 좋겠어
+최대한 잘 하려면 어떻게 하지”, followed by “mediapipe를 결합해서 여기에 거리까지 포함하는 건 어떄”.
+
+This refinement replaced an undefined demand for a working app with specific inputs and a comparison that could be evaluated. It led to distance-aware regression and held-out evaluation. It has not yet demonstrated improved real-device accuracy.
+
+6. Manual Fixes and Accountability
+
+No direct human source-code edits are verified in the available record. Human intervention consisted of correcting requirements and challenging readiness claims; subsequent code changes remained AI-assisted. We therefore cannot claim that a team member manually rewrote the algorithm. Teammates should supply any additional edits from their own records.
+
+AI-generated-code attribution comments and named human review are not yet documented for the cited files. These must be completed truthfully before final submission, without treating AI-generated tests as human review. The team remains responsible for the final code.
+
+Takeaway
+
+Next iteration, we will define device-level acceptance checks before expanding features, collect real measurements, and distinguish generated code, passing tests, and validated user behaviour in every progress report.

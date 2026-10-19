@@ -9,13 +9,32 @@ class DotOverlay(context: Context) {
     private val dot = object : View(context) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         var position: Pair<Double, Double>? = null
+        var armed = false
+        var label = ""
+        var suggestion: Pair<Double, Double>? = null
         override fun onDraw(canvas: Canvas) {
+            val d=resources.displayMetrics.density
+            suggestion?.let { p ->
+                paint.color=Color.CYAN; paint.style=Paint.Style.STROKE; paint.strokeWidth=3*d
+                canvas.drawCircle((p.first*width).toFloat(),(p.second*height).toFloat(),19*d,paint)
+                paint.style=Paint.Style.FILL
+            }
+            if(label.isNotBlank()) {
+                paint.color=Color.BLACK; paint.textSize=14*d; paint.textAlign=Paint.Align.CENTER
+                canvas.drawRoundRect(8*d,38*d,width-8*d,80*d,12*d,12*d,paint)
+                paint.color=Color.WHITE
+                canvas.drawText(label.take(44),width/2f,64*d,paint)
+            }
             val p = position ?: return
-            val x = p.first.toFloat() * width; val y = p.second.toFloat() * height
+            val x = p.first.coerceIn(.015,.985).toFloat() * width; val y = p.second.coerceIn(.015,.985).toFloat() * height
             paint.color = Color.WHITE
             canvas.drawCircle(x, y, 10 * resources.displayMetrics.density, paint)
-            paint.color = Color.RED
+            paint.color = if(armed) Color.rgb(255,170,0) else Color.RED
             canvas.drawCircle(x, y, 7 * resources.displayMetrics.density, paint)
+            if(armed) {
+                paint.style=Paint.Style.STROKE; paint.strokeWidth=3*d
+                canvas.drawCircle(x,y,18*d,paint); paint.style=Paint.Style.FILL
+            }
         }
     }
     init {
@@ -37,6 +56,8 @@ class DotOverlay(context: Context) {
         }
         manager.addView(dot, params)
     }
-    fun show(position: Pair<Double, Double>?) { dot.position = position; dot.invalidate() }
+    fun show(position: Pair<Double, Double>?, armed: Boolean=false, label: String="", suggestion: Pair<Double,Double>?=null) {
+        dot.position = position; dot.armed=armed; dot.label=label; dot.suggestion=suggestion; dot.invalidate()
+    }
     fun close() { if (dot.isAttachedToWindow) manager.removeView(dot) }
 }

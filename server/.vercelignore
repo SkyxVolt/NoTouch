@@ -1,0 +1,7 @@
+.env*
+.device-token.txt
+.token-hash.txt
+scripts/
+*.test.mjs
+README.md
+node_modules/

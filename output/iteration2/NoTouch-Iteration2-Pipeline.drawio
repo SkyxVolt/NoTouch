@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net">
+  <diagram id="page1" name="NoTouch | Runtime pipeline">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" page="1" pageWidth="1600" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="NoTouch | Runtime pipeline" style="text;html=0;align=left;fontSize=36;fontStyle=1;fontColor=#172B4D" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="57" width="1490" height="45" />
+        </mxCell>
+        <mxCell id="subtitle" value="ITERATION 2 / P4     Kim Gyulim + Anna     |     Implemented RGB path; physical-device validation pending" style="text;html=0;align=left;fontSize=17;fontColor=#53657B" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="103" width="1490" height="25" />
+        </mxCell>
+        <mxCell id="camera" value="&lt;b&gt;01  Front RGB camera&lt;/b&gt;&lt;br&gt;&lt;br&gt;CameraX / latest frame&lt;br&gt;Rotate to upright bitmap&lt;br&gt;Single analysis worker" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="180" width="260" height="140" />
+        </mxCell>
+        <mxCell id="mp" value="&lt;b&gt;02  MediaPipe&lt;/b&gt;&lt;br&gt;&lt;br&gt;Bundled Face Landmarker&lt;br&gt;478 face / iris landmarks&lt;br&gt;Facial transformation matrix" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="180" width="260" height="140" />
+        </mxCell>
+        <mxCell id="features" value="&lt;b&gt;03  Feature extraction&lt;/b&gt;&lt;br&gt;&lt;br&gt;Iris offsets + eye openness&lt;br&gt;Face position, scale, roll&lt;br&gt;Head yaw/pitch + distance*" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="665" y="180" width="300" height="140" />
+        </mxCell>
+        <mxCell id="mapping" value="&lt;b&gt;04  Local gaze mapping&lt;/b&gt;&lt;br&gt;&lt;br&gt;Compatible saved model, otherwise heuristic&lt;br&gt;Depth model: supervised personal regression&lt;br&gt;Output: normalized screen coordinates (x, y)" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1010" y="180" width="530" height="140" />
+        </mxCell>
+        <mxCell id="gate" value="&lt;b&gt;05  Validate + smooth&lt;/b&gt;&lt;br&gt;&lt;br&gt;Reject delayed / invalid predictions&lt;br&gt;Reset on tracking loss, gaps or model change&lt;br&gt;Adaptive temporal smoothing; preserve off-screen x/y" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1010" y="395" width="530" height="145" />
+        </mxCell>
+        <mxCell id="actions" value="&lt;b&gt;06  Interaction state machine&lt;/b&gt;&lt;br&gt;&lt;br&gt;Long closure: arm / confirm click&lt;br&gt;Off-screen vertical dwell: scroll&lt;br&gt;Two short blinks: start voice input" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="520" y="395" width="420" height="145" />
+        </mxCell>
+        <mxCell id="system" value="&lt;b&gt;07  Android output&lt;/b&gt;&lt;br&gt;&lt;br&gt;Red-dot overlay + TrackerState.sample&lt;br&gt;Accessibility: click and scroll&lt;br&gt;VoiceInput: speech transcription" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="395" width="395" height="145" />
+        </mxCell>
+        <mxCell id="cloud" value="&lt;b&gt;Optional cloud assistance&lt;/b&gt;&lt;br&gt;&lt;br&gt;NoTouch server / OpenAI API: suggest UI click targets&lt;br&gt;Candidate validated against current screen; does not replace red-dot gaze" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EAF7F4;strokeColor=#087F76;fontColor=#172B4D;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="625" width="700" height="125" />
+        </mxCell>
+        <mxCell id="failure" value="&lt;b&gt;Recovery behavior&lt;/b&gt;&lt;br&gt;&lt;br&gt;Camera error / stale stream: hide pointer and clear pending actions&lt;br&gt;Missing face is never treated as a deliberate eye closure" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EAF7F4;strokeColor=#087F76;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="815" y="625" width="725" height="125" />
+        </mxCell>
+        <mxCell id="edge0" source="camera" target="mp" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" source="mp" target="features" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" source="features" target="mapping" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" source="mapping" target="gate" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" source="gate" target="actions" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" source="actions" target="system" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge6" source="cloud" target="actions" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note0" value="LOCAL ANDROID PATH  /  no network required for the core gaze pointer" style="text;html=0;align=left;fontSize=17;fontColor=#2457D6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="135" width="1490" height="28" />
+        </mxCell>
+        <mxCell id="note1" value="* Distance is an iris-size estimate using camera metadata and pose gating; it is not a depth-sensor measurement." style="text;html=0;align=left;fontSize=17;fontColor=#53657B;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="775" width="1490" height="28" />
+        </mxCell>
+        <mxCell id="note2" value="Evidence: 41 unit tests passed; debug APK built. Device accuracy, latency and interaction success remain unmeasured." style="text;html=0;align=left;fontSize=17;fontColor=#53657B;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="807" width="1490" height="28" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page2" name="NoTouch | Personal learning &amp; next steps">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" page="1" pageWidth="1600" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="NoTouch | Personal learning &amp; next steps" style="text;html=0;align=left;fontSize=36;fontStyle=1;fontColor=#172B4D" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="57" width="1490" height="45" />
+        </mxCell>
+        <mxCell id="subtitle" value="ITERATION 2 / P4     Training code implemented; user data and measured accuracy are not included" style="text;html=0;align=left;fontSize=17;fontColor=#53657B" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="103" width="1490" height="25" />
+        </mxCell>
+        <mxCell id="targets" value="&lt;b&gt;01  Touch-labelled sessions&lt;/b&gt;&lt;br&gt;&lt;br&gt;Look at target, then touch it&lt;br&gt;Collect stable pre-touch features&lt;br&gt;60 targets per completed session&lt;br&gt;Stored locally as numeric CSV" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="180" width="310" height="155" />
+        </mxCell>
+        <mxCell id="split" value="&lt;b&gt;02  Session-level split&lt;/b&gt;&lt;br&gt;&lt;br&gt;At least 3 complete sessions&lt;br&gt;Earlier sessions: training&lt;br&gt;Latest session: held-out testing&lt;br&gt;Same device / display setup" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="415" y="180" width="310" height="155" />
+        </mxCell>
+        <mxCell id="fit" value="&lt;b&gt;03  Fit two regressors&lt;/b&gt;&lt;br&gt;&lt;br&gt;Standardized ridge regression&lt;br&gt;With / without distance feature&lt;br&gt;Head-pose features in both&lt;br&gt;Eye x distance terms in full model" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="775" y="180" width="310" height="155" />
+        </mxCell>
+        <mxCell id="eval" value="&lt;b&gt;04  Evaluate &amp; save&lt;/b&gt;&lt;br&gt;&lt;br&gt;Held-out mean / median / P95 error&lt;br&gt;Report prediction coverage&lt;br&gt;Save full distance-aware model&lt;br&gt;Improvement is not assumed" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1135" y="180" width="405" height="155" />
+        </mxCell>
+        <mxCell id="load" value="&lt;b&gt;Runtime model loading&lt;/b&gt;&lt;br&gt;&lt;br&gt;ModelStore checks device / display compatibility&lt;br&gt;Local model feeds runtime gaze mapping" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EEF3FF;strokeColor=#2457D6;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1010" y="405" width="530" height="120" />
+        </mxCell>
+        <mxCell id="pending" value="&lt;b&gt;Next acceptance gate: a connected phone&lt;/b&gt;&lt;br&gt;&lt;br&gt;Measure horizontal response, fixation jitter, head-motion drift and distance effects&lt;br&gt;Verify click / scroll / voice actions and recovery on the actual device" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#EAF7F4;strokeColor=#087F76;fontColor=#172B4D;dashed=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="405" width="870" height="120" />
+        </mxCell>
+        <mxCell id="ir" value="&lt;b&gt;Future: USB IR camera&lt;/b&gt;&lt;br&gt;&lt;br&gt;Camera not acquired&lt;br&gt;Android capture / eye quality unverified" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#FFF6E8;strokeColor=#A66112;fontColor=#172B4D;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="645" width="400" height="110" />
+        </mxCell>
+        <mxCell id="fusion" value="&lt;b&gt;Future: synchronized RGB + IR&lt;/b&gt;&lt;br&gt;&lt;br&gt;IR pupil / iris features + RGB head pose&lt;br&gt;Clock alignment and mount calibration needed" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#FFF6E8;strokeColor=#A66112;fontColor=#172B4D;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="510" y="645" width="485" height="110" />
+        </mxCell>
+        <mxCell id="newmodel" value="&lt;b&gt;Future: retrain and compare&lt;/b&gt;&lt;br&gt;&lt;br&gt;New feature schema and paired training data&lt;br&gt;Do not reuse RGB weights for IR pixel features" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=18;fontSize=18;fillColor=#FFF6E8;strokeColor=#A66112;fontColor=#172B4D;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1050" y="645" width="490" height="110" />
+        </mxCell>
+        <mxCell id="edge0" source="targets" target="split" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" source="split" target="fit" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" source="fit" target="eval" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" source="eval" target="load" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" source="ir" target="fusion" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" source="fusion" target="newmodel" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#53657B;strokeWidth=2;dashed=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note0" value="PERSONAL TRAINING  /  implementation exists; no pre-trained personal weights are bundled" style="text;html=0;align=left;fontSize=17;fontColor=#2457D6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="135" width="1490" height="28" />
+        </mxCell>
+        <mxCell id="note1" value="DEFERRED HARDWARE PATH  /  design only; not implemented or validated" style="text;html=0;align=left;fontSize=17;fontColor=#A66112;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="580" width="1490" height="28" />
+        </mxCell>
+        <mxCell id="note2" value="Touch location is a proxy label for gaze, not independently measured ground truth. Use held-out sessions for evaluation." style="text;html=0;align=left;fontSize=17;fontColor=#53657B;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="790" width="1490" height="28" />
+        </mxCell>
+        <mxCell id="note3" value="Current artifacts: CaptureActivity, DepthTraining, DepthModel, ModelStore. No IR acquisition, iris-texture tracker or fusion code." style="text;html=0;align=left;fontSize=17;fontColor=#53657B;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="55" y="822" width="1490" height="28" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

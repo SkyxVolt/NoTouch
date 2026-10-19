@@ -1,0 +1,4 @@
+MobileGaze experimental source and weight origin: https://github.com/yakhyo/gaze-estimation
+Weight: releases/download/weights/mobileone_s0_gaze.onnx
+This experimental estimator is not invoked by NoTouch 0.6. Distance training uses MediaPipe features and locally fitted ridge weights.
+Repository license is reproduced in MobileGaze-LICENSE.txt.

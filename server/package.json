@@ -1,0 +1,7 @@
+{
+  "name": "notouch-server",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "scripts": { "test": "node --test", "credentials": "node scripts/credentials.mjs" }
+}
