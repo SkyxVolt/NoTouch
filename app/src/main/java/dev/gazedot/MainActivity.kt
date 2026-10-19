@@ -195,6 +195,17 @@ class MainActivity : ComponentActivity() {
         }
         addStep("3", "시선 테스트", "회색 점이 시선을 잘 따라오는지 확인해 주세요.\n잘 맞지 않는다면 다시 보정해 주세요.", 26)
 
+        val dwellSettings = TextView(this).apply {
+            text = "1초 시선 클릭 설정"
+            textSize = sp(14f)
+            setTextColor(blue)
+            gravity = Gravity.CENTER
+            style(this, 700)
+            contentDescription = "접근성 설정에서 NoTouch 시선 클릭을 켭니다. 버튼을 1초 바라보면 클릭됩니다."
+            setOnClickListener { startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)) }
+        }
+        content.addView(dwellSettings, LinearLayout.LayoutParams(-1, dp(34)).apply { topMargin = dp(8) })
+
         stopButton = pill("추적 중지") {
             TrackerState.status = "추적 중지됨"
             stopService(Intent(this, TrackingService::class.java))

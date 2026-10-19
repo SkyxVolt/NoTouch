@@ -30,6 +30,9 @@ class TrackingService : LifecycleService() {
     private var analysis: ImageAnalysis? = null
     private var overlay: DotOverlay? = null
     private var smoothed: Pair<Double, Double>? = null
+    private var dwellAnchor: Pair<Double, Double>? = null
+    private var dwellSince = 0L
+    private var dwellTriggered = false
     private var lastFrame = 0L
     private var lastResult = 0L
     private var initialRotation = Surface.ROTATION_0
@@ -57,7 +60,7 @@ class TrackingService : LifecycleService() {
             if (closing) return
             if (!Settings.canDrawOverlays(this@TrackingService)) { fail("다른 앱 위에 표시 권한이 해제되었습니다"); return }
             if (SystemClock.uptimeMillis() - lastResult > 800) {
-                smoothed = null; overlay?.show(null)
+                smoothed = null; resetDwell(); overlay?.show(null)
                 TrackerState.publish(null, "카메라 신호 대기 · 다른 카메라 앱을 닫아 주세요")
             }
             main.postDelayed(this, 400)
@@ -152,10 +155,9 @@ class TrackingService : LifecycleService() {
                     position == null -> "얼굴 위치가 달라졌습니다 · 원래 위치로 돌아오거나 재보정하세요"
                     else -> "추적 중 · 홈으로 나가도 빨간 점이 표시됩니다"
                 }
-                smoothed = if (position == null) null else smoothed?.let {
-                    it.first + 0.28 * (position.first - it.first) to it.second + 0.28 * (position.second - it.second)
-                } ?: position
-                overlay?.show(smoothed)
+                smoothed = position?.let(::smoothGazePosition)
+                val dwellProgress = updateDwell(smoothed)
+                overlay?.show(smoothed, dwellProgress)
                 TrackerState.publish(features, message)
             }
         } catch (e: Exception) {
@@ -165,6 +167,54 @@ class TrackingService : LifecycleService() {
             raw?.recycle()
             frame.close()
         }
+    }
+
+    /** Suppress small frame-to-frame gaze noise, while increasing responsiveness for larger moves. */
+    private fun smoothGazePosition(target: Pair<Double, Double>): Pair<Double, Double> {
+        val previous = smoothed ?: return target
+        val dx = target.first - previous.first
+        val dy = target.second - previous.second
+        val distance = kotlin.math.hypot(dx, dy)
+
+        // Ignore very small normalized movement to stop the dot reacting to minor idle jitter.
+        if (distance < GAZE_DEAD_ZONE) return previous
+
+        // Use stronger smoothing while nearly still and lighter smoothing for intentional saccades.
+        val alpha = (0.10 + distance * 2.0).coerceIn(0.10, 0.42)
+        return previous.first + alpha * dx to previous.second + alpha * dy
+    }
+
+    /** Require one continuous second within a small gaze region; re-arm after looking away. */
+    private fun updateDwell(position: Pair<Double, Double>?): Float {
+        if (!GazeAccessibilityService.isEnabled() || position == null) {
+            resetDwell()
+            return 0f
+        }
+        val now = SystemClock.uptimeMillis()
+        val anchor = dwellAnchor
+        if (anchor == null || kotlin.math.hypot(position.first - anchor.first, position.second - anchor.second) > 0.035) {
+            dwellAnchor = position
+            dwellSince = now
+            dwellTriggered = false
+            return 0f
+        }
+        if (dwellTriggered) return 1f
+        val progress = ((now - dwellSince).toFloat() / DWELL_DURATION_MS).coerceIn(0f, 1f)
+        if (progress >= 1f) {
+            val metrics = if (Build.VERSION.SDK_INT >= 30) getSystemService(WindowManager::class.java).maximumWindowMetrics.bounds
+                else android.graphics.Rect(0, 0, resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels)
+            val x = (position.first * metrics.width()).toFloat()
+            val y = (position.second * metrics.height()).toFloat()
+            dwellTriggered = GazeAccessibilityService.tapAt(x, y)
+            if (!dwellTriggered) return 0f
+        }
+        return progress
+    }
+
+    private fun resetDwell() {
+        dwellAnchor = null
+        dwellSince = 0L
+        dwellTriggered = false
     }
 
     private fun fail(message: String) {
@@ -184,6 +234,7 @@ class TrackingService : LifecycleService() {
         analysis?.clearAnalyzer()
         analysis?.let { cameraProvider?.unbind(it) }
         overlay?.close()
+        resetDwell()
         worker.execute { landmarker?.close(); landmarker = null }
         worker.shutdown()
         TrackerState.running = false; TrackerState.model = null
@@ -191,5 +242,9 @@ class TrackingService : LifecycleService() {
         stopForeground(STOP_FOREGROUND_REMOVE)
         super.onDestroy()
     }
-    companion object { const val ACTION_STOP = "dev.gazedot.STOP" }
+    companion object {
+        const val ACTION_STOP = "dev.gazedot.STOP"
+        private const val DWELL_DURATION_MS = 1000L
+        private const val GAZE_DEAD_ZONE = 0.004
+    }
 }

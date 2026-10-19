@@ -9,9 +9,19 @@ class DotOverlay(context: Context) {
     private val dot = object : View(context) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         var position: Pair<Double, Double>? = null
+        var dwellProgress = 0f
         override fun onDraw(canvas: Canvas) {
             val p = position ?: return
             val x = p.first.toFloat() * width; val y = p.second.toFloat() * height
+            if (dwellProgress > 0f) {
+                paint.color = Color.rgb(6, 108, 236)
+                paint.style = Paint.Style.STROKE
+                paint.strokeWidth = 3 * resources.displayMetrics.density
+                val radius = 15 * resources.displayMetrics.density
+                canvas.drawArc(x - radius, y - radius, x + radius, y + radius, -90f,
+                    360f * dwellProgress.coerceIn(0f, 1f), false, paint)
+                paint.style = Paint.Style.FILL
+            }
             paint.color = Color.WHITE
             canvas.drawCircle(x, y, 10 * resources.displayMetrics.density, paint)
             paint.color = Color.RED
@@ -37,6 +47,10 @@ class DotOverlay(context: Context) {
         }
         manager.addView(dot, params)
     }
-    fun show(position: Pair<Double, Double>?) { dot.position = position; dot.invalidate() }
+    fun show(position: Pair<Double, Double>?, dwellProgress: Float = 0f) {
+        dot.position = position
+        dot.dwellProgress = dwellProgress
+        dot.invalidate()
+    }
     fun close() { if (dot.isAttachedToWindow) manager.removeView(dot) }
 }
