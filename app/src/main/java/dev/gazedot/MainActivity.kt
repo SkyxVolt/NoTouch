@@ -14,6 +14,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 
 class MainActivity : ComponentActivity() {
     private lateinit var status: TextView
+    private lateinit var cameraButton: Button
+    private lateinit var calibrationButton: Button
+    private lateinit var stopButton: Button
     private var calibration: CalibrationView? = null
     private val handler = Handler(Looper.getMainLooper())
     private val overlayPermission = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -51,7 +54,10 @@ class MainActivity : ComponentActivity() {
             if (calibration != null && !TrackerState.running) {
                 calibration = null; showHome()
             } else if (calibration != null) calibration?.onFrame(TrackerState.features)
-            else if (::status.isInitialized) status.text = TrackerState.status
+            else if (::status.isInitialized) {
+                status.text = TrackerState.status
+                updateHomeButtons()
+            }
         }
     }
     override fun onPause() {
@@ -69,28 +75,115 @@ class MainActivity : ComponentActivity() {
     private fun showHome() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val density = resources.displayMetrics.density
-        fun dp(n: Int) = (n * density).toInt()
-        val root = LinearLayout(this).apply {
+        val screenWidthDp = resources.displayMetrics.widthPixels / density
+        val screenHeightDp = resources.displayMetrics.heightPixels / density
+        val scale = minOf(screenWidthDp / 390f, screenHeightDp / 780f).coerceIn(0.55f, 1f)
+        fun dp(n: Int) = (n * density * scale).toInt()
+        fun sp(n: Float) = n * scale
+        val ink = Color.rgb(17, 18, 70)
+        val blue = Color.rgb(6, 108, 236)
+        val pale = Color.rgb(230, 230, 253)
+        val font = resources.getFont(R.font.geologica)
+        fun style(view: TextView, weight: Int) {
+            view.typeface = font
+            view.fontVariationSettings = "'wght' $weight"
+        }
+        val root = FrameLayout(this).apply { setBackgroundColor(Color.WHITE) }
+        val content = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(26), dp(52), dp(26), dp(36))
-            setBackgroundColor(Color.rgb(245, 247, 251))
+            gravity = Gravity.CENTER_HORIZONTAL
+            setPadding(dp(24), 0, dp(24), dp(16))
         }
-        fun text(value: String, size: Float, color: Int = Color.rgb(28, 37, 53)) = TextView(this).apply {
-            this.text = value; textSize = size; setTextColor(color)
-            setPadding(0, dp(10), 0, dp(10)); root.addView(this)
+        root.addView(content, FrameLayout.LayoutParams(-1, -2))
+
+        val logo = TextView(this).apply {
+            text = "NoTouch"; textSize = sp(30f); setTextColor(ink); gravity = Gravity.CENTER
+            style(this, 800)
         }
-        text("GAZE DOT", 14f, Color.rgb(213, 41, 59))
-        text("눈으로 움직이는\n빨간 점", 32f)
-        text("안드로이드 시선 추정 실험 · v0.1", 15f)
-        status = text(TrackerState.status, 17f)
-        fun button(label: String, action: () -> Unit) {
-            root.addView(Button(this).apply {
-                this.text = label; isAllCaps = false
-                setOnClickListener { action() }
-            }, LinearLayout.LayoutParams(-1, dp(58)).apply { topMargin = dp(8) })
+        content.addView(logo, LinearLayout.LayoutParams(-1, dp(46)).apply { topMargin = dp(104) })
+        status = TextView(this).apply {
+            text = if (TrackerState.status.startsWith("시작 전")) "" else TrackerState.status
+            textSize = sp(12f); setTextColor(ink); gravity = Gravity.CENTER
+            maxLines = 2; style(this, 500)
         }
-        button("1. 권한 허용 및 카메라 시작") { startTracking() }
-        button("2. 9점 시선 보정") {
+        content.addView(status, LinearLayout.LayoutParams(-1, dp(28)))
+
+        fun pill(label: String, action: () -> Unit) = Button(this).apply {
+            text = label; isAllCaps = false; textSize = sp(16f); setTextColor(Color.WHITE)
+            background = android.graphics.drawable.GradientDrawable().apply {
+                cornerRadius = dp(28).toFloat(); setColor(blue)
+            }
+            stateListAnimator = null
+            minHeight = 0; minimumHeight = 0; minWidth = 0
+            setPadding(dp(16), 0, dp(16), 0)
+            style(this, 700)
+            setOnClickListener { action() }
+        }
+        fun addStep(
+            number: String,
+            heading: String,
+            description: String,
+            top: Int,
+            actionLabel: String? = null,
+            action: (() -> Unit)? = null
+        ) {
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER
+            }
+
+            val numeral = TextView(this).apply {
+                text = number
+                textSize = sp(62f)
+                setTextColor(pale)
+                gravity = Gravity.CENTER
+                style(this, 900)
+            }
+            row.addView(numeral, LinearLayout.LayoutParams(dp(54), dp(64)))
+
+            val title = TextView(this).apply {
+                text = heading
+                textSize = sp(29f)
+                setTextColor(ink)
+                gravity = Gravity.CENTER_VERTICAL
+                style(this, 800)
+            }
+            row.addView(title)
+
+            content.addView(
+                row,
+                LinearLayout.LayoutParams(-1, dp(64)).apply {
+                    topMargin = dp(top)
+                }
+            )
+
+            val detail = TextView(this).apply {
+                text = description
+                textSize = sp(16f)
+                setTextColor(ink)
+                gravity = Gravity.CENTER
+                style(this, 500)
+            }
+            content.addView(detail, LinearLayout.LayoutParams(-1, -2))
+
+            if (actionLabel != null && action != null) {
+                val button = pill(actionLabel, action)
+                content.addView(
+                    button,
+                    LinearLayout.LayoutParams(dp(186), dp(46)).apply {
+                        topMargin = dp(10)
+                    }
+                )
+
+                if (number == "1") {
+                    cameraButton = button
+                } else {
+                    calibrationButton = button
+                }
+            }
+        }
+        addStep("1", "카메라 시작", "카메라 및 오버레이 권한을 허용해 주세요.", 2, "카메라 시작") { startTracking() }
+        addStep("2", "시선 보정", "기기를 움직이지 말고 얼굴을 카메라에서 약\n30~50cm 떨어진 위치에 맞춰 주세요.", 26, "보정 시작") {
             if (!TrackerState.running || TrackerState.features == null) {
                 status.text = "카메라를 먼저 시작하고 ‘눈 검출됨’ 상태를 기다려 주세요."
             } else {
@@ -100,21 +193,32 @@ class MainActivity : ComponentActivity() {
                 setContentView(calibration)
             }
         }
-        button("3. 홈 화면에서 빨간 점 확인") {
-            if (TrackerState.model == null) status.text = "9점 보정을 먼저 완료해 주세요."
-            else startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME))
-        }
-        button("추적 중지 · 카메라 끄기") {
+        addStep("3", "시선 테스트", "회색 점이 시선을 잘 따라오는지 확인해 주세요.\n잘 맞지 않는다면 다시 보정해 주세요.", 26)
+
+        stopButton = pill("추적 중지") {
             TrackerState.status = "추적 중지됨"
-            val serviceIntent = Intent(this, TrackingService::class.java)
-            stopService(serviceIntent)
-            status.text = "추적 중지됨"
+            stopService(Intent(this, TrackingService::class.java))
+            status.text = TrackerState.status
+            updateHomeButtons()
         }
-        text("사용 방법", 20f)
-        text("기기를 고정하고 얼굴을 약 30~50cm 앞에 두세요. 보정 중에는 머리를 움직이지 말고 파란 점만 눈으로 따라보세요. 각 점에서 자동으로 표본을 모읍니다.", 15f)
-        text("보정 후 앱을 나가면 빨간 점이 다른 앱 위에도 표시됩니다. 알림의 ‘중지’로 끌 수 있습니다. 화면을 끄거나 회전하면 재보정이 필요합니다.", 15f)
-        text("실험용 추정치입니다. 기기·조명·안경·머리 각도에 따라 오차가 큽니다. 모든 영상 처리는 기기 안에서 수행하며 촬영 영상을 저장하거나 전송하지 않습니다.", 14f)
-        setContentView(ScrollView(this).apply { addView(root) })
+        root.addView(stopButton, FrameLayout.LayoutParams(dp(186), dp(46), Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply {
+            bottomMargin = dp(72)
+        })
+        setContentView(root)
+        updateHomeButtons()
+
+    }
+
+    private fun updateHomeButtons() {
+        if (!::cameraButton.isInitialized || !::calibrationButton.isInitialized || !::stopButton.isInitialized) return
+        cameraButton.isEnabled = !TrackerState.running
+        calibrationButton.isEnabled = TrackerState.running && TrackerState.features != null
+        stopButton.isEnabled = TrackerState.running
+        val disabled = Color.rgb(153, 158, 165)
+        listOf(cameraButton, calibrationButton, stopButton).forEach { button ->
+            val drawable = button.background.mutate() as android.graphics.drawable.GradientDrawable
+            drawable.setColor(if (button.isEnabled) Color.rgb(6, 108, 236) else disabled)
+        }
     }
 
     private fun startTracking() {
