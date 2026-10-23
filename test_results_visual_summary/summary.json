@@ -1,0 +1,4337 @@
+{
+  "tool": "analyze_gaze_eval",
+  "tool_version": "1.1.1",
+  "supported_schema_versions": [
+    1
+  ],
+  "source_label": "UNVERIFIED: build revision not recorded in session metadata (app versionName 0.1.0, versionCode 1); not attributable to main or any branch",
+  "source_label_note": null,
+  "thresholds": {
+    "min_valid_samples": 10,
+    "min_valid_coverage": 0.5
+  },
+  "include_incomplete": false,
+  "primary_mode": "blind_measurement",
+  "primary_stream": "cursor",
+  "diagnostic_stream": "model",
+  "definitions": {
+    "reference": "Targets are instructed fixation points, not independently measured eye direction.",
+    "coordinate_frame": "Gaze-model display-normalized [0,1] frame shared by calibration, targets, model and cursor.",
+    "dx_dy": "dx = prediction_x - target_x (positive = right of target); dy = prediction_y - target_y (positive = below).",
+    "radial_error": "sqrt(dx^2 + dy^2); pixels use dx_px = dx_norm * basis_width_px, dy_px = dy_norm * basis_height_px.",
+    "valid_sample": "phase == measurement, prediction_valid == true, and finite target, model and cursor coordinates.",
+    "invalid_attempts": "Excluded from spatial error (never imputed or carried forward); counted in coverage and dropout.",
+    "features_unavailable": "Logged reason combining eye closed, eye too small and too few landmarks; not identified as blinking.",
+    "valid_coverage": "valid samples / measurement-phase inference attempts logged for the presentation.",
+    "valid_sample_rate": "valid samples / observed measurement-window seconds.",
+    "sufficiency": "A presentation is eligible if fully shown, valid samples >= min_valid_samples and valid coverage >= min_valid_coverage.",
+    "jitter_rms": "sqrt(mean((x - mean_x)^2 + (y - mean_y)^2)) of valid samples in one presentation: observed cursor stability during a target hold, not pure model or sensor noise.",
+    "centroid_error": "Distance from the presentation's mean predicted position to the target.",
+    "trial_balanced": "Each eligible presentation's metric is computed first; presentations are then weighted equally.",
+    "pooled": "Sensitivity view: every valid measurement sample weighted equally, including insufficient presentations.",
+    "median": "statistics.median: mean of the two middle values for an even count.",
+    "p95": "Nearest-rank: the k-th smallest value with k = ceil(0.95 * n), computed in integer arithmetic."
+  },
+  "modes": {
+    "blind_measurement": {
+      "mode": "blind_measurement",
+      "role": "primary",
+      "diagnostic_only": false,
+      "diagnostic_reason": null,
+      "sessions_included": [
+        "eval-20261023T054414Z-cbec17a1"
+      ],
+      "sessions_excluded": [],
+      "devices": [
+        "samsung SM-S918N"
+      ],
+      "pixel_bases": [
+        "1080x2316"
+      ],
+      "presentation_status_counts": {
+        "eligible": 32,
+        "insufficient_data": 0,
+        "incomplete_presentation": 0
+      },
+      "measurement": {
+        "attempts": 580,
+        "valid_samples": 575,
+        "valid_coverage": 0.9913793103448276,
+        "valid_samples_per_s": 11.979166666666666,
+        "invalid_by_reason": {
+          "landmarker_not_ready": 0,
+          "no_face": 0,
+          "features_unavailable": 5,
+          "no_calibration_model": 0,
+          "model_rejected": 0,
+          "processing_error": 0,
+          "service_stopping": 0
+        }
+      },
+      "trial_balanced": {
+        "cursor": {
+          "presentations_used": 32,
+          "presentation_mean_error": {
+            "mean": {
+              "norm": 0.11070178514811267,
+              "px": 168.7504274245335
+            },
+            "median": {
+              "norm": 0.11905315287594043,
+              "px": 170.3911173770532
+            },
+            "p95": {
+              "norm": 0.17334102845207197,
+              "px": 295.61799017575663
+            }
+          },
+          "presentation_median_error_median": {
+            "norm": 0.10569546765477106,
+            "px": 153.35116364023418
+          },
+          "presentation_p95_error_median": {
+            "norm": 0.14684005718898585,
+            "px": 209.11069357007358
+          },
+          "bias_x_mean": {
+            "norm": 0.07500230023094316,
+            "px": 81.00248424941861
+          },
+          "bias_y_mean": {
+            "norm": -0.00772659228878525,
+            "px": -17.89478774082664
+          },
+          "centroid_error_mean": {
+            "norm": 0.09643915741123188,
+            "px": 139.21313731682073
+          },
+          "jitter_rms_mean": {
+            "norm": 0.048774202029195066,
+            "px": 93.58978327192087
+          },
+          "jitter_rms_median": {
+            "norm": 0.025821927641165955,
+            "px": 34.8237446290993
+          },
+          "pixel_unavailable_reason": null
+        },
+        "model": {
+          "presentations_used": 32,
+          "presentation_mean_error": {
+            "mean": {
+              "norm": 0.1187377031910188,
+              "px": 179.02628123430904
+            },
+            "median": {
+              "norm": 0.11878035189238204,
+              "px": 171.81957022563603
+            },
+            "p95": {
+              "norm": 0.19841994397368498,
+              "px": 348.39081549284197
+            }
+          },
+          "presentation_median_error_median": {
+            "norm": 0.1165838877203113,
+            "px": 161.63012022981036
+          },
+          "presentation_p95_error_median": {
+            "norm": 0.15117598415814112,
+            "px": 226.80677436113675
+          },
+          "bias_x_mean": {
+            "norm": 0.08249086152176409,
+            "px": 89.09013044350522
+          },
+          "bias_y_mean": {
+            "norm": -0.017429555258862826,
+            "px": -40.3668499795263
+          },
+          "centroid_error_mean": {
+            "norm": 0.1026545430600513,
+            "px": 146.66663446692192
+          },
+          "jitter_rms_mean": {
+            "norm": 0.05875597301499569,
+            "px": 111.39012246656031
+          },
+          "jitter_rms_median": {
+            "norm": 0.03484370363162964,
+            "px": 51.42956170835086
+          },
+          "pixel_unavailable_reason": null
+        }
+      },
+      "pooled_sensitivity": {
+        "cursor": {
+          "samples_used": 575,
+          "samples_from_insufficient_presentations": 0,
+          "mean_error": {
+            "norm": 0.11063373839289489,
+            "px": 168.2079474533113
+          },
+          "median_error": {
+            "norm": 0.10608984618816628,
+            "px": 150.76163578204049
+          },
+          "p95_error": {
+            "norm": 0.19566824806108982,
+            "px": 359.9468821096303
+          },
+          "bias_x": {
+            "norm": 0.07498026875582496,
+            "px": 80.97869025629096
+          },
+          "bias_y": {
+            "norm": -0.007830197673249304,
+            "px": -18.13473781124539
+          },
+          "jitter_rms": {
+            "norm": 0.06620829957022538,
+            "px": 133.81338506587423
+          },
+          "pixel_unavailable_reason": null
+        },
+        "model": {
+          "samples_used": 575,
+          "samples_from_insufficient_presentations": 0,
+          "mean_error": {
+            "norm": 0.11855136222479423,
+            "px": 178.46289461710418
+          },
+          "median_error": {
+            "norm": 0.1136604774019601,
+            "px": 159.5132055009777
+          },
+          "p95_error": {
+            "norm": 0.20385809694201246,
+            "px": 302.0582085971125
+          },
+          "bias_x": {
+            "norm": 0.08228788605180101,
+            "px": 88.8709169359451
+          },
+          "bias_y": {
+            "norm": -0.017332111302960494,
+            "px": -40.1411697776565
+          },
+          "jitter_rms": {
+            "norm": 0.0815279964936993,
+            "px": 165.2966099804452
+          },
+          "pixel_unavailable_reason": null
+        }
+      }
+    },
+    "live_preview": {
+      "mode": "live_preview",
+      "role": "secondary (visible cursor can change where the participant looks)",
+      "diagnostic_only": false,
+      "diagnostic_reason": null,
+      "sessions_included": [],
+      "sessions_excluded": [],
+      "devices": [],
+      "pixel_bases": [],
+      "presentation_status_counts": {
+        "eligible": 0,
+        "insufficient_data": 0,
+        "incomplete_presentation": 0
+      },
+      "measurement": {
+        "attempts": 0,
+        "valid_samples": 0,
+        "valid_coverage": null,
+        "valid_samples_per_s": null,
+        "invalid_by_reason": {
+          "landmarker_not_ready": 0,
+          "no_face": 0,
+          "features_unavailable": 0,
+          "no_calibration_model": 0,
+          "model_rejected": 0,
+          "processing_error": 0,
+          "service_stopping": 0
+        }
+      },
+      "trial_balanced": {
+        "cursor": {
+          "presentations_used": 0,
+          "unavailable_reason": "no eligible presentations"
+        },
+        "model": {
+          "presentations_used": 0,
+          "unavailable_reason": "no eligible presentations"
+        }
+      },
+      "pooled_sensitivity": {
+        "cursor": {
+          "samples_used": 0,
+          "unavailable_reason": "no valid measurement samples"
+        },
+        "model": {
+          "samples_used": 0,
+          "unavailable_reason": "no valid measurement samples"
+        }
+      }
+    }
+  },
+  "sessions": [
+    {
+      "session_id": "eval-20261023T054414Z-cbec17a1",
+      "path": "test_results",
+      "mode": "blind_measurement",
+      "final_state": "complete",
+      "end_reason": "completed",
+      "start_wall_time_utc": "2026-10-23T05:44:14.125Z",
+      "device": {
+        "manufacturer": "samsung",
+        "model": "SM-S918N",
+        "api_level": 36
+      },
+      "app": {
+        "version_name": "0.1.0",
+        "version_code": 1,
+        "source_revision": null,
+        "working_tree_dirty": null,
+        "source_revision_note": "not recorded on device; supply manually during analysis"
+      },
+      "pixel_basis": {
+        "width_px": 1080,
+        "height_px": 2316,
+        "basis": "max_window_metrics"
+      },
+      "pixel_unavailable_reason": null,
+      "presentations_planned": 32,
+      "presentations_completed": 32,
+      "presentations_completed_source": "metadata",
+      "presentation_status_counts": {
+        "eligible": 32,
+        "insufficient_data": 0,
+        "incomplete_presentation": 0
+      },
+      "measurement": {
+        "attempts": 580,
+        "valid_samples": 575,
+        "valid_coverage": 0.9913793103448276,
+        "observed_window_s": 48.0,
+        "valid_samples_per_s": 11.979166666666666,
+        "invalid_by_reason": {
+          "landmarker_not_ready": 0,
+          "no_face": 0,
+          "features_unavailable": 5,
+          "no_calibration_model": 0,
+          "model_rejected": 0,
+          "processing_error": 0,
+          "service_stopping": 0
+        }
+      },
+      "settling_dropout": {
+        "attempts": 385,
+        "valid": 378,
+        "invalid_by_reason": {
+          "landmarker_not_ready": 0,
+          "no_face": 0,
+          "features_unavailable": 7,
+          "no_calibration_model": 0,
+          "model_rejected": 0,
+          "processing_error": 0,
+          "service_stopping": 0
+        }
+      },
+      "pipeline_counters": {
+        "frames_received": 1918,
+        "frames_cadence_skipped": 953,
+        "frames_ignored_service_closing": 0,
+        "inference_attempts": 965,
+        "valid_predictions": 953,
+        "invalid_predictions": 12,
+        "invalid_by_reason": {
+          "landmarker_not_ready": 0,
+          "no_face": 0,
+          "features_unavailable": 12,
+          "no_calibration_model": 0,
+          "model_rejected": 0,
+          "processing_error": 0,
+          "service_stopping": 0
+        },
+        "attempts_unrecorded": 0
+      },
+      "logging": {
+        "rows_enqueued": 965,
+        "rows_written": 965,
+        "rows_dropped_queue_full": 0,
+        "rows_dropped_write_error": 0,
+        "rows_lost_total": 0,
+        "write_error": false
+      },
+      "csv_rows": 965,
+      "unassigned_rows": 0,
+      "issue_count": 0,
+      "issues": [],
+      "trial_balanced": {
+        "cursor": {
+          "presentations_used": 32,
+          "presentation_mean_error": {
+            "mean": {
+              "norm": 0.11070178514811267,
+              "px": 168.7504274245335
+            },
+            "median": {
+              "norm": 0.11905315287594043,
+              "px": 170.3911173770532
+            },
+            "p95": {
+              "norm": 0.17334102845207197,
+              "px": 295.61799017575663
+            }
+          },
+          "presentation_median_error_median": {
+            "norm": 0.10569546765477106,
+            "px": 153.35116364023418
+          },
+          "presentation_p95_error_median": {
+            "norm": 0.14684005718898585,
+            "px": 209.11069357007358
+          },
+          "bias_x_mean": {
+            "norm": 0.07500230023094316,
+            "px": 81.00248424941861
+          },
+          "bias_y_mean": {
+            "norm": -0.00772659228878525,
+            "px": -17.89478774082664
+          },
+          "centroid_error_mean": {
+            "norm": 0.09643915741123188,
+            "px": 139.21313731682073
+          },
+          "jitter_rms_mean": {
+            "norm": 0.048774202029195066,
+            "px": 93.58978327192087
+          },
+          "jitter_rms_median": {
+            "norm": 0.025821927641165955,
+            "px": 34.8237446290993
+          },
+          "pixel_unavailable_reason": null
+        },
+        "model": {
+          "presentations_used": 32,
+          "presentation_mean_error": {
+            "mean": {
+              "norm": 0.1187377031910188,
+              "px": 179.02628123430904
+            },
+            "median": {
+              "norm": 0.11878035189238204,
+              "px": 171.81957022563603
+            },
+            "p95": {
+              "norm": 0.19841994397368498,
+              "px": 348.39081549284197
+            }
+          },
+          "presentation_median_error_median": {
+            "norm": 0.1165838877203113,
+            "px": 161.63012022981036
+          },
+          "presentation_p95_error_median": {
+            "norm": 0.15117598415814112,
+            "px": 226.80677436113675
+          },
+          "bias_x_mean": {
+            "norm": 0.08249086152176409,
+            "px": 89.09013044350522
+          },
+          "bias_y_mean": {
+            "norm": -0.017429555258862826,
+            "px": -40.3668499795263
+          },
+          "centroid_error_mean": {
+            "norm": 0.1026545430600513,
+            "px": 146.66663446692192
+          },
+          "jitter_rms_mean": {
+            "norm": 0.05875597301499569,
+            "px": 111.39012246656031
+          },
+          "jitter_rms_median": {
+            "norm": 0.03484370363162964,
+            "px": 51.42956170835086
+          },
+          "pixel_unavailable_reason": null
+        }
+      },
+      "pooled_sensitivity": {
+        "cursor": {
+          "samples_used": 575,
+          "samples_from_insufficient_presentations": 0,
+          "mean_error": {
+            "norm": 0.11063373839289489,
+            "px": 168.2079474533113
+          },
+          "median_error": {
+            "norm": 0.10608984618816628,
+            "px": 150.76163578204049
+          },
+          "p95_error": {
+            "norm": 0.19566824806108982,
+            "px": 359.9468821096303
+          },
+          "bias_x": {
+            "norm": 0.07498026875582496,
+            "px": 80.97869025629096
+          },
+          "bias_y": {
+            "norm": -0.007830197673249304,
+            "px": -18.13473781124539
+          },
+          "jitter_rms": {
+            "norm": 0.06620829957022538,
+            "px": 133.81338506587423
+          },
+          "pixel_unavailable_reason": null
+        },
+        "model": {
+          "samples_used": 575,
+          "samples_from_insufficient_presentations": 0,
+          "mean_error": {
+            "norm": 0.11855136222479423,
+            "px": 178.46289461710418
+          },
+          "median_error": {
+            "norm": 0.1136604774019601,
+            "px": 159.5132055009777
+          },
+          "p95_error": {
+            "norm": 0.20385809694201246,
+            "px": 302.0582085971125
+          },
+          "bias_x": {
+            "norm": 0.08228788605180101,
+            "px": 88.8709169359451
+          },
+          "bias_y": {
+            "norm": -0.017332111302960494,
+            "px": -40.1411697776565
+          },
+          "jitter_rms": {
+            "norm": 0.0815279964936993,
+            "px": 165.2966099804452
+          },
+          "pixel_unavailable_reason": null
+        }
+      },
+      "presentations": [
+        {
+          "trial_index": 0,
+          "pass_number": 1,
+          "index_in_pass": 0,
+          "target_id": "r0c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.13302580629990343,
+              "px": 212.21457710477975
+            },
+            "median_error": {
+              "norm": 0.1337936455649001,
+              "px": 203.72502573636854
+            },
+            "p95_error": {
+              "norm": 0.14212680583403284,
+              "px": 248.96879798473645
+            },
+            "bias_x": {
+              "norm": 0.1078745018031416,
+              "px": 116.50446194739294
+            },
+            "bias_y": {
+              "norm": -0.07553548527935028,
+              "px": -174.94018390697525
+            },
+            "centroid": {
+              "x_norm": 0.30787450180314163,
+              "y_norm": 0.12446451472064973
+            },
+            "median_position": {
+              "x_norm": 0.3105226244820575,
+              "y_norm": 0.12996774009972176
+            },
+            "centroid_error": {
+              "norm": 0.13169099314555627,
+              "px": 210.18410405893653
+            },
+            "jitter_rms": {
+              "norm": 0.019912142085992235,
+              "px": 33.346533380425136
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.13532005065489014,
+              "px": 199.47738798292636
+            },
+            "median_error": {
+              "norm": 0.14188956533611063,
+              "px": 200.9752201426298
+            },
+            "p95_error": {
+              "norm": 0.15890516075635863,
+              "px": 225.909115477038
+            },
+            "bias_x": {
+              "norm": 0.11486761765621238,
+              "px": 124.05702706870937
+            },
+            "bias_y": {
+              "norm": -0.06435288413287536,
+              "px": -149.04127965173933
+            },
+            "centroid": {
+              "x_norm": 0.3148676176562124,
+              "y_norm": 0.13564711586712466
+            },
+            "median_position": {
+              "x_norm": 0.3303889430311921,
+              "y_norm": 0.13609242402251384
+            },
+            "centroid_error": {
+              "norm": 0.13166572554098155,
+              "px": 193.91608753621875
+            },
+            "jitter_rms": {
+              "norm": 0.036095527088732426,
+              "px": 48.72000575612935
+            }
+          }
+        },
+        {
+          "trial_index": 1,
+          "pass_number": 1,
+          "index_in_pass": 1,
+          "target_id": "r0c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 19,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.666666666666666
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.08682833849646811,
+              "px": 113.90299738799985
+            },
+            "median_error": {
+              "norm": 0.08448569969441302,
+              "px": 112.2378825742271
+            },
+            "p95_error": {
+              "norm": 0.09719583560973949,
+              "px": 124.31112519674537
+            },
+            "bias_x": {
+              "norm": 0.08084363734882166,
+              "px": 87.31112833672739
+            },
+            "bias_y": {
+              "norm": -0.03139200759924457,
+              "px": -72.70388959985043
+            },
+            "centroid": {
+              "x_norm": 0.4808436373488217,
+              "y_norm": 0.16860799240075544
+            },
+            "median_position": {
+              "x_norm": 0.47865166366335876,
+              "y_norm": 0.16924428277619125
+            },
+            "centroid_error": {
+              "norm": 0.0867245746077709,
+              "px": 113.61817061711442
+            },
+            "jitter_rms": {
+              "norm": 0.006271314860137008,
+              "px": 10.914664413512853
+            }
+          },
+          "model": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.08835614268224962,
+              "px": 114.42461952093338
+            },
+            "median_error": {
+              "norm": 0.08405577729459825,
+              "px": 113.3676794923463
+            },
+            "p95_error": {
+              "norm": 0.12091342655331537,
+              "px": 148.29125339935214
+            },
+            "bias_x": {
+              "norm": 0.08227540879155605,
+              "px": 88.85744149488053
+            },
+            "bias_y": {
+              "norm": -0.029187617547457606,
+              "px": -67.59852223991182
+            },
+            "centroid": {
+              "x_norm": 0.48227540879155606,
+              "y_norm": 0.1708123824525424
+            },
+            "median_position": {
+              "x_norm": 0.47873090588259304,
+              "y_norm": 0.1733317718608608
+            },
+            "centroid_error": {
+              "norm": 0.08729925492187383,
+              "px": 111.6476829944803
+            },
+            "jitter_rms": {
+              "norm": 0.02069161407564908,
+              "px": 32.75019431813113
+            }
+          }
+        },
+        {
+          "trial_index": 2,
+          "pass_number": 1,
+          "index_in_pass": 2,
+          "target_id": "r0c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 19,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.666666666666666
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.02725445220830784,
+              "px": 34.31453426383045
+            },
+            "median_error": {
+              "norm": 0.021101233771815508,
+              "px": 37.14516736193055
+            },
+            "p95_error": {
+              "norm": 0.05715627272484848,
+              "px": 62.36071957526358
+            },
+            "bias_x": {
+              "norm": 0.02509811104989608,
+              "px": 27.105959933887767
+            },
+            "bias_y": {
+              "norm": -0.005191196272573731,
+              "px": -12.02281056728076
+            },
+            "centroid": {
+              "x_norm": 0.6250981110498961,
+              "y_norm": 0.19480880372742626
+            },
+            "median_position": {
+              "x_norm": 0.6123843187597068,
+              "y_norm": 0.19865636860590644
+            },
+            "centroid_error": {
+              "norm": 0.025629352255047363,
+              "px": 29.65267336808353
+            },
+            "jitter_rms": {
+              "norm": 0.019655378907877226,
+              "px": 25.305617480101986
+            }
+          },
+          "model": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.029670905680950065,
+              "px": 47.474632624202066
+            },
+            "median_error": {
+              "norm": 0.023504735267014357,
+              "px": 49.63249981617662
+            },
+            "p95_error": {
+              "norm": 0.08713059055962685,
+              "px": 108.13481320231774
+            },
+            "bias_x": {
+              "norm": 0.016523870386668943,
+              "px": 17.845780017602458
+            },
+            "bias_y": {
+              "norm": -0.005636098906866563,
+              "px": -13.05320506830296
+            },
+            "centroid": {
+              "x_norm": 0.6165238703866689,
+              "y_norm": 0.19436390109313345
+            },
+            "median_position": {
+              "x_norm": 0.6099628076036453,
+              "y_norm": 0.19786578911060604
+            },
+            "centroid_error": {
+              "norm": 0.017458634065797254,
+              "px": 22.11013403378252
+            },
+            "jitter_rms": {
+              "norm": 0.033591880174526856,
+              "px": 53.71912128979707
+            }
+          }
+        },
+        {
+          "trial_index": 3,
+          "pass_number": 1,
+          "index_in_pass": 3,
+          "target_id": "r0c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 1,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.06887070119344214,
+              "px": 110.8325894496789
+            },
+            "median_error": {
+              "norm": 0.07601790060292056,
+              "px": 123.09602990522029
+            },
+            "p95_error": {
+              "norm": 0.09202669071380631,
+              "px": 194.60267569363023
+            },
+            "bias_x": {
+              "norm": 0.04334999368569847,
+              "px": 46.817993180554346
+            },
+            "bias_y": {
+              "norm": -0.020088455905653307,
+              "px": -46.52486387749306
+            },
+            "centroid": {
+              "x_norm": 0.8433499936856985,
+              "y_norm": 0.1799115440943467
+            },
+            "median_position": {
+              "x_norm": 0.8546621124241793,
+              "y_norm": 0.16325388652921408
+            },
+            "centroid_error": {
+              "norm": 0.047778321582318845,
+              "px": 66.00369265634835
+            },
+            "jitter_rms": {
+              "norm": 0.055886583543522564,
+              "px": 97.01830885380465
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.0809500366600227,
+              "px": 127.44390021493142
+            },
+            "median_error": {
+              "norm": 0.0793360824187461,
+              "px": 138.31591908206832
+            },
+            "p95_error": {
+              "norm": 0.13612383801229372,
+              "px": 245.73014265988257
+            },
+            "bias_x": {
+              "norm": 0.06345209499413719,
+              "px": 68.52826259366816
+            },
+            "bias_y": {
+              "norm": -0.04269386694617548,
+              "px": -98.87899584734242
+            },
+            "centroid": {
+              "x_norm": 0.8634520949941372,
+              "y_norm": 0.15730613305382452
+            },
+            "median_position": {
+              "x_norm": 0.872266698995028,
+              "y_norm": 0.15692738731732353
+            },
+            "centroid_error": {
+              "norm": 0.0764783278711214,
+              "px": 120.30452441153452
+            },
+            "jitter_rms": {
+              "norm": 0.04404994683456334,
+              "px": 68.44866939793602
+            }
+          }
+        },
+        {
+          "trial_index": 4,
+          "pass_number": 1,
+          "index_in_pass": 4,
+          "target_id": "r1c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 11,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.07818190684818675,
+              "px": 91.83248935285185
+            },
+            "median_error": {
+              "norm": 0.09516392031277654,
+              "px": 104.53162371452083
+            },
+            "p95_error": {
+              "norm": 0.1037503504522321,
+              "px": 123.0128179560046
+            },
+            "bias_x": {
+              "norm": 0.07610837709552734,
+              "px": 82.19704726316952
+            },
+            "bias_y": {
+              "norm": -0.0038263071457750875,
+              "px": -8.861727349615103
+            },
+            "centroid": {
+              "x_norm": 0.8761083770955274,
+              "y_norm": 0.39617369285422493
+            },
+            "median_position": {
+              "x_norm": 0.8912265370638011,
+              "y_norm": 0.39485522696226394
+            },
+            "centroid_error": {
+              "norm": 0.07620449914859881,
+              "px": 82.67336203640588
+            },
+            "jitter_rms": {
+              "norm": 0.030000547824895953,
+              "px": 47.95621779710309
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.0764130478059859,
+              "px": 93.17313850907965
+            },
+            "median_error": {
+              "norm": 0.07956858046580695,
+              "px": 94.1609805846411
+            },
+            "p95_error": {
+              "norm": 0.12649579107735756,
+              "px": 137.32033798695215
+            },
+            "bias_x": {
+              "norm": 0.07096829864581487,
+              "px": 76.64576253748007
+            },
+            "bias_y": {
+              "norm": 0.009660817135619774,
+              "px": 22.374452486095397
+            },
+            "centroid": {
+              "x_norm": 0.8709682986458149,
+              "y_norm": 0.4096608171356198
+            },
+            "median_position": {
+              "x_norm": 0.8773099174910839,
+              "y_norm": 0.4112190014129389
+            },
+            "centroid_error": {
+              "norm": 0.07162283714297735,
+              "px": 79.84478091274549
+            },
+            "jitter_rms": {
+              "norm": 0.04295212741752753,
+              "px": 55.58969485139759
+            }
+          }
+        },
+        {
+          "trial_index": 5,
+          "pass_number": 1,
+          "index_in_pass": 5,
+          "target_id": "r1c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 1,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.06589800319773828,
+              "px": 97.1417066607628
+            },
+            "median_error": {
+              "norm": 0.06895294515531154,
+              "px": 94.17494510885723
+            },
+            "p95_error": {
+              "norm": 0.08014155354454898,
+              "px": 123.57658940807555
+            },
+            "bias_x": {
+              "norm": 0.05499197244990161,
+              "px": 59.39133024589374
+            },
+            "bias_y": {
+              "norm": -0.014227410058988825,
+              "px": -32.95068169661812
+            },
+            "centroid": {
+              "x_norm": 0.6549919724499016,
+              "y_norm": 0.38577258994101116
+            },
+            "median_position": {
+              "x_norm": 0.6595629598749245,
+              "y_norm": 0.3782763673815994
+            },
+            "centroid_error": {
+              "norm": 0.056802607606670275,
+              "px": 67.91964025706162
+            },
+            "jitter_rms": {
+              "norm": 0.03497408256339422,
+              "px": 71.23640184786915
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.08568562294970294,
+              "px": 119.820155215626
+            },
+            "median_error": {
+              "norm": 0.090757985380702,
+              "px": 110.85396828487333
+            },
+            "p95_error": {
+              "norm": 0.13216144726714416,
+              "px": 215.9951398595151
+            },
+            "bias_x": {
+              "norm": 0.07156973589197962,
+              "px": 77.295314763338
+            },
+            "bias_y": {
+              "norm": -0.023901928852808726,
+              "px": -55.356867223105006
+            },
+            "centroid": {
+              "x_norm": 0.6715697358919797,
+              "y_norm": 0.3760980711471913
+            },
+            "median_position": {
+              "x_norm": 0.6755204201212643,
+              "y_norm": 0.3829876202581054
+            },
+            "centroid_error": {
+              "norm": 0.0754554789165933,
+              "px": 95.07338446231934
+            },
+            "jitter_rms": {
+              "norm": 0.04748223720696079,
+              "px": 86.56373332173274
+            }
+          }
+        },
+        {
+          "trial_index": 6,
+          "pass_number": 1,
+          "index_in_pass": 6,
+          "target_id": "r1c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 11,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.08724994069654125,
+              "px": 99.21163407757435
+            },
+            "median_error": {
+              "norm": 0.08505212970738346,
+              "px": 98.99231106848552
+            },
+            "p95_error": {
+              "norm": 0.10854724309184549,
+              "px": 125.66608223784392
+            },
+            "bias_x": {
+              "norm": 0.08591107698822664,
+              "px": 92.78396314728478
+            },
+            "bias_y": {
+              "norm": 0.013376907892453231,
+              "px": 30.980918678921682
+            },
+            "centroid": {
+              "x_norm": 0.4859110769882267,
+              "y_norm": 0.41337690789245324
+            },
+            "median_position": {
+              "x_norm": 0.48312272522756516,
+              "y_norm": 0.4177635549713503
+            },
+            "centroid_error": {
+              "norm": 0.0869462754466239,
+              "px": 97.81963575635858
+            },
+            "jitter_rms": {
+              "norm": 0.011431060515447568,
+              "px": 20.4372700620349
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.07569352788192023,
+              "px": 87.17917909871693
+            },
+            "median_error": {
+              "norm": 0.07490783806971106,
+              "px": 86.09381751864512
+            },
+            "p95_error": {
+              "norm": 0.08388610653223737,
+              "px": 100.95239970679393
+            },
+            "bias_x": {
+              "norm": 0.0742078485248661,
+              "px": 80.14447640685539
+            },
+            "bias_y": {
+              "norm": 0.00373780955071217,
+              "px": 8.656766919449385
+            },
+            "centroid": {
+              "x_norm": 0.4742078485248661,
+              "y_norm": 0.4037378095507122
+            },
+            "median_position": {
+              "x_norm": 0.4739546092838839,
+              "y_norm": 0.40924262811384104
+            },
+            "centroid_error": {
+              "norm": 0.07430192462464792,
+              "px": 80.61064887486434
+            },
+            "jitter_rms": {
+              "norm": 0.015050756125351977,
+              "px": 33.818243951550286
+            }
+          }
+        },
+        {
+          "trial_index": 7,
+          "pass_number": 1,
+          "index_in_pass": 7,
+          "target_id": "r1c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 17,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 2,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 0.8947368421052632,
+            "valid_samples_per_s": 11.333333333333334
+          },
+          "settling": {
+            "attempts": 11,
+            "valid_samples": 9,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 2,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.11509574565038032,
+              "px": 212.45438873089344
+            },
+            "median_error": {
+              "norm": 0.09061901555913093,
+              "px": 132.22844850029634
+            },
+            "p95_error": {
+              "norm": 0.3273105902685639,
+              "px": 757.2048374421992
+            },
+            "bias_x": {
+              "norm": 0.05500143856582929,
+              "px": 59.40155365109564
+            },
+            "bias_y": {
+              "norm": 0.04610387553001757,
+              "px": 106.77657572752068
+            },
+            "centroid": {
+              "x_norm": 0.2550014385658293,
+              "y_norm": 0.4461038755300176
+            },
+            "median_position": {
+              "x_norm": 0.26069066484191616,
+              "y_norm": 0.3907327832121737
+            },
+            "centroid_error": {
+              "norm": 0.07176855567167316,
+              "px": 122.18748585783639
+            },
+            "jitter_rms": {
+              "norm": 0.11747402779750439,
+              "px": 264.30243790737995
+            }
+          },
+          "model": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.11850620486260983,
+              "px": 202.88238274371147
+            },
+            "median_error": {
+              "norm": 0.11028738701794781,
+              "px": 177.7605455131403
+            },
+            "p95_error": {
+              "norm": 0.3273105902685639,
+              "px": 757.2048374421992
+            },
+            "bias_x": {
+              "norm": 0.07896505544468123,
+              "px": 85.28225988025572
+            },
+            "bias_y": {
+              "norm": -0.021489419709527082,
+              "px": -49.769496047264724
+            },
+            "centroid": {
+              "x_norm": 0.27896505544468125,
+              "y_norm": 0.37851058029047296
+            },
+            "median_position": {
+              "x_norm": 0.2839485009790597,
+              "y_norm": 0.3448683678716688
+            },
+            "centroid_error": {
+              "norm": 0.08183688129953262,
+              "px": 98.74242546687908
+            },
+            "jitter_rms": {
+              "norm": 0.10326286378938494,
+              "px": 227.63775762622276
+            }
+          }
+        },
+        {
+          "trial_index": 8,
+          "pass_number": 1,
+          "index_in_pass": 8,
+          "target_id": "r2c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 19,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.666666666666666
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.1362318417755298,
+              "px": 149.18463822642306
+            },
+            "median_error": {
+              "norm": 0.13207772131191514,
+              "px": 142.69578606455445
+            },
+            "p95_error": {
+              "norm": 0.15438544836212303,
+              "px": 175.5071381111632
+            },
+            "bias_x": {
+              "norm": 0.1356900679756737,
+              "px": 146.5452734137276
+            },
+            "bias_y": {
+              "norm": 0.006509712585512338,
+              "px": 15.076494348046575
+            },
+            "centroid": {
+              "x_norm": 0.33569006797567374,
+              "y_norm": 0.6065097125855123
+            },
+            "median_position": {
+              "x_norm": 0.33206437803520433,
+              "y_norm": 0.6024040029534158
+            },
+            "centroid_error": {
+              "norm": 0.13584612951861727,
+              "px": 147.31876269413505
+            },
+            "jitter_rms": {
+              "norm": 0.013100541031543858,
+              "px": 26.26882359868879
+            }
+          },
+          "model": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.14429410088782135,
+              "px": 161.99582582948906
+            },
+            "median_error": {
+              "norm": 0.1411286133827874,
+              "px": 152.41983421448515
+            },
+            "p95_error": {
+              "norm": 0.17831751870541027,
+              "px": 208.26132133615917
+            },
+            "bias_x": {
+              "norm": 0.14261733394951945,
+              "px": 154.026720665481
+            },
+            "bias_y": {
+              "norm": 0.01589443258979648,
+              "px": 36.81150587796864
+            },
+            "centroid": {
+              "x_norm": 0.3426173339495195,
+              "y_norm": 0.6158944325897965
+            },
+            "median_position": {
+              "x_norm": 0.3401741768997352,
+              "y_norm": 0.6095854264917067
+            },
+            "centroid_error": {
+              "norm": 0.14350030289243415,
+              "px": 158.36450878895135
+            },
+            "jitter_rms": {
+              "norm": 0.022112808085788683,
+              "px": 41.655381167300746
+            }
+          }
+        },
+        {
+          "trial_index": 9,
+          "pass_number": 1,
+          "index_in_pass": 9,
+          "target_id": "r2c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 11,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.20167658742603975,
+              "px": 355.42005120705994
+            },
+            "median_error": {
+              "norm": 0.17527798747457712,
+              "px": 223.1309870927742
+            },
+            "p95_error": {
+              "norm": 0.3538632469673812,
+              "px": 816.0418728559032
+            },
+            "bias_x": {
+              "norm": 0.10363693201025981,
+              "px": 111.92788657108059
+            },
+            "bias_y": {
+              "norm": 0.1297309030793276,
+              "px": 300.4567715317227
+            },
+            "centroid": {
+              "x_norm": 0.5036369320102598,
+              "y_norm": 0.7297309030793276
+            },
+            "median_position": {
+              "x_norm": 0.5361336882336292,
+              "y_norm": 0.6723840784139141
+            },
+            "centroid_error": {
+              "norm": 0.1660443341107342,
+              "px": 320.62770209627024
+            },
+            "jitter_rms": {
+              "norm": 0.1298661491121428,
+              "px": 257.04314852770426
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.229651001069877,
+              "px": 376.5051594672084
+            },
+            "median_error": {
+              "norm": 0.18952059107437322,
+              "px": 217.67975742776036
+            },
+            "p95_error": {
+              "norm": 0.42381335616129256,
+              "px": 938.6688000929396
+            },
+            "bias_x": {
+              "norm": 0.11373572033246854,
+              "px": 122.83457795906602
+            },
+            "bias_y": {
+              "norm": 0.12235020603164928,
+              "px": 283.36307716929974
+            },
+            "centroid": {
+              "x_norm": 0.5137357203324685,
+              "y_norm": 0.7223502060316493
+            },
+            "median_position": {
+              "x_norm": 0.570212810728941,
+              "y_norm": 0.6377349293234373
+            },
+            "centroid_error": {
+              "norm": 0.16704905565591363,
+              "px": 308.84132988516365
+            },
+            "jitter_rms": {
+              "norm": 0.18590361253712073,
+              "px": 368.83709124021874
+            }
+          }
+        },
+        {
+          "trial_index": 10,
+          "pass_number": 1,
+          "index_in_pass": 10,
+          "target_id": "r2c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 19,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.666666666666666
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.15860007473664647,
+              "px": 173.0489754391963
+            },
+            "median_error": {
+              "norm": 0.1635561219315333,
+              "px": 177.56628522284828
+            },
+            "p95_error": {
+              "norm": 0.17809676861694446,
+              "px": 193.15988132367426
+            },
+            "bias_x": {
+              "norm": 0.1581425341842122,
+              "px": 170.79393691894919
+            },
+            "bias_y": {
+              "norm": 0.01148139061878479,
+              "px": 26.590900673105573
+            },
+            "centroid": {
+              "x_norm": 0.7581425341842122,
+              "y_norm": 0.6114813906187848
+            },
+            "median_position": {
+              "x_norm": 0.7633171486756088,
+              "y_norm": 0.6117493978069606
+            },
+            "centroid_error": {
+              "norm": 0.15855876969989974,
+              "px": 172.8515110922695
+            },
+            "jitter_rms": {
+              "norm": 0.018390592238825405,
+              "px": 20.371391087794706
+            }
+          },
+          "model": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.17398394217603477,
+              "px": 189.7934630005785
+            },
+            "median_error": {
+              "norm": 0.1792757265261829,
+              "px": 196.44563780485018
+            },
+            "p95_error": {
+              "norm": 0.1952851865018847,
+              "px": 211.34622534722274
+            },
+            "bias_x": {
+              "norm": 0.17348296092418092,
+              "px": 187.36159779811538
+            },
+            "bias_y": {
+              "norm": 0.008893303461302926,
+              "px": 20.596890816377577
+            },
+            "centroid": {
+              "x_norm": 0.7734829609241809,
+              "y_norm": 0.6088933034613029
+            },
+            "median_position": {
+              "x_norm": 0.7785413058093996,
+              "y_norm": 0.6085245783936322
+            },
+            "centroid_error": {
+              "norm": 0.1737107612598474,
+              "px": 188.49031869240534
+            },
+            "jitter_rms": {
+              "norm": 0.02239431018007413,
+              "px": 30.104021237701403
+            }
+          }
+        },
+        {
+          "trial_index": 11,
+          "pass_number": 1,
+          "index_in_pass": 11,
+          "target_id": "r2c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.07591613489648565,
+              "px": 89.73066952385953
+            },
+            "median_error": {
+              "norm": 0.07907170867227975,
+              "px": 90.12459350951758
+            },
+            "p95_error": {
+              "norm": 0.08559434547176563,
+              "px": 102.69521046703302
+            },
+            "bias_x": {
+              "norm": 0.07377177461295024,
+              "px": 79.67351658198626
+            },
+            "bias_y": {
+              "norm": 0.01747211793038914,
+              "px": 40.46542512678125
+            },
+            "centroid": {
+              "x_norm": 0.8737717746129503,
+              "y_norm": 0.6174721179303891
+            },
+            "median_position": {
+              "x_norm": 0.8778117153293505,
+              "y_norm": 0.6170101983418943
+            },
+            "centroid_error": {
+              "norm": 0.07581259548727612,
+              "px": 89.36061702579714
+            },
+            "jitter_rms": {
+              "norm": 0.009940067110580326,
+              "px": 11.951972874726943
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.0864393636158764,
+              "px": 100.93009100143375
+            },
+            "median_error": {
+              "norm": 0.09001292632181068,
+              "px": 100.67364536447747
+            },
+            "p95_error": {
+              "norm": 0.10066614515688849,
+              "px": 124.49521144908626
+            },
+            "bias_x": {
+              "norm": 0.08430478405034611,
+              "px": 91.0491667743738
+            },
+            "bias_y": {
+              "norm": 0.016429668160398852,
+              "px": 38.05111145948374
+            },
+            "centroid": {
+              "x_norm": 0.8843047840503462,
+              "y_norm": 0.6164296681603988
+            },
+            "median_position": {
+              "x_norm": 0.8859221221455578,
+              "y_norm": 0.6147424962327372
+            },
+            "centroid_error": {
+              "norm": 0.08589080631613794,
+              "px": 98.68048365107352
+            },
+            "jitter_rms": {
+              "norm": 0.014162040412475707,
+              "px": 25.10747936210618
+            }
+          }
+        },
+        {
+          "trial_index": 12,
+          "pass_number": 1,
+          "index_in_pass": 12,
+          "target_id": "r3c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 19,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.666666666666666
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.05547802716581524,
+              "px": 62.37715126523797
+            },
+            "median_error": {
+              "norm": 0.05841416950737711,
+              "px": 63.452206422005354
+            },
+            "p95_error": {
+              "norm": 0.08914954399082749,
+              "px": 99.3102302362429
+            },
+            "bias_x": {
+              "norm": 0.05466814558626973,
+              "px": 59.04159723317131
+            },
+            "bias_y": {
+              "norm": -0.0010691581842489494,
+              "px": -2.476170354720567
+            },
+            "centroid": {
+              "x_norm": 0.8546681455862698,
+              "y_norm": 0.7989308418157511
+            },
+            "median_position": {
+              "x_norm": 0.8583199328003992,
+              "y_norm": 0.7998625112805383
+            },
+            "centroid_error": {
+              "norm": 0.05467859947972819,
+              "px": 59.09349899497932
+            },
+            "jitter_rms": {
+              "norm": 0.02164330745743596,
+              "px": 27.710234322911795
+            }
+          },
+          "model": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.04370931619045887,
+              "px": 59.1799218699566
+            },
+            "median_error": {
+              "norm": 0.04707738453544003,
+              "px": 59.13600147955593
+            },
+            "p95_error": {
+              "norm": 0.07920959392700533,
+              "px": 90.31768237431234
+            },
+            "bias_x": {
+              "norm": 0.035902862455616115,
+              "px": 38.7750914520654
+            },
+            "bias_y": {
+              "norm": -0.00949766266849481,
+              "px": -21.99658674023398
+            },
+            "centroid": {
+              "x_norm": 0.8359028624556162,
+              "y_norm": 0.7905023373315053
+            },
+            "median_position": {
+              "x_norm": 0.8419830134291275,
+              "y_norm": 0.792087364950196
+            },
+            "centroid_error": {
+              "norm": 0.03713786650672611,
+              "px": 44.579788529519355
+            },
+            "jitter_rms": {
+              "norm": 0.028625797557916124,
+              "px": 43.10703828500021
+            }
+          }
+        },
+        {
+          "trial_index": 13,
+          "pass_number": 1,
+          "index_in_pass": 13,
+          "target_id": "r3c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 17,
+            "valid_samples": 17,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 11.333333333333334
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.10357913236650974,
+              "px": 143.5534503892612
+            },
+            "median_error": {
+              "norm": 0.10334476843755123,
+              "px": 148.1393810733502
+            },
+            "p95_error": {
+              "norm": 0.11554292170984937,
+              "px": 158.328166197051
+            },
+            "bias_x": {
+              "norm": 0.09372438095982687,
+              "px": 101.22233143661302
+            },
+            "bias_y": {
+              "norm": -0.043731680695030375,
+              "px": -101.28257248969035
+            },
+            "centroid": {
+              "x_norm": 0.6937243809598268,
+              "y_norm": 0.7562683193049696
+            },
+            "median_position": {
+              "x_norm": 0.693608221268304,
+              "y_norm": 0.7532239713237462
+            },
+            "centroid_error": {
+              "norm": 0.10342494613348777,
+              "px": 143.19259712566475
+            },
+            "jitter_rms": {
+              "norm": 0.008052381948995282,
+              "px": 14.97676795665553
+            }
+          },
+          "model": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.1116637044117265,
+              "px": 156.9743171394562
+            },
+            "median_error": {
+              "norm": 0.11441076203871725,
+              "px": 162.10877953977987
+            },
+            "p95_error": {
+              "norm": 0.13870575497556512,
+              "px": 175.66480649966465
+            },
+            "bias_x": {
+              "norm": 0.09968891780235889,
+              "px": 107.6640312265476
+            },
+            "bias_y": {
+              "norm": -0.04824691789248048,
+              "px": -111.7398618389848
+            },
+            "centroid": {
+              "x_norm": 0.6996889178023589,
+              "y_norm": 0.7517530821075196
+            },
+            "median_position": {
+              "x_norm": 0.7035308585037569,
+              "y_norm": 0.7530723543598242
+            },
+            "centroid_error": {
+              "norm": 0.11075037435028931,
+              "px": 155.16874796087782
+            },
+            "jitter_rms": {
+              "norm": 0.022372771096852234,
+              "px": 29.48896402281884
+            }
+          }
+        },
+        {
+          "trial_index": 14,
+          "pass_number": 1,
+          "index_in_pass": 14,
+          "target_id": "r3c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 1,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.15516059876812163,
+              "px": 213.19759207035742
+            },
+            "median_error": {
+              "norm": 0.164860081721993,
+              "px": 207.70770395074075
+            },
+            "p95_error": {
+              "norm": 0.2120063731752445,
+              "px": 469.386912391192
+            },
+            "bias_x": {
+              "norm": 0.11904064313823191,
+              "px": 128.56389458929047
+            },
+            "bias_y": {
+              "norm": 0.00042577390089084923,
+              "px": 0.9860923544632069
+            },
+            "centroid": {
+              "x_norm": 0.519040643138232,
+              "y_norm": 0.8004257739008909
+            },
+            "median_position": {
+              "x_norm": 0.5569738998157483,
+              "y_norm": 0.761400567045283
+            },
+            "centroid_error": {
+              "norm": 0.11904140457075665,
+              "px": 128.56767622578283
+            },
+            "jitter_rms": {
+              "norm": 0.10694969443025544,
+              "px": 189.74240652325417
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.165426162765115,
+              "px": 220.75131548804129
+            },
+            "median_error": {
+              "norm": 0.16217554950941637,
+              "px": 214.91922011343837
+            },
+            "p95_error": {
+              "norm": 0.2219854108558754,
+              "px": 464.79928170070616
+            },
+            "bias_x": {
+              "norm": 0.14505243131194634,
+              "px": 156.65662581690205
+            },
+            "bias_y": {
+              "norm": -0.025873042018273062,
+              "px": -59.92196531432041
+            },
+            "centroid": {
+              "x_norm": 0.5450524313119464,
+              "y_norm": 0.774126957981727
+            },
+            "median_position": {
+              "x_norm": 0.5468116045156162,
+              "y_norm": 0.7502642313725592
+            },
+            "centroid_error": {
+              "norm": 0.14734185465368024,
+              "px": 167.7257891305552
+            },
+            "jitter_rms": {
+              "norm": 0.08677063534838146,
+              "px": 162.40240027356103
+            }
+          }
+        },
+        {
+          "trial_index": 15,
+          "pass_number": 1,
+          "index_in_pass": 15,
+          "target_id": "r3c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 13,
+            "valid_samples": 13,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.1642988958451474,
+              "px": 261.35422070323483
+            },
+            "median_error": {
+              "norm": 0.16162186217964858,
+              "px": 255.09762430811176
+            },
+            "p95_error": {
+              "norm": 0.18466330635374106,
+              "px": 282.0600140797833
+            },
+            "bias_x": {
+              "norm": 0.13485611607699577,
+              "px": 145.64460536315542
+            },
+            "bias_y": {
+              "norm": -0.0935761676902174,
+              "px": -216.7224043705435
+            },
+            "centroid": {
+              "x_norm": 0.3348561160769958,
+              "y_norm": 0.7064238323097827
+            },
+            "median_position": {
+              "x_norm": 0.33370298430593953,
+              "y_norm": 0.707391965927272
+            },
+            "centroid_error": {
+              "norm": 0.1641422285792411,
+              "px": 261.11482460315926
+            },
+            "jitter_rms": {
+              "norm": 0.015029005888580653,
+              "px": 16.91275529617691
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.175584278757967,
+              "px": 271.25141539613725
+            },
+            "median_error": {
+              "norm": 0.1695732962234818,
+              "px": 268.7788251549557
+            },
+            "p95_error": {
+              "norm": 0.20205823508092452,
+              "px": 303.2053771580176
+            },
+            "bias_x": {
+              "norm": 0.14776504274705643,
+              "px": 159.58624616682096
+            },
+            "bias_y": {
+              "norm": -0.09457874012000217,
+              "px": -219.04436211792503
+            },
+            "centroid": {
+              "x_norm": 0.34776504274705644,
+              "y_norm": 0.7054212598799978
+            },
+            "median_position": {
+              "x_norm": 0.34464100920840324,
+              "y_norm": 0.7050573643561321
+            },
+            "centroid_error": {
+              "norm": 0.1754412891560203,
+              "px": 271.01328849572286
+            },
+            "jitter_rms": {
+              "norm": 0.018841580351530888,
+              "px": 24.47728354082924
+            }
+          }
+        },
+        {
+          "trial_index": 16,
+          "pass_number": 2,
+          "index_in_pass": 0,
+          "target_id": "r3c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 1,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 0.9473684210526315,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.17334102845207197,
+              "px": 265.96506640742047
+            },
+            "median_error": {
+              "norm": 0.1922640621266094,
+              "px": 267.37953242659137
+            },
+            "p95_error": {
+              "norm": 0.20961711873872182,
+              "px": 465.15764582627077
+            },
+            "bias_x": {
+              "norm": 0.12638261878393195,
+              "px": 136.4932282866465
+            },
+            "bias_y": {
+              "norm": -0.02298563567345835,
+              "px": -53.23473221972954
+            },
+            "centroid": {
+              "x_norm": 0.326382618783932,
+              "y_norm": 0.7770143643265417
+            },
+            "median_position": {
+              "x_norm": 0.36204886510481404,
+              "y_norm": 0.7277811620995636
+            },
+            "centroid_error": {
+              "norm": 0.12845585147433977,
+              "px": 146.50712638850342
+            },
+            "jitter_rms": {
+              "norm": 0.12279232988630642,
+              "px": 240.44632990139155
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.19841994397368498,
+              "px": 300.46939868581313
+            },
+            "median_error": {
+              "norm": 0.20313765284428983,
+              "px": 299.8988622778983
+            },
+            "p95_error": {
+              "norm": 0.2415235656034954,
+              "px": 465.15764582627077
+            },
+            "bias_x": {
+              "norm": 0.1551259388707926,
+              "px": 167.536013980456
+            },
+            "bias_y": {
+              "norm": -0.05073163638270889,
+              "px": -117.49446986235378
+            },
+            "centroid": {
+              "x_norm": 0.3551259388707926,
+              "y_norm": 0.7492683636172912
+            },
+            "median_position": {
+              "x_norm": 0.36651654734744843,
+              "y_norm": 0.709876833652514
+            },
+            "centroid_error": {
+              "norm": 0.16321077121505265,
+              "px": 204.62958346410977
+            },
+            "jitter_rms": {
+              "norm": 0.11878559664774026,
+              "px": 232.03891032458188
+            }
+          }
+        },
+        {
+          "trial_index": 17,
+          "pass_number": 2,
+          "index_in_pass": 1,
+          "target_id": "r3c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 16,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 2,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 0.8888888888888888,
+            "valid_samples_per_s": 10.666666666666666
+          },
+          "settling": {
+            "attempts": 13,
+            "valid_samples": 13,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 16,
+            "mean_error": {
+              "norm": 0.14077024435637583,
+              "px": 200.3964848625211
+            },
+            "median_error": {
+              "norm": 0.14952743443575353,
+              "px": 176.68351834496028
+            },
+            "p95_error": {
+              "norm": 0.20185928154322708,
+              "px": 464.1397834246277
+            },
+            "bias_x": {
+              "norm": 0.11634662352756778,
+              "px": 125.6543534097732
+            },
+            "bias_y": {
+              "norm": 0.006680860945787008,
+              "px": 15.472873950442711
+            },
+            "centroid": {
+              "x_norm": 0.5163466235275678,
+              "y_norm": 0.8066808609457871
+            },
+            "median_position": {
+              "x_norm": 0.5307737670842225,
+              "y_norm": 0.7756391677152968
+            },
+            "centroid_error": {
+              "norm": 0.11653828001666458,
+              "px": 126.60342159323524
+            },
+            "jitter_rms": {
+              "norm": 0.08534091256366409,
+              "px": 183.34573139831153
+            }
+          },
+          "model": {
+            "n_samples": 16,
+            "mean_error": {
+              "norm": 0.15828769185286645,
+              "px": 217.64567351976302
+            },
+            "median_error": {
+              "norm": 0.16525457693372927,
+              "px": 202.21325567348714
+            },
+            "p95_error": {
+              "norm": 0.2259069246239521,
+              "px": 464.1397834246277
+            },
+            "bias_x": {
+              "norm": 0.13750916945935576,
+              "px": 148.50990301610423
+            },
+            "bias_y": {
+              "norm": -0.019510690340600295,
+              "px": -45.186758828830285
+            },
+            "centroid": {
+              "x_norm": 0.5375091694593558,
+              "y_norm": 0.7804893096593998
+            },
+            "median_position": {
+              "x_norm": 0.551675763620576,
+              "y_norm": 0.7559653851576175
+            },
+            "centroid_error": {
+              "norm": 0.1388864238252559,
+              "px": 155.23219533108315
+            },
+            "jitter_rms": {
+              "norm": 0.0866081835197533,
+              "px": 174.7991242174554
+            }
+          }
+        },
+        {
+          "trial_index": 18,
+          "pass_number": 2,
+          "index_in_pass": 2,
+          "target_id": "r3c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.1242276345087166,
+              "px": 175.18380615168277
+            },
+            "median_error": {
+              "norm": 0.12774180347902972,
+              "px": 180.66677240555558
+            },
+            "p95_error": {
+              "norm": 0.1331814014563837,
+              "px": 184.11899662453376
+            },
+            "bias_x": {
+              "norm": 0.11091624884487689,
+              "px": 119.78954875246704
+            },
+            "bias_y": {
+              "norm": -0.05402496200731566,
+              "px": -125.12181200894307
+            },
+            "centroid": {
+              "x_norm": 0.7109162488448768,
+              "y_norm": 0.7459750379926844
+            },
+            "median_position": {
+              "x_norm": 0.7147273796096757,
+              "y_norm": 0.7426167670553796
+            },
+            "centroid_error": {
+              "norm": 0.12337386586190181,
+              "px": 173.21952496967813
+            },
+            "jitter_rms": {
+              "norm": 0.016514190089624046,
+              "px": 27.850594324016157
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.13387747378420242,
+              "px": 173.2865000016402
+            },
+            "median_error": {
+              "norm": 0.13536254119212435,
+              "px": 177.4317536780905
+            },
+            "p95_error": {
+              "norm": 0.14839224427830167,
+              "px": 210.3110596232628
+            },
+            "bias_x": {
+              "norm": 0.12507800317912973,
+              "px": 135.0842434334601
+            },
+            "bias_y": {
+              "norm": -0.043785448189654026,
+              "px": -101.40709800723873
+            },
+            "centroid": {
+              "x_norm": 0.7250780031791297,
+              "y_norm": 0.756214551810346
+            },
+            "median_position": {
+              "x_norm": 0.7267493513962575,
+              "y_norm": 0.7485123526969568
+            },
+            "centroid_error": {
+              "norm": 0.13252046012766205,
+              "px": 168.91167026064255
+            },
+            "jitter_rms": {
+              "norm": 0.02100497020088866,
+              "px": 45.96110069764154
+            }
+          }
+        },
+        {
+          "trial_index": 19,
+          "pass_number": 2,
+          "index_in_pass": 3,
+          "target_id": "r3c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.8,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.13041290965432156,
+              "px": 210.8756080679176
+            },
+            "median_error": {
+              "norm": 0.13386881701479048,
+              "px": 213.3337201027956
+            },
+            "p95_error": {
+              "norm": 0.139871213611011,
+              "px": 218.41842965267818
+            },
+            "bias_x": {
+              "norm": 0.10536303689698616,
+              "px": 113.79207984874505
+            },
+            "bias_y": {
+              "norm": -0.07650878741580834,
+              "px": -177.19435165501213
+            },
+            "centroid": {
+              "x_norm": 0.9053630368969863,
+              "y_norm": 0.7234912125841917
+            },
+            "median_position": {
+              "x_norm": 0.9094979079744714,
+              "y_norm": 0.7229992341619723
+            },
+            "centroid_error": {
+              "norm": 0.13021122876308724,
+              "px": 210.58602920123477
+            },
+            "jitter_rms": {
+              "norm": 0.012217636274694698,
+              "px": 13.65085001174883
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.14221574183939614,
+              "px": 222.5638090702692
+            },
+            "median_error": {
+              "norm": 0.1426988067387276,
+              "px": 220.79523811722837
+            },
+            "p95_error": {
+              "norm": 0.1610585364425535,
+              "px": 270.2703243517482
+            },
+            "bias_x": {
+              "norm": 0.11820585888504596,
+              "px": 127.66232759584965
+            },
+            "bias_y": {
+              "norm": -0.07843754451412982,
+              "px": -181.66135309472466
+            },
+            "centroid": {
+              "x_norm": 0.918205858885046,
+              "y_norm": 0.7215624554858703
+            },
+            "median_position": {
+              "x_norm": 0.9195156507607066,
+              "y_norm": 0.722836155958452
+            },
+            "centroid_error": {
+              "norm": 0.14186286851800753,
+              "px": 222.0326937534115
+            },
+            "jitter_rms": {
+              "norm": 0.012554770952074672,
+              "px": 24.01753711009769
+            }
+          }
+        },
+        {
+          "trial_index": 20,
+          "pass_number": 2,
+          "index_in_pass": 4,
+          "target_id": "r2c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.152974527595848,
+              "px": 284.4270291084423
+            },
+            "median_error": {
+              "norm": 0.1080461668719909,
+              "px": 156.49168099031965
+            },
+            "p95_error": {
+              "norm": 0.3218320809003611,
+              "px": 729.684879310181
+            },
+            "bias_x": {
+              "norm": 0.05396852007234892,
+              "px": 58.286001678136834
+            },
+            "bias_y": {
+              "norm": 0.09761035973074138,
+              "px": 226.06559313639704
+            },
+            "centroid": {
+              "x_norm": 0.853968520072349,
+              "y_norm": 0.6976103597307414
+            },
+            "median_position": {
+              "x_norm": 0.8816183096319904,
+              "y_norm": 0.6556086307661105
+            },
+            "centroid_error": {
+              "norm": 0.1115364670659972,
+              "px": 233.45858388959442
+            },
+            "jitter_rms": {
+              "norm": 0.12937680750950706,
+              "px": 271.9320704059998
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.178261765635631,
+              "px": 318.8522784544239
+            },
+            "median_error": {
+              "norm": 0.12198986503325354,
+              "px": 151.81280782145595
+            },
+            "p95_error": {
+              "norm": 0.4353960400426319,
+              "px": 944.8317689986703
+            },
+            "bias_x": {
+              "norm": 0.060136709151318524,
+              "px": 64.947645883424
+            },
+            "bias_y": {
+              "norm": 0.08213311320665863,
+              "px": 190.22029018662138
+            },
+            "centroid": {
+              "x_norm": 0.8601367091513186,
+              "y_norm": 0.6821331132066586
+            },
+            "median_position": {
+              "x_norm": 0.8976473986762956,
+              "y_norm": 0.6060884596807184
+            },
+            "centroid_error": {
+              "norm": 0.10179524582497984,
+              "px": 201.00237686276517
+            },
+            "jitter_rms": {
+              "norm": 0.18696853214194809,
+              "px": 393.24895235254303
+            }
+          }
+        },
+        {
+          "trial_index": 21,
+          "pass_number": 2,
+          "index_in_pass": 5,
+          "target_id": "r2c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.13210671692985787,
+              "px": 168.7964163262892
+            },
+            "median_error": {
+              "norm": 0.14208692162667952,
+              "px": 170.32990364799804
+            },
+            "p95_error": {
+              "norm": 0.1628157789629372,
+              "px": 199.802957487469
+            },
+            "bias_x": {
+              "norm": 0.12361400127705369,
+              "px": 133.503121379218
+            },
+            "bias_y": {
+              "norm": -0.038428151022297755,
+              "px": -88.9995977676416
+            },
+            "centroid": {
+              "x_norm": 0.7236140012770537,
+              "y_norm": 0.5615718489777022
+            },
+            "median_position": {
+              "x_norm": 0.7325200032262518,
+              "y_norm": 0.5555847676397117
+            },
+            "centroid_error": {
+              "norm": 0.12944938818980936,
+              "px": 160.44940579757915
+            },
+            "jitter_rms": {
+              "norm": 0.03762574050765862,
+              "px": 58.373341788883614
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.11905449892215422,
+              "px": 170.35264044963185
+            },
+            "median_error": {
+              "norm": 0.1320846784883588,
+              "px": 161.15146091984087
+            },
+            "p95_error": {
+              "norm": 0.1634505326165882,
+              "px": 265.20296153134655
+            },
+            "bias_x": {
+              "norm": 0.10055723489790752,
+              "px": 108.60181368974013
+            },
+            "bias_y": {
+              "norm": -0.04830669449188969,
+              "px": -111.87830444321654
+            },
+            "centroid": {
+              "x_norm": 0.7005572348979076,
+              "y_norm": 0.5516933055081102
+            },
+            "median_position": {
+              "x_norm": 0.7237100469789159,
+              "y_norm": 0.5484309076748388
+            },
+            "centroid_error": {
+              "norm": 0.1115584789383834,
+              "px": 155.92020055717637
+            },
+            "jitter_rms": {
+              "norm": 0.05662512496751535,
+              "px": 85.42152611214081
+            }
+          }
+        },
+        {
+          "trial_index": 22,
+          "pass_number": 2,
+          "index_in_pass": 6,
+          "target_id": "r2c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.07989225485431452,
+              "px": 171.9858184278172
+            },
+            "median_error": {
+              "norm": 0.081273936394959,
+              "px": 177.3239187224084
+            },
+            "p95_error": {
+              "norm": 0.08422446100169909,
+              "px": 184.60966042215924
+            },
+            "bias_x": {
+              "norm": 0.03298293944788952,
+              "px": 35.62157460372068
+            },
+            "bias_y": {
+              "norm": 0.07260957577377626,
+              "px": 168.16377749206583
+            },
+            "centroid": {
+              "x_norm": 0.4329829394478895,
+              "y_norm": 0.6726095757737762
+            },
+            "median_position": {
+              "x_norm": 0.43317362285401173,
+              "y_norm": 0.6751673867282737
+            },
+            "centroid_error": {
+              "norm": 0.07974976356498431,
+              "px": 171.89517921585073
+            },
+            "jitter_rms": {
+              "norm": 0.006405631592660495,
+              "px": 13.467756057078402
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.07784318156848818,
+              "px": 163.44222338513433
+            },
+            "median_error": {
+              "norm": 0.0771884354011422,
+              "px": 163.64698299728786
+            },
+            "p95_error": {
+              "norm": 0.101358976175684,
+              "px": 227.7044332452355
+            },
+            "bias_x": {
+              "norm": 0.033546501205854895,
+              "px": 36.23022130232329
+            },
+            "bias_y": {
+              "norm": 0.0682522513435391,
+              "px": 158.07221411163655
+            },
+            "centroid": {
+              "x_norm": 0.4335465012058549,
+              "y_norm": 0.6682522513435392
+            },
+            "median_position": {
+              "x_norm": 0.43234549982353865,
+              "y_norm": 0.6681953026622129
+            },
+            "centroid_error": {
+              "norm": 0.07605088794101006,
+              "px": 162.17106341690695
+            },
+            "jitter_rms": {
+              "norm": 0.021636818721882077,
+              "px": 43.46412781342376
+            }
+          }
+        },
+        {
+          "trial_index": 23,
+          "pass_number": 2,
+          "index_in_pass": 7,
+          "target_id": "r2c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.6,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 17,
+            "valid_samples": 17,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 11.333333333333334
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 1,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.09206778498788135,
+              "px": 140.45081782378406
+            },
+            "median_error": {
+              "norm": 0.08654534446229925,
+              "px": 109.57641021310845
+            },
+            "p95_error": {
+              "norm": 0.2669594023103591,
+              "px": 575.773048461889
+            },
+            "bias_x": {
+              "norm": 0.0441664327491703,
+              "px": 47.699747369103925
+            },
+            "bias_y": {
+              "norm": 0.020676140521577603,
+              "px": 47.88594144797373
+            },
+            "centroid": {
+              "x_norm": 0.2441664327491703,
+              "y_norm": 0.6206761405215776
+            },
+            "median_position": {
+              "x_norm": 0.2708542843820243,
+              "y_norm": 0.5889765395746762
+            },
+            "centroid_error": {
+              "norm": 0.04876655174046045,
+              "px": 67.58941697806772
+            },
+            "jitter_rms": {
+              "norm": 0.09637201098602619,
+              "px": 178.46533364789533
+            }
+          },
+          "model": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.09543066356375463,
+              "px": 123.21663008065873
+            },
+            "median_error": {
+              "norm": 0.11080586685988686,
+              "px": 133.86362317403254
+            },
+            "p95_error": {
+              "norm": 0.13904145336997678,
+              "px": 206.6884890287359
+            },
+            "bias_x": {
+              "norm": 0.08034139109698892,
+              "px": 86.76870238474802
+            },
+            "bias_y": {
+              "norm": -0.017868267477626206,
+              "px": -41.3829074781823
+            },
+            "centroid": {
+              "x_norm": 0.28034139109698897,
+              "y_norm": 0.5821317325223738
+            },
+            "median_position": {
+              "x_norm": 0.3102147785205889,
+              "y_norm": 0.5729699464627328
+            },
+            "centroid_error": {
+              "norm": 0.08230439906864838,
+              "px": 96.13195485831322
+            },
+            "jitter_rms": {
+              "norm": 0.06156021594603175,
+              "px": 89.24714232584081
+            }
+          }
+        },
+        {
+          "trial_index": 24,
+          "pass_number": 2,
+          "index_in_pass": 8,
+          "target_id": "r1c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 13,
+            "valid_samples": 13,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.15823393983771772,
+              "px": 256.4037557200078
+            },
+            "median_error": {
+              "norm": 0.1566552833400651,
+              "px": 256.1127594732152
+            },
+            "p95_error": {
+              "norm": 0.1696384004220812,
+              "px": 267.47803523117796
+            },
+            "bias_x": {
+              "norm": 0.12728388714301564,
+              "px": 137.4665981144569
+            },
+            "bias_y": {
+              "norm": -0.09303319302752625,
+              "px": -215.4648750517508
+            },
+            "centroid": {
+              "x_norm": 0.3272838871430157,
+              "y_norm": 0.30696680697247375
+            },
+            "median_position": {
+              "x_norm": 0.32870628233282095,
+              "y_norm": 0.3100156594212416
+            },
+            "centroid_error": {
+              "norm": 0.15765900840463548,
+              "px": 255.58203766741556
+            },
+            "jitter_rms": {
+              "norm": 0.01535972117718772,
+              "px": 21.490986493298326
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.16586457151939482,
+              "px": 254.68501657890042
+            },
+            "median_error": {
+              "norm": 0.16384131005546004,
+              "px": 251.6439949749509
+            },
+            "p95_error": {
+              "norm": 0.1861700548891786,
+              "px": 294.03719089611684
+            },
+            "bias_x": {
+              "norm": 0.13937028583202407,
+              "px": 150.519908698586
+            },
+            "bias_y": {
+              "norm": -0.08772116646210877,
+              "px": -203.1622215262439
+            },
+            "centroid": {
+              "x_norm": 0.3393702858320241,
+              "y_norm": 0.31227883353789126
+            },
+            "median_position": {
+              "x_norm": 0.3438139461940629,
+              "y_norm": 0.3169615966255547
+            },
+            "centroid_error": {
+              "norm": 0.16467871634905676,
+              "px": 252.84606220012458
+            },
+            "jitter_rms": {
+              "norm": 0.022536397323339313,
+              "px": 37.24177950221858
+            }
+          }
+        },
+        {
+          "trial_index": 25,
+          "pass_number": 2,
+          "index_in_pass": 9,
+          "target_id": "r1c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.1722840317271746,
+              "px": 295.61799017575663
+            },
+            "median_error": {
+              "norm": 0.1736564412122784,
+              "px": 215.83852247143466
+            },
+            "p95_error": {
+              "norm": 0.4141215249974462,
+              "px": 953.794800104931
+            },
+            "bias_x": {
+              "norm": 0.09021604727631215,
+              "px": 97.43333105841712
+            },
+            "bias_y": {
+              "norm": 0.05982416159215151,
+              "px": 138.5527582474229
+            },
+            "centroid": {
+              "x_norm": 0.4902160472763122,
+              "y_norm": 0.45982416159215156
+            },
+            "median_position": {
+              "x_norm": 0.47518253119503473,
+              "y_norm": 0.3942534843492187
+            },
+            "centroid_error": {
+              "norm": 0.1082490900486727,
+              "px": 169.38158347089552
+            },
+            "jitter_rms": {
+              "norm": 0.16117478064640645,
+              "px": 343.2561166206974
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.1971616090229985,
+              "px": 348.39081549284197
+            },
+            "median_error": {
+              "norm": 0.17755016055923117,
+              "px": 219.53657016483223
+            },
+            "p95_error": {
+              "norm": 0.6350837642332373,
+              "px": 1407.6682458903717
+            },
+            "bias_x": {
+              "norm": 0.08538796887976964,
+              "px": 92.21900639015121
+            },
+            "bias_y": {
+              "norm": 0.05550498785963755,
+              "px": 128.54955188292055
+            },
+            "centroid": {
+              "x_norm": 0.48538796887976965,
+              "y_norm": 0.4555049878596376
+            },
+            "median_position": {
+              "x_norm": 0.4857279628642604,
+              "y_norm": 0.34891583376765456
+            },
+            "centroid_error": {
+              "norm": 0.10184256922677777,
+              "px": 158.20661310099038
+            },
+            "jitter_rms": {
+              "norm": 0.2298916508091402,
+              "px": 492.5203282694235
+            }
+          }
+        },
+        {
+          "trial_index": 26,
+          "pass_number": 2,
+          "index_in_pass": 10,
+          "target_id": "r1c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 17,
+            "valid_samples": 17,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 11.333333333333334
+          },
+          "settling": {
+            "attempts": 13,
+            "valid_samples": 13,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.07228612383670377,
+              "px": 151.65471198304192
+            },
+            "median_error": {
+              "norm": 0.0724704625462011,
+              "px": 150.2106462901487
+            },
+            "p95_error": {
+              "norm": 0.09148329564304156,
+              "px": 176.5257837406969
+            },
+            "bias_x": {
+              "norm": 0.019551109163096547,
+              "px": 21.11519789614427
+            },
+            "bias_y": {
+              "norm": -0.06321164488389872,
+              "px": -146.39816955110942
+            },
+            "centroid": {
+              "x_norm": 0.6195511091630965,
+              "y_norm": 0.33678835511610133
+            },
+            "median_position": {
+              "x_norm": 0.6051199780976524,
+              "y_norm": 0.33971145495793703
+            },
+            "centroid_error": {
+              "norm": 0.06616613876021052,
+              "px": 147.9130678138639
+            },
+            "jitter_rms": {
+              "norm": 0.03041031701217936,
+              "px": 36.30095587777347
+            }
+          },
+          "model": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.08047121415991339,
+              "px": 148.48858036303002
+            },
+            "median_error": {
+              "norm": 0.07593666151274583,
+              "px": 149.58615675511936
+            },
+            "p95_error": {
+              "norm": 0.11477343566052817,
+              "px": 192.03393203786
+            },
+            "bias_x": {
+              "norm": 0.040419806500301636,
+              "px": 43.65339102032577
+            },
+            "bias_y": {
+              "norm": -0.05801675085967317,
+              "px": -134.36679499100308
+            },
+            "centroid": {
+              "x_norm": 0.6404198065003016,
+              "y_norm": 0.34198324914032685
+            },
+            "median_position": {
+              "x_norm": 0.64438112431357,
+              "y_norm": 0.3435070015137587
+            },
+            "centroid_error": {
+              "norm": 0.07070858602627558,
+              "px": 141.28005571816465
+            },
+            "jitter_rms": {
+              "norm": 0.04376690263862271,
+              "px": 50.669657703873646
+            }
+          }
+        },
+        {
+          "trial_index": 27,
+          "pass_number": 2,
+          "index_in_pass": 11,
+          "target_id": "r1c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.4,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 19,
+            "valid_samples": 19,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.666666666666666
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.12301056010150055,
+              "px": 182.66127322641472
+            },
+            "median_error": {
+              "norm": 0.11705647196317187,
+              "px": 186.3881476425346
+            },
+            "p95_error": {
+              "norm": 0.1760572349010897,
+              "px": 282.0826330752035
+            },
+            "bias_x": {
+              "norm": -0.10469603155006872,
+              "px": -113.07171407407422
+            },
+            "bias_y": {
+              "norm": -0.032024015410114924,
+              "px": -74.16761968982617
+            },
+            "centroid": {
+              "x_norm": 0.6953039684499313,
+              "y_norm": 0.3679759845898851
+            },
+            "median_position": {
+              "x_norm": 0.6990991722356288,
+              "y_norm": 0.34298342586224784
+            },
+            "centroid_error": {
+              "norm": 0.10948422984759164,
+              "px": 135.22591591149936
+            },
+            "jitter_rms": {
+              "norm": 0.057985700454721165,
+              "px": 128.36139344906647
+            }
+          },
+          "model": {
+            "n_samples": 19,
+            "mean_error": {
+              "norm": 0.11979756568813703,
+              "px": 198.53985974736554
+            },
+            "median_error": {
+              "norm": 0.11991368147724903,
+              "px": 217.27358302658817
+            },
+            "p95_error": {
+              "norm": 0.14236271257787347,
+              "px": 261.7115635785861
+            },
+            "bias_x": {
+              "norm": -0.09049529229565606,
+              "px": -97.73491567930854
+            },
+            "bias_y": {
+              "norm": -0.06928271196371587,
+              "px": -160.45876090796594
+            },
+            "centroid": {
+              "x_norm": 0.709504707704344,
+              "y_norm": 0.33071728803628414
+            },
+            "median_position": {
+              "x_norm": 0.7181589390533392,
+              "y_norm": 0.31346832064034613
+            },
+            "centroid_error": {
+              "norm": 0.11397145302541087,
+              "px": 187.8806208605915
+            },
+            "jitter_rms": {
+              "norm": 0.037840969458099664,
+              "px": 77.93447260796177
+            }
+          }
+        },
+        {
+          "trial_index": 28,
+          "pass_number": 2,
+          "index_in_pass": 12,
+          "target_id": "r0c3",
+          "target_x_norm": 0.8,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 17,
+            "valid_samples": 17,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 11.333333333333334
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.07266268832838285,
+              "px": 147.2596420343824
+            },
+            "median_error": {
+              "norm": 0.028020437705615787,
+              "px": 59.316002657357394
+            },
+            "p95_error": {
+              "norm": 0.23782844872730102,
+              "px": 509.6700172112105
+            },
+            "bias_x": {
+              "norm": -0.007719745474345357,
+              "px": -8.337325112292985
+            },
+            "bias_y": {
+              "norm": 0.02696281715192092,
+              "px": 62.445884523848854
+            },
+            "centroid": {
+              "x_norm": 0.7922802545256546,
+              "y_norm": 0.22696281715192093
+            },
+            "median_position": {
+              "x_norm": 0.8181890785753879,
+              "y_norm": 0.20509555564920431
+            },
+            "centroid_error": {
+              "norm": 0.028046175834801387,
+              "px": 62.99999590471366
+            },
+            "jitter_rms": {
+              "norm": 0.0982220612705398,
+              "px": 204.6946900061768
+            }
+          },
+          "model": {
+            "n_samples": 17,
+            "mean_error": {
+              "norm": 0.10304856137205184,
+              "px": 207.52865135324615
+            },
+            "median_error": {
+              "norm": 0.057125393928806785,
+              "px": 94.59782095939846
+            },
+            "p95_error": {
+              "norm": 0.5527181103776095,
+              "px": 1193.3207380877811
+            },
+            "bias_x": {
+              "norm": -0.014924608800631218,
+              "px": -16.118577504681717
+            },
+            "bias_y": {
+              "norm": 0.022366551682367522,
+              "px": 51.80093369636318
+            },
+            "centroid": {
+              "x_norm": 0.7850753911993689,
+              "y_norm": 0.22236655168236755
+            },
+            "median_position": {
+              "x_norm": 0.8120464599911658,
+              "y_norm": 0.18263790284346804
+            },
+            "centroid_error": {
+              "norm": 0.02688878171304709,
+              "px": 54.250762875644874
+            },
+            "jitter_rms": {
+              "norm": 0.1660331324940306,
+              "px": 353.32720786608667
+            }
+          }
+        },
+        {
+          "trial_index": 29,
+          "pass_number": 2,
+          "index_in_pass": 13,
+          "target_id": "r0c2",
+          "target_x_norm": 0.6,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 13,
+            "valid_samples": 13,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.018863422815569825,
+              "px": 29.909119430255696
+            },
+            "median_error": {
+              "norm": 0.020160147930367,
+              "px": 27.434960697097768
+            },
+            "p95_error": {
+              "norm": 0.027809205128974664,
+              "px": 43.74593640945265
+            },
+            "bias_x": {
+              "norm": 0.015276279534413295,
+              "px": 16.498381897166357
+            },
+            "bias_y": {
+              "norm": -0.007966045235172406,
+              "px": -18.449360764659293
+            },
+            "centroid": {
+              "x_norm": 0.6152762795344133,
+              "y_norm": 0.19203395476482762
+            },
+            "median_position": {
+              "x_norm": 0.6137940352449991,
+              "y_norm": 0.19091328023083098
+            },
+            "centroid_error": {
+              "norm": 0.017228540074607276,
+              "px": 24.750262985457276
+            },
+            "jitter_rms": {
+              "norm": 0.009102591672617875,
+              "px": 18.84346802537405
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.02045844951460328,
+              "px": 40.8460684015354
+            },
+            "median_error": {
+              "norm": 0.015879391225102228,
+              "px": 30.0082885694885
+            },
+            "p95_error": {
+              "norm": 0.04223960244478949,
+              "px": 90.53751654482305
+            },
+            "bias_x": {
+              "norm": 0.010411395796534391,
+              "px": 11.244307460257142
+            },
+            "bias_y": {
+              "norm": -0.013971682472494175,
+              "px": -32.35841660629651
+            },
+            "centroid": {
+              "x_norm": 0.6104113957965344,
+              "y_norm": 0.18602831752750582
+            },
+            "median_position": {
+              "x_norm": 0.6089323081757847,
+              "y_norm": 0.1875929858021566
+            },
+            "centroid_error": {
+              "norm": 0.01742426680076655,
+              "px": 34.256409262026324
+            },
+            "jitter_rms": {
+              "norm": 0.016341548228521467,
+              "px": 36.310810476904926
+            }
+          }
+        },
+        {
+          "trial_index": 30,
+          "pass_number": 2,
+          "index_in_pass": 14,
+          "target_id": "r0c1",
+          "target_x_norm": 0.4,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 11,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 1,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.056811000789107516,
+              "px": 86.13971076413729
+            },
+            "median_error": {
+              "norm": 0.049119642834318286,
+              "px": 71.74077353642858
+            },
+            "p95_error": {
+              "norm": 0.12612336489430637,
+              "px": 288.7005323075549
+            },
+            "bias_x": {
+              "norm": 0.041827503919370006,
+              "px": 45.173704232919604
+            },
+            "bias_y": {
+              "norm": -0.0021456376206176525,
+              "px": -4.969296729350483
+            },
+            "centroid": {
+              "x_norm": 0.44182750391937003,
+              "y_norm": 0.19785436237938236
+            },
+            "median_position": {
+              "x_norm": 0.44215708626472455,
+              "y_norm": 0.18246128728645883
+            },
+            "centroid_error": {
+              "norm": 0.0418825004616955,
+              "px": 45.44620406709049
+            },
+            "jitter_rms": {
+              "norm": 0.04342337925821322,
+              "px": 91.2411764750072
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.06753312334835518,
+              "px": 92.854159597406
+            },
+            "median_error": {
+              "norm": 0.06996461461656545,
+              "px": 89.06758713323165
+            },
+            "p95_error": {
+              "norm": 0.09909052989133058,
+              "px": 177.8508158875726
+            },
+            "bias_x": {
+              "norm": 0.059754370824092295,
+              "px": 64.53472049001968
+            },
+            "bias_y": {
+              "norm": -0.024458674085470006,
+              "px": -56.64628918194853
+            },
+            "centroid": {
+              "x_norm": 0.4597543708240923,
+              "y_norm": 0.17554132591453
+            },
+            "median_position": {
+              "x_norm": 0.4539664765547251,
+              "y_norm": 0.18208669356237597
+            },
+            "centroid_error": {
+              "norm": 0.06456633465361321,
+              "px": 85.86927405544958
+            },
+            "jitter_rms": {
+              "norm": 0.028905161372127144,
+              "px": 52.189465712828074
+            }
+          }
+        },
+        {
+          "trial_index": 31,
+          "pass_number": 2,
+          "index_in_pass": 15,
+          "target_id": "r0c0",
+          "target_x_norm": 0.2,
+          "target_y_norm": 0.2,
+          "presentation_complete": true,
+          "measurement_window_s": 1.5,
+          "measurement": {
+            "attempts": 18,
+            "valid_samples": 18,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            },
+            "valid_coverage": 1.0,
+            "valid_samples_per_s": 12.0
+          },
+          "settling": {
+            "attempts": 12,
+            "valid_samples": 12,
+            "invalid_by_reason": {
+              "landmarker_not_ready": 0,
+              "no_face": 0,
+              "features_unavailable": 0,
+              "no_calibration_model": 0,
+              "model_rejected": 0,
+              "processing_error": 0,
+              "service_stopping": 0
+            }
+          },
+          "status": "eligible",
+          "status_reason": null,
+          "spatial_unavailable_reason": null,
+          "cursor": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.1291660683927972,
+              "px": 212.51476122219995
+            },
+            "median_error": {
+              "norm": 0.12631812423535255,
+              "px": 215.91251560070936
+            },
+            "p95_error": {
+              "norm": 0.1515533085439389,
+              "px": 227.72469648147757
+            },
+            "bias_x": {
+              "norm": 0.10188443224709956,
+              "px": 110.03518682686753
+            },
+            "bias_y": {
+              "norm": -0.07774960936716563,
+              "px": -180.0680952943556
+            },
+            "centroid": {
+              "x_norm": 0.30188443224709954,
+              "y_norm": 0.12225039063283437
+            },
+            "median_position": {
+              "x_norm": 0.2936947564743294,
+              "y_norm": 0.12273535308356087
+            },
+            "centroid_error": {
+              "norm": 0.1281617700059603,
+              "px": 211.02668381738073
+            },
+            "jitter_rms": {
+              "norm": 0.019873776715103993,
+              "px": 27.657318288603907
+            }
+          },
+          "model": {
+            "n_samples": 18,
+            "mean_error": {
+              "norm": 0.12053303729376097,
+              "px": 218.42178921380133
+            },
+            "median_error": {
+              "norm": 0.11875701340190534,
+              "px": 220.6776047607492
+            },
+            "p95_error": {
+              "norm": 0.15395972403798058,
+              "px": 300.1647436384221
+            },
+            "bias_x": {
+              "norm": 0.0839028513042128,
+              "px": 90.61507940854982
+            },
+            "bias_y": {
+              "norm": -0.08541946327026041,
+              "px": -197.8314769339231
+            },
+            "centroid": {
+              "x_norm": 0.28390285130421283,
+              "y_norm": 0.1145805367297396
+            },
+            "median_position": {
+              "x_norm": 0.28230574433789424,
+              "y_norm": 0.11387656303464927
+            },
+            "centroid_error": {
+              "norm": 0.11973375949311962,
+              "px": 217.5968425370073
+            },
+            "jitter_rms": {
+              "norm": 0.02477065277530978,
+              "px": 43.6646961944748
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "rejected_sessions": []
+}

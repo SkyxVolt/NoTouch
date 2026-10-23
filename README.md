@@ -62,6 +62,41 @@ Gradle 8.13 / AGP 8.9.2 / Kotlin 2.1.20 / CameraX 1.4.2 / MediaPipe Tasks Vision
 - 회전/화면 끄기/중지 버튼 후 카메라 표시와 점이 사라지는지 확인.
 - 오버레이/카메라 권한 거부 및 취소, 다른 카메라 앱 실행 시 확인.
 
+## 시선 정확도 평가 기록 (디버그 빌드 전용)
+
+디버그 빌드의 홈 화면 **평가 · 블라인드 측정 / 평가 · 라이브 미리보기**로 실행한 평가만 기록합니다. 일반 시선 추적은 기록하지 않습니다. 영상·이미지·랜드마크·눈 특징값은 저장하지 않고 좌표·시간·유효 여부만 저장하며, 네트워크로 전송하지 않습니다.
+
+세션마다 앱 전용 저장소의 새 폴더에 두 파일을 만듭니다(기존 세션을 덮어쓰지 않음):
+
+- `/data/data/dev.gazedot/files/evaluation/<session_id>/samples.csv`: 추론 시도 1회당 1행(무효 시도 포함). 좌표는 보정·모델과 같은 화면 정규화 좌표 [0,1]이며 값이 없으면 빈 칸입니다. `model_*`는 평활화 전 기존 `GazeModel.predict` 결과(이미 [0,1]로 제한됨), `cursor_*`는 평활화 후 커서 값입니다. `trial_index`와 `index_in_pass`는 0부터 셉니다. `phase`가 `settling`인 행은 정확도 계산에서 제외합니다.
+- `metadata.json`: 모드, 종료 상태·사유, 시각, 기기·앱 버전, 화면 기하, 프레임·추론·무효 사유 카운터, 기록/손실 행 수. 평가 시작 시 `final_state: "incomplete"`로 먼저 쓰고 종료 시 한 번 교체합니다. 프로세스가 중단되면 `incomplete` / `in_progress_or_interrupted`로 남습니다. 소스 커밋은 기기에서 기록하지 않으므로 분석 시 직접 입력합니다.
+
+가져오기(디버그 빌드, USB 디버깅). Windows PowerShell 5.1의 `>`는 바이너리를 깨뜨리므로 `cmd /c`로 저장합니다:
+
+```powershell
+adb shell run-as dev.gazedot ls files/evaluation
+cmd /c "adb exec-out run-as dev.gazedot tar -cf - files/evaluation > evaluation.tar"
+tar -xf evaluation.tar
+```
+
+Android Studio에서는 **Device Explorer → /data/data/dev.gazedot/files/evaluation**에서 폴더를 저장할 수 있습니다.
+
+### 오프라인 분석 (`tools/gaze_eval`)
+
+Python 3 표준 라이브러리만 사용합니다(설치 불필요, 네트워크 없음). 세션 폴더 하나 또는 여러 세션이 든 폴더를 받아 `samples.csv`·`metadata.json`만 읽고, 원본 세션 파일은 수정하지 않습니다.
+
+```powershell
+# 세션 하나
+python tools/gaze_eval/analyze_gaze_eval.py files/evaluation/eval-20261023T081530Z-1a2b3c4d --out analysis/run1 --source-label "feature/gaze-accuracy-evaluation @006d2bc + uncommitted Stage 1-3"
+# 여러 세션(하위 폴더 자동 탐색)
+python tools/gaze_eval/analyze_gaze_eval.py files/evaluation --out analysis/all --source-label "<빌드 설명>"
+# 선택: --min-valid-samples 10 --min-valid-coverage 0.5 --include-incomplete
+```
+
+출력: `summary.json`, `presentations.csv`(목표 제시 1회당 1행), `report.md`, `plots/*.svg`. 위 경로와 라벨은 예시입니다. 기준값(최소 유효 표본 10개, 유효 비율 50%)은 결과를 본 뒤 조정하지 말고, 바꾸면 비교하는 모든 버전에 같은 값을 적용합니다. 목표점은 지시한 응시 위치이며 실제 시선의 독립 측정값이 아니므로 결과는 "목표 기준 시선 오차"로 보고합니다. 소스 커밋은 기기에서 기록하지 않으므로 `--source-label`로 직접 적습니다.
+
+테스트(합성 데이터만 사용): `python -B -m unittest discover -s tools/gaze_eval -v`
+
 ## 파일 안내
 
 - `MainActivity.kt`: 권한, 상태 화면, 9점 보정 UI.
@@ -70,6 +105,9 @@ Gradle 8.13 / AGP 8.9.2 / Kotlin 2.1.20 / CameraX 1.4.2 / MediaPipe Tasks Vision
 - `GazeMath.kt`: 보정 회귀, 품질·얼굴 위치 검사.
 - `DotOverlay.kt`: 다른 앱 위의 빨간 점.
 - `GazeAccessibilityService.kt`: 사용자가 허용한 경우 화면 좌표에 탭 제스처를 전달.
+- `Evaluation.kt`: 평가 목표 격자·순서·시간 구간(디버그 전용).
+- `EvaluationLog.kt`: 평가 세션의 로컬 CSV·메타데이터 기록.
+- `tools/gaze_eval/analyze_gaze_eval.py`: 평가 기록의 오프라인 분석(목표 기준 오차·커버리지·지터, 보고서·SVG).
 - `GazeMathTest.kt`: 미관측 좌표 예측, 무효 보정·얼굴 이동·이상값 검사.
 
 ## 모델 출처

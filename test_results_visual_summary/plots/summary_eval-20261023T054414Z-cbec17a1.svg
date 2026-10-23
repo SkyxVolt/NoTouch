@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz" width="1000" height="1088" viewBox="0 0 1000 1088" role="img" aria-label="Blind measurement: cursor position and target-referenced error">
+<title>Blind measurement: cursor position and target-referenced error</title>
+<style>
+  .viz { --surface:#fcfcfb; --card:#f1f0ec; --ink:#0b0b0b; --ink2:#52514e; --rule:#e4e3df; --s1:#2a78d6; --s2:#eb6834; --serious:#ec835a; --muted:#b9b8b2; }
+  @media (prefers-color-scheme: dark) { .viz { --surface:#1a1a19; --card:#262624; --ink:#f0efec; --ink2:#c3c2b7; --rule:#3a3936; --s1:#3987e5; --s2:#d95926; --muted:#6b6a65; } }
+  text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); }
+</style>
+<rect width="1000" height="1088" fill="var(--surface)"/>
+<text x="24" y="38" font-size="21" font-weight="600">Blind measurement: cursor position and target-referenced error</text>
+<text class="t2" x="24" y="62" font-size="13">samsung SM-S918N · screen basis 1080×2316 px · 32 target presentations (16 targets × 2 passes)</text>
+<text class="t2" x="24" y="81" font-size="12">Session eval-20261023T054414Z-cbec17a1 only; not combined with other sessions.</text>
+<rect x="24.0" y="98" width="226.0" height="84" rx="8" fill="var(--card)"/>
+<text class="t2" x="38.0" y="122" font-size="12.5">Trial-balanced mean error</text>
+<text x="38.0" y="152" font-size="24" font-weight="600">168.8 px</text>
+<text class="t2" x="38.0" y="171" font-size="11.5">mean of 32 presentation means</text>
+<rect x="266.0" y="98" width="226.0" height="84" rx="8" fill="var(--card)"/>
+<text class="t2" x="280.0" y="122" font-size="12.5">p95 of presentation means</text>
+<text x="280.0" y="152" font-size="24" font-weight="600">295.6 px</text>
+<text class="t2" x="280.0" y="171" font-size="11.5">nearest rank, 32 presentation means</text>
+<rect x="508.0" y="98" width="226.0" height="84" rx="8" fill="var(--card)"/>
+<text class="t2" x="522.0" y="122" font-size="12.5">Mean horizontal bias</text>
+<text x="522.0" y="152" font-size="24" font-weight="600">81.0 px right</text>
+<text class="t2" x="522.0" y="171" font-size="11.5">cursor right of target on average</text>
+<rect x="750.0" y="98" width="226.0" height="84" rx="8" fill="var(--card)"/>
+<text class="t2" x="764.0" y="122" font-size="12.5">Valid measurement predictions</text>
+<text x="764.0" y="152" font-size="24" font-weight="600">575 / 580</text>
+<text class="t2" x="764.0" y="171" font-size="11.5">99.1% of measurement attempts</text>
+<text x="24" y="208" font-size="13">32 of 32 presentations eligible under the analyzer's default thresholds (≥ 10 valid samples and ≥ 50% valid coverage per presentation).</text>
+<text class="t2" x="24" y="226" font-size="12">No pass/fail threshold is defined for these values.</text>
+<text x="24" y="264" font-size="15" font-weight="600">Target-position map</text>
+<text class="t2" x="24" y="282" font-size="12">Screen drawn to scale; y = 0 is the top edge.</text>
+<text class="t2" x="191.0" y="312.0" font-size="11" text-anchor="middle">top (y = 0)</text>
+<rect x="66.0" y="320" width="250.0" height="536.1" rx="6" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+<line x1="116.0" y1="320" x2="116.0" y2="856.1" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="116.0" y="872.1" font-size="11" text-anchor="middle">0.2</text>
+<line x1="166.0" y1="320" x2="166.0" y2="856.1" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="166.0" y="872.1" font-size="11" text-anchor="middle">0.4</text>
+<line x1="216.0" y1="320" x2="216.0" y2="856.1" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="216.0" y="872.1" font-size="11" text-anchor="middle">0.6</text>
+<line x1="266.0" y1="320" x2="266.0" y2="856.1" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="266.0" y="872.1" font-size="11" text-anchor="middle">0.8</text>
+<line x1="66.0" y1="427.2" x2="316.0" y2="427.2" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="58.0" y="431.2" font-size="11" text-anchor="end">0.2</text>
+<line x1="66.0" y1="534.4" x2="316.0" y2="534.4" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="58.0" y="538.4" font-size="11" text-anchor="end">0.4</text>
+<line x1="66.0" y1="641.7" x2="316.0" y2="641.7" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="58.0" y="645.7" font-size="11" text-anchor="end">0.6</text>
+<line x1="66.0" y1="748.9" x2="316.0" y2="748.9" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="58.0" y="752.9" font-size="11" text-anchor="end">0.8</text>
+<text class="t2" x="191.0" y="890.1" font-size="11" text-anchor="middle">bottom (y = 1) · x increases to the right</text>
+<line x1="116.0" y1="427.2" x2="142.2" y2="386.1" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="166.0" y1="427.2" x2="181.3" y2="418.2" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="216.0" y1="427.2" x2="221.0" y2="423.7" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="266.0" y1="427.2" x2="270.5" y2="429.1" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="116.0" y1="534.4" x2="138.8" y2="521.9" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="166.0" y1="534.4" x2="188.0" y2="554.1" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="216.0" y1="534.4" x2="225.3" y2="513.7" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="266.0" y1="534.4" x2="262.4" y2="524.8" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="116.0" y1="641.7" x2="138.5" y2="649.0" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="166.0" y1="641.7" x2="183.1" y2="695.9" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="216.0" y1="641.7" x2="251.2" y2="634.4" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="266.0" y1="641.7" x2="282.0" y2="672.5" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="116.0" y1="748.9" x2="148.7" y2="717.6" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="166.0" y1="748.9" x2="195.4" y2="750.8" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="216.0" y1="748.9" x2="241.6" y2="722.7" stroke="var(--ink2)" stroke-width="1.25"/>
+<line x1="266.0" y1="748.9" x2="286.0" y2="728.1" stroke="var(--ink2)" stroke-width="1.25"/>
+<circle cx="116.0" cy="427.2" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M106.0,427.2 H126.0 M116.0,417.2 V437.2" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="142.2" cy="386.1" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.2, 0.2): average cursor (0.305, 0.123) from 2 presentation mean(s)</title></circle>
+<circle cx="166.0" cy="427.2" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M156.0,427.2 H176.0 M166.0,417.2 V437.2" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="181.3" cy="418.2" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.4, 0.2): average cursor (0.461, 0.183) from 2 presentation mean(s)</title></circle>
+<circle cx="216.0" cy="427.2" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M206.0,427.2 H226.0 M216.0,417.2 V437.2" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="221.0" cy="423.7" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.6, 0.2): average cursor (0.620, 0.193) from 2 presentation mean(s)</title></circle>
+<circle cx="266.0" cy="427.2" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M256.0,427.2 H276.0 M266.0,417.2 V437.2" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="270.5" cy="429.1" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.8, 0.2): average cursor (0.818, 0.203) from 2 presentation mean(s)</title></circle>
+<circle cx="116.0" cy="534.4" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M106.0,534.4 H126.0 M116.0,524.4 V544.4" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="138.8" cy="521.9" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.2, 0.4): average cursor (0.291, 0.377) from 2 presentation mean(s)</title></circle>
+<circle cx="166.0" cy="534.4" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M156.0,534.4 H176.0 M166.0,524.4 V544.4" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="188.0" cy="554.1" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.4, 0.4): average cursor (0.488, 0.437) from 2 presentation mean(s)</title></circle>
+<circle cx="216.0" cy="534.4" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M206.0,534.4 H226.0 M216.0,524.4 V544.4" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="225.3" cy="513.7" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.6, 0.4): average cursor (0.637, 0.361) from 2 presentation mean(s)</title></circle>
+<circle cx="266.0" cy="534.4" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M256.0,534.4 H276.0 M266.0,524.4 V544.4" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="262.4" cy="524.8" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.8, 0.4): average cursor (0.786, 0.382) from 2 presentation mean(s)</title></circle>
+<circle cx="116.0" cy="641.7" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M106.0,641.7 H126.0 M116.0,631.7 V651.7" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="138.5" cy="649.0" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.2, 0.6): average cursor (0.290, 0.614) from 2 presentation mean(s)</title></circle>
+<circle cx="166.0" cy="641.7" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M156.0,641.7 H176.0 M166.0,631.7 V651.7" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="183.1" cy="695.9" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.4, 0.6): average cursor (0.468, 0.701) from 2 presentation mean(s)</title></circle>
+<circle cx="216.0" cy="641.7" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M206.0,641.7 H226.0 M216.0,631.7 V651.7" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="251.2" cy="634.4" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.6, 0.6): average cursor (0.741, 0.587) from 2 presentation mean(s)</title></circle>
+<circle cx="266.0" cy="641.7" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M256.0,641.7 H276.0 M266.0,631.7 V651.7" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="282.0" cy="672.5" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.8, 0.6): average cursor (0.864, 0.658) from 2 presentation mean(s)</title></circle>
+<circle cx="116.0" cy="748.9" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M106.0,748.9 H126.0 M116.0,738.9 V758.9" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="148.7" cy="717.6" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.2, 0.8): average cursor (0.331, 0.742) from 2 presentation mean(s)</title></circle>
+<circle cx="166.0" cy="748.9" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M156.0,748.9 H176.0 M166.0,738.9 V758.9" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="195.4" cy="750.8" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.4, 0.8): average cursor (0.518, 0.804) from 2 presentation mean(s)</title></circle>
+<circle cx="216.0" cy="748.9" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M206.0,748.9 H226.0 M216.0,738.9 V758.9" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="241.6" cy="722.7" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.6, 0.8): average cursor (0.702, 0.751) from 2 presentation mean(s)</title></circle>
+<circle cx="266.0" cy="748.9" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M256.0,748.9 H276.0 M266.0,738.9 V758.9" stroke="var(--ink)" stroke-width="1.25"/>
+<circle cx="286.0" cy="728.1" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"><title>Target (0.8, 0.8): average cursor (0.880, 0.761) from 2 presentation mean(s)</title></circle>
+<circle cx="34" cy="912.1" r="6" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M26,912.1 H42 M34,904.1 V920.1" stroke="var(--ink)" stroke-width="1.25"/>
+<text x="50" y="916.1" font-size="12">Target (each shown twice: pass 1 and pass 2)</text>
+<circle cx="34" cy="934.1" r="5" fill="var(--s1)"/>
+<text x="50" y="938.1" font-size="12">Average cursor position: equal-weight mean of</text>
+<text x="50" y="953.1" font-size="12">the two presentation means (after smoothing);</text>
+<text x="50" y="968.1" font-size="12">line joins it to its target</text>
+<text x="370.0" y="264" font-size="15" font-weight="600">Presentation-error comparison</text>
+<text class="t2" x="370.0" y="282" font-size="12">Mean cursor error of each presentation, pass 1 and pass 2 side by side for each target.</text>
+<circle cx="376.0" cy="304" r="5" fill="var(--s1)"/><text x="388.0" y="308" font-size="12">Pass 1</text>
+<rect x="452.0" y="299" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"/><text x="470.0" y="308" font-size="12">Pass 2</text>
+<text class="t2" x="458.0" y="370.0" font-size="11" text-anchor="end">target (x, y)</text>
+<line x1="470.0" y1="378.0" x2="470.0" y2="794.0" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="470.0" y="810.0" font-size="11" text-anchor="middle">0</text>
+<line x1="592.5" y1="378.0" x2="592.5" y2="794.0" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="592.5" y="810.0" font-size="11" text-anchor="middle">100</text>
+<line x1="715.0" y1="378.0" x2="715.0" y2="794.0" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="715.0" y="810.0" font-size="11" text-anchor="middle">200</text>
+<line x1="837.5" y1="378.0" x2="837.5" y2="794.0" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="837.5" y="810.0" font-size="11" text-anchor="middle">300</text>
+<line x1="960.0" y1="378.0" x2="960.0" y2="794.0" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="960.0" y="810.0" font-size="11" text-anchor="middle">400</text>
+<text x="458.0" y="395.0" font-size="12" text-anchor="end">(0.2, 0.2)</text>
+<line x1="730.0" y1="391.0" x2="730.3" y2="391.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="730.0" cy="391.0" r="5" fill="var(--s1)"><title>Target (0.2, 0.2), pass 1 (trial 0): 212.2 px</title></circle>
+<rect x="725.3" y="386.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.2, 0.2), pass 2 (trial 31): 212.5 px</title></rect>
+<text x="458.0" y="421.0" font-size="12" text-anchor="end">(0.4, 0.2)</text>
+<line x1="609.5" y1="417.0" x2="575.5" y2="417.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="609.5" cy="417.0" r="5" fill="var(--s1)"><title>Target (0.4, 0.2), pass 1 (trial 1): 113.9 px</title></circle>
+<rect x="570.5" y="412.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.4, 0.2), pass 2 (trial 30): 86.1 px</title></rect>
+<text x="458.0" y="447.0" font-size="12" text-anchor="end">(0.6, 0.2)</text>
+<line x1="512.0" y1="443.0" x2="506.6" y2="443.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="512.0" cy="443.0" r="5" fill="var(--s1)"><title>Target (0.6, 0.2), pass 1 (trial 2): 34.3 px</title></circle>
+<rect x="501.6" y="438.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.6, 0.2), pass 2 (trial 29): 29.9 px</title></rect>
+<text x="458.0" y="473.0" font-size="12" text-anchor="end">(0.8, 0.2)</text>
+<line x1="605.8" y1="469.0" x2="650.4" y2="469.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="605.8" cy="469.0" r="5" fill="var(--s1)"><title>Target (0.8, 0.2), pass 1 (trial 3): 110.8 px</title></circle>
+<rect x="645.4" y="464.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.8, 0.2), pass 2 (trial 28): 147.3 px</title></rect>
+<text x="458.0" y="499.0" font-size="12" text-anchor="end">(0.2, 0.4)</text>
+<line x1="730.3" y1="495.0" x2="784.1" y2="495.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="730.3" cy="495.0" r="5" fill="var(--s1)"><title>Target (0.2, 0.4), pass 1 (trial 7): 212.5 px</title></circle>
+<rect x="779.1" y="490.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.2, 0.4), pass 2 (trial 24): 256.4 px</title></rect>
+<text x="458.0" y="525.0" font-size="12" text-anchor="end">(0.4, 0.4)</text>
+<line x1="591.5" y1="521.0" x2="832.1" y2="521.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="591.5" cy="521.0" r="5" fill="var(--s1)"><title>Target (0.4, 0.4), pass 1 (trial 6): 99.2 px</title></circle>
+<rect x="827.1" y="516.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.4, 0.4), pass 2 (trial 25): 295.6 px</title></rect>
+<text x="458.0" y="551.0" font-size="12" text-anchor="end">(0.6, 0.4)</text>
+<line x1="589.0" y1="547.0" x2="655.8" y2="547.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="589.0" cy="547.0" r="5" fill="var(--s1)"><title>Target (0.6, 0.4), pass 1 (trial 5): 97.1 px</title></circle>
+<rect x="650.8" y="542.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.6, 0.4), pass 2 (trial 26): 151.7 px</title></rect>
+<text x="458.0" y="577.0" font-size="12" text-anchor="end">(0.8, 0.4)</text>
+<line x1="582.5" y1="573.0" x2="693.8" y2="573.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="582.5" cy="573.0" r="5" fill="var(--s1)"><title>Target (0.8, 0.4), pass 1 (trial 4): 91.8 px</title></circle>
+<rect x="688.8" y="568.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.8, 0.4), pass 2 (trial 27): 182.7 px</title></rect>
+<text x="458.0" y="603.0" font-size="12" text-anchor="end">(0.2, 0.6)</text>
+<line x1="652.8" y1="599.0" x2="642.1" y2="599.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="652.8" cy="599.0" r="5" fill="var(--s1)"><title>Target (0.2, 0.6), pass 1 (trial 8): 149.2 px</title></circle>
+<rect x="637.1" y="594.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.2, 0.6), pass 2 (trial 23): 140.5 px</title></rect>
+<text x="458.0" y="629.0" font-size="12" text-anchor="end">(0.4, 0.6)</text>
+<line x1="905.4" y1="625.0" x2="680.7" y2="625.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="905.4" cy="625.0" r="5" fill="var(--s1)"><title>Target (0.4, 0.6), pass 1 (trial 9): 355.4 px</title></circle>
+<rect x="675.7" y="620.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.4, 0.6), pass 2 (trial 22): 172.0 px</title></rect>
+<text x="458.0" y="655.0" font-size="12" text-anchor="end">(0.6, 0.6)</text>
+<line x1="682.0" y1="651.0" x2="676.8" y2="651.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="682.0" cy="651.0" r="5" fill="var(--s1)"><title>Target (0.6, 0.6), pass 1 (trial 10): 173.0 px</title></circle>
+<rect x="671.8" y="646.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.6, 0.6), pass 2 (trial 21): 168.8 px</title></rect>
+<text x="458.0" y="681.0" font-size="12" text-anchor="end">(0.8, 0.6)</text>
+<line x1="579.9" y1="677.0" x2="818.4" y2="677.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="579.9" cy="677.0" r="5" fill="var(--s1)"><title>Target (0.8, 0.6), pass 1 (trial 11): 89.7 px</title></circle>
+<rect x="813.4" y="672.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.8, 0.6), pass 2 (trial 20): 284.4 px</title></rect>
+<text x="458.0" y="707.0" font-size="12" text-anchor="end">(0.2, 0.8)</text>
+<line x1="790.2" y1="703.0" x2="795.8" y2="703.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="790.2" cy="703.0" r="5" fill="var(--s1)"><title>Target (0.2, 0.8), pass 1 (trial 15): 261.4 px</title></circle>
+<rect x="790.8" y="698.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.2, 0.8), pass 2 (trial 16): 266.0 px</title></rect>
+<text x="458.0" y="733.0" font-size="12" text-anchor="end">(0.4, 0.8)</text>
+<line x1="731.2" y1="729.0" x2="715.5" y2="729.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="731.2" cy="729.0" r="5" fill="var(--s1)"><title>Target (0.4, 0.8), pass 1 (trial 14): 213.2 px</title></circle>
+<rect x="710.5" y="724.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.4, 0.8), pass 2 (trial 17): 200.4 px</title></rect>
+<text x="458.0" y="759.0" font-size="12" text-anchor="end">(0.6, 0.8)</text>
+<line x1="645.9" y1="755.0" x2="684.6" y2="755.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="645.9" cy="755.0" r="5" fill="var(--s1)"><title>Target (0.6, 0.8), pass 1 (trial 13): 143.6 px</title></circle>
+<rect x="679.6" y="750.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.6, 0.8), pass 2 (trial 18): 175.2 px</title></rect>
+<text x="458.0" y="785.0" font-size="12" text-anchor="end">(0.8, 0.8)</text>
+<line x1="546.4" y1="781.0" x2="728.3" y2="781.0" stroke="var(--rule)" stroke-width="3"/>
+<circle cx="546.4" cy="781.0" r="5" fill="var(--s1)"><title>Target (0.8, 0.8), pass 1 (trial 12): 62.4 px</title></circle>
+<rect x="723.3" y="776.0" width="10" height="10" fill="none" stroke="var(--s2)" stroke-width="2"><title>Target (0.8, 0.8), pass 2 (trial 19): 210.9 px</title></rect>
+<line x1="832.1" y1="333.0" x2="832.1" y2="794.0" stroke="var(--ink)" stroke-width="1.25"/>
+<text x="827.1" y="330.0" font-size="11.5" text-anchor="end">p95 295.6 px</text>
+<line x1="678.7" y1="349.0" x2="678.7" y2="794.0" stroke="var(--ink)" stroke-width="1.25"/>
+<text x="683.7" y="346.0" font-size="11.5" text-anchor="start">median 170.4 px</text>
+<line x1="676.7" y1="365.0" x2="676.7" y2="794.0" stroke="var(--ink)" stroke-width="1.25"/>
+<text x="681.7" y="362.0" font-size="11.5" text-anchor="start">mean 168.8 px</text>
+<line x1="470.0" y1="794.0" x2="960.0" y2="794.0" stroke="var(--ink2)" stroke-width="1"/>
+<text class="t2" x="715.0" y="828.0" font-size="11.5" text-anchor="middle">mean cursor error per presentation (px), axis starts at 0</text>
+<text class="t2" x="370.0" y="852.0" font-size="11.5">Each marker is one target presentation (the mean over its valid measurement samples), not</text>
+<text class="t2" x="370.0" y="867.0" font-size="11.5">one camera frame. Reference lines are across the 32 eligible presentation means; the p95 is</text>
+<text class="t2" x="370.0" y="882.0" font-size="11.5">not taken over individual samples.</text>
+<line x1="24" y1="984.1" x2="976" y2="984.1" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="24" y="1002.1" font-size="12">Values at a screen edge among valid measurement samples: 4 cursor values and 13 model values at the bottom edge (y = 1.0). The log stores only values</text>
+<text class="t2" x="24" y="1018.1" font-size="12">bounded to the screen and has no clip flag, so these are not confirmed clipping events.</text>
+<text class="t2" x="24" y="1038.1" font-size="12">Spatial values use valid measurement samples only; settling samples and invalid predictions are excluded (invalid attempts remain in the coverage</text>
+<text class="t2" x="24" y="1054.1" font-size="12">card). Targets are the instructed fixation points, not measured gaze.</text>
+</svg>

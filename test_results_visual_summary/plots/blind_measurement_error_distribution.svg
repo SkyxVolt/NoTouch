@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz" width="620" height="400" viewBox="0 0 620 400" role="img" aria-label="Error distribution blind_measurement">
+<title>Error distribution blind_measurement</title>
+<style>
+  .viz { --surface:#fcfcfb; --card:#f1f0ec; --ink:#0b0b0b; --ink2:#52514e; --rule:#e4e3df; --s1:#2a78d6; --s2:#eb6834; --serious:#ec835a; --muted:#b9b8b2; }
+  @media (prefers-color-scheme: dark) { .viz { --surface:#1a1a19; --card:#262624; --ink:#f0efec; --ink2:#c3c2b7; --rule:#3a3936; --s1:#3987e5; --s2:#d95926; --muted:#6b6a65; } }
+  text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); }
+</style>
+<rect width="620" height="400" fill="var(--surface)"/>
+<text x="20" y="30" font-size="16" font-weight="600">Target-referenced error distribution: blind_measurement (cursor)</text>
+<text class="t2" x="20" y="50" font-size="12">Pooled valid measurement samples from eligible presentations. n = 575 samples, 32 presentations, 1 session(s).</text>
+<line x1="70.0" y1="276.00" x2="590.0" y2="276.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="280.00" font-size="11" text-anchor="end">20</text>
+<line x1="70.0" y1="232.00" x2="590.0" y2="232.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="236.00" font-size="11" text-anchor="end">40</text>
+<line x1="70.0" y1="188.00" x2="590.0" y2="188.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="192.00" font-size="11" text-anchor="end">60</text>
+<line x1="70.0" y1="144.00" x2="590.0" y2="144.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="148.00" font-size="11" text-anchor="end">80</text>
+<line x1="70.0" y1="100.00" x2="590.0" y2="100.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="104.00" font-size="11" text-anchor="end">100</text>
+<path d="M71.00,320.00 V295.40 Q71.00,291.40 75.00,291.40 H82.33 Q86.33,291.40 86.33,295.40 V320.00 Z" fill="var(--s1)"><title>0.000-0.015: 13 samples</title></path>
+<path d="M88.33,320.00 V251.40 Q88.33,247.40 92.33,247.40 H99.67 Q103.67,247.40 103.67,251.40 V320.00 Z" fill="var(--s1)"><title>0.015-0.030: 33 samples</title></path>
+<path d="M105.67,320.00 V288.80 Q105.67,284.80 109.67,284.80 H117.00 Q121.00,284.80 121.00,288.80 V320.00 Z" fill="var(--s1)"><title>0.030-0.045: 16 samples</title></path>
+<path d="M123.00,320.00 V244.80 Q123.00,240.80 127.00,240.80 H134.33 Q138.33,240.80 138.33,244.80 V320.00 Z" fill="var(--s1)"><title>0.045-0.060: 36 samples</title></path>
+<path d="M140.33,320.00 V209.60 Q140.33,205.60 144.33,205.60 H151.67 Q155.67,205.60 155.67,209.60 V320.00 Z" fill="var(--s1)"><title>0.060-0.075: 52 samples</title></path>
+<path d="M157.67,320.00 V137.00 Q157.67,133.00 161.67,133.00 H169.00 Q173.00,133.00 173.00,137.00 V320.00 Z" fill="var(--s1)"><title>0.075-0.090: 85 samples</title></path>
+<path d="M175.00,320.00 V214.00 Q175.00,210.00 179.00,210.00 H186.33 Q190.33,210.00 190.33,214.00 V320.00 Z" fill="var(--s1)"><title>0.090-0.105: 50 samples</title></path>
+<path d="M192.33,320.00 V222.80 Q192.33,218.80 196.33,218.80 H203.67 Q207.67,218.80 207.67,222.80 V320.00 Z" fill="var(--s1)"><title>0.105-0.120: 46 samples</title></path>
+<path d="M209.67,320.00 V178.80 Q209.67,174.80 213.67,174.80 H221.00 Q225.00,174.80 225.00,178.80 V320.00 Z" fill="var(--s1)"><title>0.120-0.135: 66 samples</title></path>
+<path d="M227.00,320.00 V211.80 Q227.00,207.80 231.00,207.80 H238.33 Q242.33,207.80 242.33,211.80 V320.00 Z" fill="var(--s1)"><title>0.135-0.150: 51 samples</title></path>
+<path d="M244.33,320.00 V225.00 Q244.33,221.00 248.33,221.00 H255.67 Q259.67,221.00 259.67,225.00 V320.00 Z" fill="var(--s1)"><title>0.150-0.165: 45 samples</title></path>
+<path d="M261.67,320.00 V240.40 Q261.67,236.40 265.67,236.40 H273.00 Q277.00,236.40 277.00,240.40 V320.00 Z" fill="var(--s1)"><title>0.165-0.180: 38 samples</title></path>
+<path d="M279.00,320.00 V295.40 Q279.00,291.40 283.00,291.40 H290.33 Q294.33,291.40 294.33,295.40 V320.00 Z" fill="var(--s1)"><title>0.180-0.195: 13 samples</title></path>
+<path d="M296.33,320.00 V293.20 Q296.33,289.20 300.33,289.20 H307.67 Q311.67,289.20 311.67,293.20 V320.00 Z" fill="var(--s1)"><title>0.195-0.210: 14 samples</title></path>
+<path d="M313.67,320.00 V319.60 Q313.67,315.60 317.67,315.60 H325.00 Q329.00,315.60 329.00,319.60 V320.00 Z" fill="var(--s1)"><title>0.210-0.225: 2 samples</title></path>
+<path d="M331.00,320.00 V320.00 Q331.00,317.80 333.20,317.80 H344.13 Q346.33,317.80 346.33,320.00 V320.00 Z" fill="var(--s1)"><title>0.225-0.240: 1 samples</title></path>
+
+<path d="M365.67,320.00 V313.00 Q365.67,309.00 369.67,309.00 H377.00 Q381.00,309.00 381.00,313.00 V320.00 Z" fill="var(--s1)"><title>0.255-0.270: 5 samples</title></path>
+<path d="M383.00,320.00 V319.60 Q383.00,315.60 387.00,315.60 H394.33 Q398.33,315.60 398.33,319.60 V320.00 Z" fill="var(--s1)"><title>0.270-0.285: 2 samples</title></path>
+
+<path d="M417.67,320.00 V320.00 Q417.67,317.80 419.87,317.80 H430.80 Q433.00,317.80 433.00,320.00 V320.00 Z" fill="var(--s1)"><title>0.300-0.315: 1 samples</title></path>
+<path d="M435.00,320.00 V317.40 Q435.00,313.40 439.00,313.40 H446.33 Q450.33,313.40 450.33,317.40 V320.00 Z" fill="var(--s1)"><title>0.315-0.330: 3 samples</title></path>
+<path d="M452.33,320.00 V320.00 Q452.33,317.80 454.53,317.80 H465.47 Q467.67,317.80 467.67,320.00 V320.00 Z" fill="var(--s1)"><title>0.330-0.345: 1 samples</title></path>
+<path d="M469.67,320.00 V320.00 Q469.67,317.80 471.87,317.80 H482.80 Q485.00,317.80 485.00,320.00 V320.00 Z" fill="var(--s1)"><title>0.345-0.360: 1 samples</title></path>
+
+
+
+<path d="M539.00,320.00 V320.00 Q539.00,317.80 541.20,317.80 H552.13 Q554.33,317.80 554.33,320.00 V320.00 Z" fill="var(--s1)"><title>0.405-0.420: 1 samples</title></path>
+
+
+<line x1="70.0" y1="320.0" x2="590.0" y2="320.0" stroke="var(--ink2)" stroke-width="1"/>
+<text class="t2" x="70.00" y="336.0" font-size="11" text-anchor="middle">0.00</text>
+<text class="t2" x="174.00" y="336.0" font-size="11" text-anchor="middle">0.09</text>
+<text class="t2" x="278.00" y="336.0" font-size="11" text-anchor="middle">0.18</text>
+<text class="t2" x="382.00" y="336.0" font-size="11" text-anchor="middle">0.27</text>
+<text class="t2" x="486.00" y="336.0" font-size="11" text-anchor="middle">0.36</text>
+<text class="t2" x="590.00" y="336.0" font-size="11" text-anchor="middle">0.45</text>
+<text class="t2" x="330.0" y="356.0" font-size="11" text-anchor="middle">radial error, normalized units</text>
+<text class="t2" x="18" y="210.0" font-size="11" transform="rotate(-90 18 210.0)" text-anchor="middle">samples per bin</text>
+<line x1="192.59" y1="82.00" x2="192.59" y2="320.0" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="196.59" y="78.00" font-size="11">median 0.1061</text>
+<line x1="296.11" y1="96.00" x2="296.11" y2="320.0" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="300.11" y="92.00" font-size="11">p95 0.1957</text>
+<text class="t2" x="20" y="388" font-size="11">Sample-weighted view; the primary summary is trial-balanced (see report).</text>
+</svg>

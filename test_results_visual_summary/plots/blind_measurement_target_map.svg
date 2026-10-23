@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz" width="470" height="958" viewBox="0 0 470 958" role="img" aria-label="Target map blind_measurement">
+<title>Target map blind_measurement</title>
+<style>
+  .viz { --surface:#fcfcfb; --card:#f1f0ec; --ink:#0b0b0b; --ink2:#52514e; --rule:#e4e3df; --s1:#2a78d6; --s2:#eb6834; --serious:#ec835a; --muted:#b9b8b2; }
+  @media (prefers-color-scheme: dark) { .viz { --surface:#1a1a19; --card:#262624; --ink:#f0efec; --ink2:#c3c2b7; --rule:#3a3936; --s1:#3987e5; --s2:#d95926; --muted:#6b6a65; } }
+  text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); }
+</style>
+<rect width="470" height="958" fill="var(--surface)"/>
+<text x="20" y="30" font-size="16" font-weight="600">Target map: blind_measurement (post-smoothing cursor)</text>
+<text class="t2" x="20" y="50" font-size="12">Median cursor position per eligible presentation, linked to its target.</text>
+<text class="t2" x="20" y="66" font-size="12">n = 32 presentations, 1 session(s).</text>
+<circle cx="76.0" cy="86" r="5" fill="var(--s1)"/><text x="86.0" y="90" font-size="12">Pass 1 (filled)</text>
+<circle cx="206.0" cy="86" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"/><text x="216.0" y="90" font-size="12">Pass 2 (hollow)</text>
+<rect x="70.0" y="110.0" width="360.00" height="772.00" fill="none" stroke="var(--rule)" stroke-width="1"/>
+<line x1="142.00" y1="110.0" x2="142.00" y2="882.00" stroke="var(--rule)" stroke-width="1"/>
+<line x1="70.0" y1="264.40" x2="430.00" y2="264.40" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="142.00" y="898.00" font-size="11" text-anchor="middle">0.2</text>
+<text class="t2" x="62.0" y="268.40" font-size="11" text-anchor="end">0.2</text>
+<line x1="214.00" y1="110.0" x2="214.00" y2="882.00" stroke="var(--rule)" stroke-width="1"/>
+<line x1="70.0" y1="418.80" x2="430.00" y2="418.80" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="214.00" y="898.00" font-size="11" text-anchor="middle">0.4</text>
+<text class="t2" x="62.0" y="422.80" font-size="11" text-anchor="end">0.4</text>
+<line x1="286.00" y1="110.0" x2="286.00" y2="882.00" stroke="var(--rule)" stroke-width="1"/>
+<line x1="70.0" y1="573.20" x2="430.00" y2="573.20" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="286.00" y="898.00" font-size="11" text-anchor="middle">0.6</text>
+<text class="t2" x="62.0" y="577.20" font-size="11" text-anchor="end">0.6</text>
+<line x1="358.00" y1="110.0" x2="358.00" y2="882.00" stroke="var(--rule)" stroke-width="1"/>
+<line x1="70.0" y1="727.60" x2="430.00" y2="727.60" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="358.00" y="898.00" font-size="11" text-anchor="middle">0.8</text>
+<text class="t2" x="62.0" y="731.60" font-size="11" text-anchor="end">0.8</text>
+<text class="t2" x="250.00" y="918.00" font-size="11" text-anchor="middle">x, normalized (right +)</text>
+<text class="t2" x="20" y="496.00" font-size="11" transform="rotate(-90 20 496.00)" text-anchor="middle">y, normalized (down +)</text>
+<line x1="142.00" y1="264.40" x2="181.79" y2="210.34" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="214.00" y1="264.40" x2="242.31" y2="240.66" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="286.00" y1="264.40" x2="290.46" y2="263.36" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="358.00" y1="264.40" x2="377.68" y2="236.03" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="358.00" y1="418.80" x2="390.84" y2="414.83" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="286.00" y1="418.80" x2="307.44" y2="402.03" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="214.00" y1="418.80" x2="243.92" y2="432.51" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="142.00" y1="418.80" x2="163.85" y2="411.65" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="142.00" y1="573.20" x2="189.54" y2="575.06" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="214.00" y1="573.20" x2="263.01" y2="629.08" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="286.00" y1="573.20" x2="344.79" y2="582.27" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="358.00" y1="573.20" x2="386.01" y2="586.33" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="358.00" y1="727.60" x2="379.00" y2="727.49" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="286.00" y1="727.60" x2="319.70" y2="691.49" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="214.00" y1="727.60" x2="270.51" y2="697.80" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="142.00" y1="727.60" x2="190.13" y2="656.11" stroke="var(--s1)" stroke-width="1.5"/>
+<line x1="142.00" y1="727.60" x2="200.34" y2="671.85" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="214.00" y1="727.60" x2="261.08" y2="708.79" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="286.00" y1="727.60" x2="327.30" y2="683.30" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="358.00" y1="727.60" x2="397.42" y2="668.16" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="358.00" y1="573.20" x2="387.38" y2="616.13" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="286.00" y1="573.20" x2="333.71" y2="538.91" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="214.00" y1="573.20" x2="225.94" y2="631.23" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="142.00" y1="573.20" x2="167.51" y2="564.69" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="142.00" y1="418.80" x2="188.33" y2="349.33" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="214.00" y1="418.80" x2="241.07" y2="414.36" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="286.00" y1="418.80" x2="287.84" y2="372.26" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="358.00" y1="418.80" x2="321.68" y2="374.78" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="358.00" y1="264.40" x2="364.55" y2="268.33" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="286.00" y1="264.40" x2="290.97" y2="257.39" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="214.00" y1="264.40" x2="229.18" y2="250.86" stroke="var(--s2)" stroke-width="1.5"/>
+<line x1="142.00" y1="264.40" x2="175.73" y2="204.75" stroke="var(--s2)" stroke-width="1.5"/>
+<circle cx="181.79" cy="210.34" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 0 r0c0: n=18, mean error 0.1330</title></circle>
+<circle cx="242.31" cy="240.66" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 1 r0c1: n=19, mean error 0.0868</title></circle>
+<circle cx="290.46" cy="263.36" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 2 r0c2: n=19, mean error 0.0273</title></circle>
+<circle cx="377.68" cy="236.03" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 3 r0c3: n=18, mean error 0.0689</title></circle>
+<circle cx="390.84" cy="414.83" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 4 r1c3: n=18, mean error 0.0782</title></circle>
+<circle cx="307.44" cy="402.03" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 5 r1c2: n=18, mean error 0.0659</title></circle>
+<circle cx="243.92" cy="432.51" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 6 r1c1: n=18, mean error 0.0872</title></circle>
+<circle cx="163.85" cy="411.65" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 7 r1c0: n=17, mean error 0.1151</title></circle>
+<circle cx="189.54" cy="575.06" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 8 r2c0: n=19, mean error 0.1362</title></circle>
+<circle cx="263.01" cy="629.08" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 9 r2c1: n=18, mean error 0.2017</title></circle>
+<circle cx="344.79" cy="582.27" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 10 r2c2: n=19, mean error 0.1586</title></circle>
+<circle cx="386.01" cy="586.33" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 11 r2c3: n=18, mean error 0.0759</title></circle>
+<circle cx="379.00" cy="727.49" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 12 r3c3: n=19, mean error 0.0555</title></circle>
+<circle cx="319.70" cy="691.49" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 13 r3c2: n=17, mean error 0.1036</title></circle>
+<circle cx="270.51" cy="697.80" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 14 r3c1: n=18, mean error 0.1552</title></circle>
+<circle cx="190.13" cy="656.11" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 1 trial 15 r3c0: n=18, mean error 0.1643</title></circle>
+<circle cx="200.34" cy="671.85" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 16 r3c0: n=18, mean error 0.1733</title></circle>
+<circle cx="261.08" cy="708.79" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 17 r3c1: n=16, mean error 0.1408</title></circle>
+<circle cx="327.30" cy="683.30" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 18 r3c2: n=18, mean error 0.1242</title></circle>
+<circle cx="397.42" cy="668.16" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 19 r3c3: n=18, mean error 0.1304</title></circle>
+<circle cx="387.38" cy="616.13" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 20 r2c3: n=18, mean error 0.1530</title></circle>
+<circle cx="333.71" cy="538.91" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 21 r2c2: n=18, mean error 0.1321</title></circle>
+<circle cx="225.94" cy="631.23" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 22 r2c1: n=18, mean error 0.0799</title></circle>
+<circle cx="167.51" cy="564.69" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 23 r2c0: n=17, mean error 0.0921</title></circle>
+<circle cx="188.33" cy="349.33" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 24 r1c0: n=18, mean error 0.1582</title></circle>
+<circle cx="241.07" cy="414.36" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 25 r1c1: n=18, mean error 0.1723</title></circle>
+<circle cx="287.84" cy="372.26" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 26 r1c2: n=17, mean error 0.0723</title></circle>
+<circle cx="321.68" cy="374.78" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 27 r1c3: n=19, mean error 0.1230</title></circle>
+<circle cx="364.55" cy="268.33" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 28 r0c3: n=17, mean error 0.0727</title></circle>
+<circle cx="290.97" cy="257.39" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 29 r0c2: n=18, mean error 0.0189</title></circle>
+<circle cx="229.18" cy="250.86" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 30 r0c1: n=18, mean error 0.0568</title></circle>
+<circle cx="175.73" cy="204.75" r="4" fill="var(--surface)" stroke="var(--s2)" stroke-width="2"><title>eval-20261023T054414Z-cbec17a1 pass 2 trial 31 r0c0: n=18, mean error 0.1292</title></circle>
+<path d="M136.00,264.40 H148.00 M142.00,258.40 V270.40" stroke="var(--ink)" stroke-width="2"/>
+<path d="M208.00,264.40 H220.00 M214.00,258.40 V270.40" stroke="var(--ink)" stroke-width="2"/>
+<path d="M280.00,264.40 H292.00 M286.00,258.40 V270.40" stroke="var(--ink)" stroke-width="2"/>
+<path d="M352.00,264.40 H364.00 M358.00,258.40 V270.40" stroke="var(--ink)" stroke-width="2"/>
+<path d="M136.00,418.80 H148.00 M142.00,412.80 V424.80" stroke="var(--ink)" stroke-width="2"/>
+<path d="M208.00,418.80 H220.00 M214.00,412.80 V424.80" stroke="var(--ink)" stroke-width="2"/>
+<path d="M280.00,418.80 H292.00 M286.00,412.80 V424.80" stroke="var(--ink)" stroke-width="2"/>
+<path d="M352.00,418.80 H364.00 M358.00,412.80 V424.80" stroke="var(--ink)" stroke-width="2"/>
+<path d="M136.00,573.20 H148.00 M142.00,567.20 V579.20" stroke="var(--ink)" stroke-width="2"/>
+<path d="M208.00,573.20 H220.00 M214.00,567.20 V579.20" stroke="var(--ink)" stroke-width="2"/>
+<path d="M280.00,573.20 H292.00 M286.00,567.20 V579.20" stroke="var(--ink)" stroke-width="2"/>
+<path d="M352.00,573.20 H364.00 M358.00,567.20 V579.20" stroke="var(--ink)" stroke-width="2"/>
+<path d="M136.00,727.60 H148.00 M142.00,721.60 V733.60" stroke="var(--ink)" stroke-width="2"/>
+<path d="M208.00,727.60 H220.00 M214.00,721.60 V733.60" stroke="var(--ink)" stroke-width="2"/>
+<path d="M280.00,727.60 H292.00 M286.00,721.60 V733.60" stroke="var(--ink)" stroke-width="2"/>
+<path d="M352.00,727.60 H364.00 M358.00,721.60 V733.60" stroke="var(--ink)" stroke-width="2"/>
+<text class="t2" x="20" y="946" font-size="11">+ = target (instructed fixation, not measured gaze). Aspect: pixel basis 1080x2316.</text>
+</svg>

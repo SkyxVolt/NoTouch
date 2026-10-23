@@ -10,6 +10,7 @@ class DotOverlay(context: Context) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         var position: Pair<Double, Double>? = null
         var dwellProgress = 0f
+        override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) { TrackerState.overlaySize = w to h }
         override fun onDraw(canvas: Canvas) {
             val p = position ?: return
             val x = p.first.toFloat() * width; val y = p.second.toFloat() * height
@@ -52,5 +53,5 @@ class DotOverlay(context: Context) {
         dot.dwellProgress = dwellProgress
         dot.invalidate()
     }
-    fun close() { if (dot.isAttachedToWindow) manager.removeView(dot) }
+    fun close() { TrackerState.overlaySize = null; if (dot.isAttachedToWindow) manager.removeView(dot) }
 }

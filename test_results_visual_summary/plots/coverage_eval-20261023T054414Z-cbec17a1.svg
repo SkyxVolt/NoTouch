@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz" width="720" height="376" viewBox="0 0 720 376" role="img" aria-label="Coverage eval-20261023T054414Z-cbec17a1">
+<title>Coverage eval-20261023T054414Z-cbec17a1</title>
+<style>
+  .viz { --surface:#fcfcfb; --card:#f1f0ec; --ink:#0b0b0b; --ink2:#52514e; --rule:#e4e3df; --s1:#2a78d6; --s2:#eb6834; --serious:#ec835a; --muted:#b9b8b2; }
+  @media (prefers-color-scheme: dark) { .viz { --surface:#1a1a19; --card:#262624; --ink:#f0efec; --ink2:#c3c2b7; --rule:#3a3936; --s1:#3987e5; --s2:#d95926; --muted:#6b6a65; } }
+  text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); }
+</style>
+<rect width="720" height="376" fill="var(--surface)"/>
+<text x="20" y="30" font-size="16" font-weight="600">Valid coverage per presentation: eval-20261023T054414Z-cbec17a1</text>
+<text class="t2" x="20" y="50" font-size="12">blind_measurement, complete (completed). 32 presentations: 32 eligible, 0 insufficient, 0 not fully shown.</text>
+<rect x="70.0" y="64" width="10" height="10" rx="2" fill="var(--s1)"/><text x="86.0" y="73" font-size="12">eligible</text>
+<rect x="160.0" y="64" width="10" height="10" rx="2" fill="var(--serious)"/><text x="176.0" y="73" font-size="12">! insufficient data</text>
+<rect x="306.0" y="64" width="10" height="10" rx="2" fill="var(--muted)"/><text x="322.0" y="73" font-size="12">– not fully shown</text>
+<line x1="452.0" y1="69" x2="468.0" y2="69" stroke="var(--ink)" stroke-width="1.5"/><text x="474.0" y="73" font-size="12">min coverage 0.5</text>
+<line x1="70.0" y1="242.00" x2="690.0" y2="242.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="246.00" font-size="11" text-anchor="end">25%</text>
+<line x1="70.0" y1="192.00" x2="690.0" y2="192.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="196.00" font-size="11" text-anchor="end">50%</text>
+<line x1="70.0" y1="142.00" x2="690.0" y2="142.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="146.00" font-size="11" text-anchor="end">75%</text>
+<line x1="70.0" y1="92.00" x2="690.0" y2="92.00" stroke="var(--rule)" stroke-width="1"/>
+<text class="t2" x="62.0" y="96.00" font-size="11" text-anchor="end">100%</text>
+<path d="M71.00,292.00 V96.00 Q71.00,92.00 75.00,92.00 H84.38 Q88.38,92.00 88.38,96.00 V292.00 Z" fill="var(--s1)"><title>trial 0 (pass 1) r0c0: 18/18 valid, eligible</title></path>
+<text class="t2" x="79.69" y="308.0" font-size="11" text-anchor="middle">0</text>
+<path d="M90.38,292.00 V96.00 Q90.38,92.00 94.38,92.00 H103.75 Q107.75,92.00 107.75,96.00 V292.00 Z" fill="var(--s1)"><title>trial 1 (pass 1) r0c1: 19/19 valid, eligible</title></path>
+<path d="M109.75,292.00 V96.00 Q109.75,92.00 113.75,92.00 H123.12 Q127.12,92.00 127.12,96.00 V292.00 Z" fill="var(--s1)"><title>trial 2 (pass 1) r0c2: 19/19 valid, eligible</title></path>
+<path d="M129.12,292.00 V96.00 Q129.12,92.00 133.12,92.00 H142.50 Q146.50,92.00 146.50,96.00 V292.00 Z" fill="var(--s1)"><title>trial 3 (pass 1) r0c3: 18/18 valid, eligible</title></path>
+<path d="M148.50,292.00 V96.00 Q148.50,92.00 152.50,92.00 H161.88 Q165.88,92.00 165.88,96.00 V292.00 Z" fill="var(--s1)"><title>trial 4 (pass 1) r1c3: 18/18 valid, eligible</title></path>
+<text class="t2" x="157.19" y="308.0" font-size="11" text-anchor="middle">4</text>
+<path d="M167.88,292.00 V96.00 Q167.88,92.00 171.88,92.00 H181.25 Q185.25,92.00 185.25,96.00 V292.00 Z" fill="var(--s1)"><title>trial 5 (pass 1) r1c2: 18/18 valid, eligible</title></path>
+<path d="M187.25,292.00 V96.00 Q187.25,92.00 191.25,92.00 H200.62 Q204.62,92.00 204.62,96.00 V292.00 Z" fill="var(--s1)"><title>trial 6 (pass 1) r1c1: 18/18 valid, eligible</title></path>
+<path d="M206.62,292.00 V117.05 Q206.62,113.05 210.62,113.05 H220.00 Q224.00,113.05 224.00,117.05 V292.00 Z" fill="var(--s1)"><title>trial 7 (pass 1) r1c0: 17/19 valid, eligible</title></path>
+<path d="M226.00,292.00 V96.00 Q226.00,92.00 230.00,92.00 H239.38 Q243.38,92.00 243.38,96.00 V292.00 Z" fill="var(--s1)"><title>trial 8 (pass 1) r2c0: 19/19 valid, eligible</title></path>
+<text class="t2" x="234.69" y="308.0" font-size="11" text-anchor="middle">8</text>
+<path d="M245.38,292.00 V96.00 Q245.38,92.00 249.38,92.00 H258.75 Q262.75,92.00 262.75,96.00 V292.00 Z" fill="var(--s1)"><title>trial 9 (pass 1) r2c1: 18/18 valid, eligible</title></path>
+<path d="M264.75,292.00 V96.00 Q264.75,92.00 268.75,92.00 H278.12 Q282.12,92.00 282.12,96.00 V292.00 Z" fill="var(--s1)"><title>trial 10 (pass 1) r2c2: 19/19 valid, eligible</title></path>
+<path d="M284.12,292.00 V96.00 Q284.12,92.00 288.12,92.00 H297.50 Q301.50,92.00 301.50,96.00 V292.00 Z" fill="var(--s1)"><title>trial 11 (pass 1) r2c3: 18/18 valid, eligible</title></path>
+<path d="M303.50,292.00 V96.00 Q303.50,92.00 307.50,92.00 H316.88 Q320.88,92.00 320.88,96.00 V292.00 Z" fill="var(--s1)"><title>trial 12 (pass 1) r3c3: 19/19 valid, eligible</title></path>
+<text class="t2" x="312.19" y="308.0" font-size="11" text-anchor="middle">12</text>
+<path d="M322.88,292.00 V96.00 Q322.88,92.00 326.88,92.00 H336.25 Q340.25,92.00 340.25,96.00 V292.00 Z" fill="var(--s1)"><title>trial 13 (pass 1) r3c2: 17/17 valid, eligible</title></path>
+<path d="M342.25,292.00 V96.00 Q342.25,92.00 346.25,92.00 H355.62 Q359.62,92.00 359.62,96.00 V292.00 Z" fill="var(--s1)"><title>trial 14 (pass 1) r3c1: 18/18 valid, eligible</title></path>
+<path d="M361.62,292.00 V96.00 Q361.62,92.00 365.62,92.00 H375.00 Q379.00,92.00 379.00,96.00 V292.00 Z" fill="var(--s1)"><title>trial 15 (pass 1) r3c0: 18/18 valid, eligible</title></path>
+<path d="M381.00,292.00 V106.53 Q381.00,102.53 385.00,102.53 H394.38 Q398.38,102.53 398.38,106.53 V292.00 Z" fill="var(--s1)"><title>trial 16 (pass 2) r3c0: 18/19 valid, eligible</title></path>
+<text class="t2" x="389.69" y="308.0" font-size="11" text-anchor="middle">16</text>
+<path d="M400.38,292.00 V118.22 Q400.38,114.22 404.38,114.22 H413.75 Q417.75,114.22 417.75,118.22 V292.00 Z" fill="var(--s1)"><title>trial 17 (pass 2) r3c1: 16/18 valid, eligible</title></path>
+<path d="M419.75,292.00 V96.00 Q419.75,92.00 423.75,92.00 H433.12 Q437.12,92.00 437.12,96.00 V292.00 Z" fill="var(--s1)"><title>trial 18 (pass 2) r3c2: 18/18 valid, eligible</title></path>
+<path d="M439.12,292.00 V96.00 Q439.12,92.00 443.12,92.00 H452.50 Q456.50,92.00 456.50,96.00 V292.00 Z" fill="var(--s1)"><title>trial 19 (pass 2) r3c3: 18/18 valid, eligible</title></path>
+<path d="M458.50,292.00 V96.00 Q458.50,92.00 462.50,92.00 H471.88 Q475.88,92.00 475.88,96.00 V292.00 Z" fill="var(--s1)"><title>trial 20 (pass 2) r2c3: 18/18 valid, eligible</title></path>
+<text class="t2" x="467.19" y="308.0" font-size="11" text-anchor="middle">20</text>
+<path d="M477.88,292.00 V96.00 Q477.88,92.00 481.88,92.00 H491.25 Q495.25,92.00 495.25,96.00 V292.00 Z" fill="var(--s1)"><title>trial 21 (pass 2) r2c2: 18/18 valid, eligible</title></path>
+<path d="M497.25,292.00 V96.00 Q497.25,92.00 501.25,92.00 H510.62 Q514.62,92.00 514.62,96.00 V292.00 Z" fill="var(--s1)"><title>trial 22 (pass 2) r2c1: 18/18 valid, eligible</title></path>
+<path d="M516.62,292.00 V96.00 Q516.62,92.00 520.62,92.00 H530.00 Q534.00,92.00 534.00,96.00 V292.00 Z" fill="var(--s1)"><title>trial 23 (pass 2) r2c0: 17/17 valid, eligible</title></path>
+<path d="M536.00,292.00 V96.00 Q536.00,92.00 540.00,92.00 H549.38 Q553.38,92.00 553.38,96.00 V292.00 Z" fill="var(--s1)"><title>trial 24 (pass 2) r1c0: 18/18 valid, eligible</title></path>
+<text class="t2" x="544.69" y="308.0" font-size="11" text-anchor="middle">24</text>
+<path d="M555.38,292.00 V96.00 Q555.38,92.00 559.38,92.00 H568.75 Q572.75,92.00 572.75,96.00 V292.00 Z" fill="var(--s1)"><title>trial 25 (pass 2) r1c1: 18/18 valid, eligible</title></path>
+<path d="M574.75,292.00 V96.00 Q574.75,92.00 578.75,92.00 H588.12 Q592.12,92.00 592.12,96.00 V292.00 Z" fill="var(--s1)"><title>trial 26 (pass 2) r1c2: 17/17 valid, eligible</title></path>
+<path d="M594.12,292.00 V96.00 Q594.12,92.00 598.12,92.00 H607.50 Q611.50,92.00 611.50,96.00 V292.00 Z" fill="var(--s1)"><title>trial 27 (pass 2) r1c3: 19/19 valid, eligible</title></path>
+<path d="M613.50,292.00 V96.00 Q613.50,92.00 617.50,92.00 H626.88 Q630.88,92.00 630.88,96.00 V292.00 Z" fill="var(--s1)"><title>trial 28 (pass 2) r0c3: 17/17 valid, eligible</title></path>
+<text class="t2" x="622.19" y="308.0" font-size="11" text-anchor="middle">28</text>
+<path d="M632.88,292.00 V96.00 Q632.88,92.00 636.88,92.00 H646.25 Q650.25,92.00 650.25,96.00 V292.00 Z" fill="var(--s1)"><title>trial 29 (pass 2) r0c2: 18/18 valid, eligible</title></path>
+<path d="M652.25,292.00 V96.00 Q652.25,92.00 656.25,92.00 H665.62 Q669.62,92.00 669.62,96.00 V292.00 Z" fill="var(--s1)"><title>trial 30 (pass 2) r0c1: 18/18 valid, eligible</title></path>
+<path d="M671.62,292.00 V96.00 Q671.62,92.00 675.62,92.00 H685.00 Q689.00,92.00 689.00,96.00 V292.00 Z" fill="var(--s1)"><title>trial 31 (pass 2) r0c0: 18/18 valid, eligible</title></path>
+<line x1="380.00" y1="78.0" x2="380.00" y2="292.0" stroke="var(--ink2)" stroke-width="1"/>
+<text class="t2" x="374.00" y="86.0" font-size="11" text-anchor="end">pass 1</text>
+<text class="t2" x="386.00" y="86.0" font-size="11">pass 2</text>
+<line x1="70.0" y1="192.00" x2="690.0" y2="192.00" stroke="var(--ink)" stroke-width="1.5"/>
+<line x1="70.0" y1="292.0" x2="690.0" y2="292.0" stroke="var(--ink2)" stroke-width="1"/>
+<text class="t2" x="380.0" y="326.0" font-size="11" text-anchor="middle">trial index (0-based)</text>
+<text class="t2" x="20" y="364" font-size="11">Eligibility also needs ≥ 10 valid samples; coverage = valid / measurement attempts (invalid attempts stay in the denominator).</text>
+</svg>

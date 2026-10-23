@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "session_id": "eval-20261023T054414Z-cbec17a1",
+  "mode": "blind_measurement",
+  "final_state": "complete",
+  "end_reason": "completed",
+  "start_wall_time_utc": "2026-10-23T05:44:14.125Z",
+  "end_wall_time_utc": "2026-10-23T05:45:34.136Z",
+  "start_uptime_ms": 2234043,
+  "end_uptime_ms": 2314057,
+  "planned_end_uptime_ms": 2314043,
+  "protocol": {
+    "grid_norm": [0.2, 0.4, 0.6, 0.8],
+    "target_ms": 2500,
+    "settling_ms": 1000,
+    "measurement_ms": 1500,
+    "presentations_planned": 32,
+    "presentations_completed": 32,
+    "trial_index_base": 0,
+    "index_in_pass_base": 0,
+    "presentation_target_ids": ["r0c0", "r0c1", "r0c2", "r0c3", "r1c3", "r1c2", "r1c1", "r1c0", "r2c0", "r2c1", "r2c2", "r2c3", "r3c3", "r3c2", "r3c1", "r3c0", "r3c0", "r3c1", "r3c2", "r3c3", "r2c3", "r2c2", "r2c1", "r2c0", "r1c0", "r1c1", "r1c2", "r1c3", "r0c3", "r0c2", "r0c1", "r0c0"]
+  },
+  "device": {
+    "manufacturer": "samsung",
+    "model": "SM-S918N",
+    "api_level": 36
+  },
+  "app": {
+    "version_name": "0.1.0",
+    "version_code": 1,
+    "source_revision": null,
+    "working_tree_dirty": null,
+    "source_revision_note": "not recorded on device; supply manually during analysis"
+  },
+  "geometry": {
+    "basis": "max_window_metrics",
+    "basis_width_px": 1080,
+    "basis_height_px": 2316,
+    "evaluation_view_left_px": 0,
+    "evaluation_view_top_px": 0,
+    "evaluation_view_width_px": 1080,
+    "evaluation_view_height_px": 2316,
+    "overlay_width_px": 1080,
+    "overlay_height_px": 2316
+  },
+  "coordinates": {
+    "frame": "gaze model display-normalized [0,1], same as calibration and evaluation targets",
+    "model_output": "existing GazeModel.predict result, already clamped to [0,1], before smoothing",
+    "cursor": "existing post-smoothing cursor; drawn in live_preview, withheld from the overlay in blind_measurement",
+    "sample_time": "SystemClock.uptimeMillis() when the analyzer accepted the frame for inference",
+    "inference_duration": "wall time of the FaceLandmarker.detectForVideo call"
+  },
+  "counters": {
+    "frames_received": 1918,
+    "frames_cadence_skipped": 953,
+    "frames_ignored_service_closing": 0,
+    "inference_attempts": 965,
+    "valid_predictions": 953,
+    "invalid_predictions": 12,
+    "invalid_by_reason": {
+      "landmarker_not_ready": 0,
+      "no_face": 0,
+      "features_unavailable": 12,
+      "no_calibration_model": 0,
+      "model_rejected": 0,
+      "processing_error": 0,
+      "service_stopping": 0
+    },
+    "attempts_unrecorded": 0
+  },
+  "logging": {
+    "rows_enqueued": 965,
+    "rows_written": 965,
+    "rows_dropped_queue_full": 0,
+    "rows_dropped_write_error": 0,
+    "rows_lost_total": 0,
+    "write_error": false
+  }
+}

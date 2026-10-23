@@ -8,3 +8,4 @@ local.properties
 build-log*.txt
 *.jks
 *.keystore
+__pycache__/

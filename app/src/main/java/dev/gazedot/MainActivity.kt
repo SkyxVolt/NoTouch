@@ -11,6 +11,9 @@ import android.view.*
 import android.widget.*
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.pm.PackageInfoCompat
+import java.io.File
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
     private lateinit var status: TextView
@@ -18,6 +21,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var calibrationButton: Button
     private lateinit var stopButton: Button
     private var calibration: CalibrationView? = null
+    private var evaluation: EvaluationView? = null
     private val handler = Handler(Looper.getMainLooper())
     private val overlayPermission = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (Settings.canDrawOverlays(this)) startTracking()
@@ -41,6 +45,8 @@ class MainActivity : ComponentActivity() {
                     calibration = null
                     TrackerState.status = "보정 취소됨"
                     showHome()
+                } else if (evaluation != null) {
+                    endEvaluation("시선 평가 취소됨", EvaluationEndReason.BACK)
                 } else {
                     isEnabled = false
                     onBackPressedDispatcher.onBackPressed()
@@ -51,7 +57,9 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         TrackerState.listener = {
-            if (calibration != null && !TrackerState.running) {
+            if (evaluation != null) {
+                if (!TrackerState.running) endEvaluation("추적이 중지되어 시선 평가가 취소되었습니다.", EvaluationEndReason.SERVICE_STOPPED)
+            } else if (calibration != null && !TrackerState.running) {
                 calibration = null; showHome()
             } else if (calibration != null) calibration?.onFrame(TrackerState.features)
             else if (::status.isInitialized) {
@@ -68,6 +76,8 @@ class MainActivity : ComponentActivity() {
             TrackerState.status = "보정이 중단되었습니다. 다시 9점 보정을 시작하세요."
             showHome()
         }
+        // Also covers rotation and screen-off, which pause the activity before the service stops.
+        if (evaluation != null) endEvaluation("시선 평가가 중단되었습니다. 다시 시작하세요.", EvaluationEndReason.ON_PAUSE)
     }
     override fun onStop() { TrackerState.listener = null; super.onStop() }
     override fun onDestroy() { handler.removeCallbacksAndMessages(null); super.onDestroy() }
@@ -206,6 +216,20 @@ class MainActivity : ComponentActivity() {
         }
         content.addView(dwellSettings, LinearLayout.LayoutParams(-1, dp(34)).apply { topMargin = dp(8) })
 
+        // Accuracy evaluation is an internal tool: debuggable builds only.
+        if (evaluationEntryEnabled(applicationInfo.flags)) {
+            val evaluationRow = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+            EvaluationMode.entries.forEach { mode ->
+                evaluationRow.addView(TextView(this).apply {
+                    text = "평가 · ${mode.label}"
+                    textSize = sp(12f); setTextColor(blue); gravity = Gravity.CENTER
+                    style(this, 600)
+                    setOnClickListener { startEvaluation(mode) }
+                }, LinearLayout.LayoutParams(0, -1, 1f))
+            }
+            content.addView(evaluationRow, LinearLayout.LayoutParams(-1, dp(30)))
+        }
+
         stopButton = pill("추적 중지") {
             TrackerState.status = "추적 중지됨"
             stopService(Intent(this, TrackingService::class.java))
@@ -252,6 +276,103 @@ class MainActivity : ComponentActivity() {
             startForegroundService(Intent(this, TrackingService::class.java))
             status.text = "시작 중…"
         } catch (e: Exception) { status.text = "시작 실패: ${e.message}" }
+    }
+
+    private fun startEvaluation(mode: EvaluationMode) {
+        if (!TrackerState.running || TrackerState.model == null) {
+            status.text = "카메라를 시작하고 9점 보정을 먼저 완료해 주세요."
+            return
+        }
+        // Suppress dwell immediately, before the view is laid out and the run timeline starts.
+        EvaluationState.begin(mode)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        evaluation = EvaluationView(mode)
+        setContentView(evaluation)
+    }
+
+    /** Every evaluation exit goes through here, so the session log is always finalized. */
+    private fun endEvaluation(message: String, reason: EvaluationEndReason) {
+        EvaluationLog.finish(reason, SystemClock.uptimeMillis())
+        EvaluationState.end()
+        evaluation = null
+        TrackerState.status = message
+        showHome()
+    }
+
+    private fun evaluationSessionInfo(): EvaluationSessionInfo {
+        val pkg = if (Build.VERSION.SDK_INT >= 33) packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+            else @Suppress("DEPRECATION") packageManager.getPackageInfo(packageName, 0)
+        return EvaluationSessionInfo(Build.MANUFACTURER, Build.MODEL, Build.VERSION.SDK_INT, pkg.versionName,
+            PackageInfoCompat.getLongVersionCode(pkg), if (Build.VERSION.SDK_INT >= 30) "max_window_metrics" else "evaluation_view")
+    }
+
+    /** Files go to app-private filesDir/evaluation/<session id>/; see README for retrieval. */
+    private fun openEvaluationSession(run: EvaluationRun, info: EvaluationSessionInfo): EvaluationSession {
+        val writer = EvaluationLog.writer
+        val id = EvaluationLog.newSessionId(System.currentTimeMillis())
+        return EvaluationSession(id, run, File(File(filesDir, "evaluation"), id), info, writer,
+            { delayMs, block -> writer.schedule(Runnable { block() }, delayMs, TimeUnit.MILLISECONDS) },
+            System::currentTimeMillis,
+            { session, error ->
+                // Never keep running an evaluation that is not being recorded.
+                handler.post {
+                    if (EvaluationLog.current === session) endEvaluation("평가 기록 실패 · $error", EvaluationEndReason.LOGGING_FAILED)
+                }
+            }).also { it.open() }
+    }
+
+    private inner class EvaluationView(private val mode: EvaluationMode) : View(this@MainActivity) {
+        private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        private var run: EvaluationRun? = null
+        private val tick = object : Runnable {
+            override fun run() {
+                if (evaluation !== this@EvaluationView) return
+                val current = run ?: start() ?: return
+                if (current.isFinished(SystemClock.uptimeMillis())) {
+                    endEvaluation("시선 평가 완료 · ${mode.label} ${EvaluationProtocol.presentations.size}개 목표 표시",
+                        EvaluationEndReason.COMPLETED)
+                    return
+                }
+                invalidate(); postOnAnimation(this)
+            }
+        }
+        init { setBackgroundColor(Color.rgb(15, 23, 42)); post(tick) }
+        override fun onDetachedFromWindow() { removeCallbacks(tick); super.onDetachedFromWindow() }
+
+        private fun start(): EvaluationRun? {
+            if (width == 0 || height == 0) { postOnAnimation(tick); return null }
+            val location = IntArray(2); getLocationOnScreen(location)
+            // Same bounds basis as CalibrationView, so targets sit in the gaze model's coordinate frame.
+            val bounds = if (Build.VERSION.SDK_INT >= 30) windowManager.maximumWindowMetrics.bounds else Rect(0, 0, width, height)
+            val geometry = EvaluationGeometry(bounds.width(), bounds.height(), location[0], location[1], width, height,
+                TrackerState.overlaySize)
+            // Gathered before the run clock starts, so the package lookup cannot delay the first target.
+            val info = try { evaluationSessionInfo() } catch (e: Exception) {
+                endEvaluation("평가 기록을 시작할 수 없습니다: ${e.message}", EvaluationEndReason.LOGGING_FAILED)
+                return null
+            }
+            val started = EvaluationRun(mode, SystemClock.uptimeMillis(), geometry)
+            // Opened before the geometry check, so a rejected run still leaves a record.
+            EvaluationLog.start(openEvaluationSession(started, info))
+            if (!geometry.containsAllTargets(16.0 * resources.displayMetrics.density)) {
+                endEvaluation("평가 목표가 화면 밖에 놓입니다. 화면 설정을 확인해 주세요.", EvaluationEndReason.GEOMETRY_REJECTED)
+                return null
+            }
+            return started.also { run = it; EvaluationState.attach(it) }
+        }
+
+        override fun onDraw(canvas: Canvas) {
+            val current = run ?: return
+            val p = current.presentationAt(SystemClock.uptimeMillis()) ?: return
+            val d = resources.displayMetrics.density
+            paint.color = Color.WHITE; paint.textSize = 13 * d; paint.textAlign = Paint.Align.CENTER
+            canvas.drawText("${mode.label} · ${p.pass}차 ${p.indexInPass + 1}/${EvaluationProtocol.firstPass.size}", width / 2f, 55 * d, paint)
+            canvas.drawText("머리는 고정하고 파란 점을 바라보세요 · 중단하려면 뒤로 가기", width / 2f, height - 45 * d, paint)
+            val (x, y) = current.geometry.toView(p.target.x, p.target.y)
+            paint.color = Color.rgb(96, 165, 250)
+            canvas.drawCircle(x.toFloat(), y.toFloat(), 12 * d, paint)
+            paint.color = Color.WHITE; canvas.drawCircle(x.toFloat(), y.toFloat(), 3 * d, paint)
+        }
     }
 
     private inner class CalibrationView : View(this@MainActivity) {

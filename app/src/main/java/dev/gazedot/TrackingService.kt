@@ -134,18 +134,34 @@ class TrackingService : LifecycleService() {
 
     private fun process(frame: ImageProxy) {
         var raw: Bitmap? = null; var upright: Bitmap? = null
+        // Evaluation logging observes this path only; both stay null outside an evaluation run.
+        var attempt: EvaluationAttempt? = null
         try {
             val now = SystemClock.uptimeMillis()
-            if (closing || now - lastFrame < 66) return
+            val log = EvaluationLog.sessionAt(now)
+            log?.frameReceived()
+            if (closing || now - lastFrame < 66) { log?.frameSkipped(closing); return }
             lastFrame = now
+            attempt = log?.beginAttempt(now)
             raw = frame.toBitmap()
             val matrix = Matrix().apply { postRotate(frame.imageInfo.rotationDegrees.toFloat()) }
             upright = Bitmap.createBitmap(raw, 0, 0, raw.width, raw.height, matrix, true)
             val image = BitmapImageBuilder(upright).build()
+            val inferenceStart = System.nanoTime()
             val result = try { landmarker?.detectForVideo(image, now) } finally { image.close() }
+            val inferenceNanos = System.nanoTime() - inferenceStart
             val features = result?.faceLandmarks()?.firstOrNull()?.let { LandmarkFeatures.extract(it, upright.width, upright.height) }
+            val logged = attempt?.apply {
+                if (result != null) inferenceDurationNanos = inferenceNanos
+                workerInvalidReason = when {
+                    result == null -> EvaluationInvalidReason.LANDMARKER_NOT_READY
+                    result.faceLandmarks().isEmpty() -> EvaluationInvalidReason.NO_FACE
+                    features == null -> EvaluationInvalidReason.FEATURES_UNAVAILABLE
+                    else -> null
+                }
+            }
             main.post {
-                if (closing) return@post
+                if (closing) { logged?.recordInvalid(EvaluationInvalidReason.SERVICE_STOPPING); return@post }
                 lastResult = SystemClock.uptimeMillis()
                 val model = TrackerState.model
                 val position = if (features != null) model?.predict(features) else null
@@ -156,11 +172,13 @@ class TrackingService : LifecycleService() {
                     else -> "추적 중 · 홈으로 나가도 빨간 점이 표시됩니다"
                 }
                 smoothed = position?.let(::smoothGazePosition)
+                logged?.record(model != null, position, smoothed)
                 val dwellProgress = updateDwell(smoothed)
-                overlay?.show(smoothed, dwellProgress)
+                overlay?.show(if (EvaluationState.hidesCursor) null else smoothed, dwellProgress)
                 TrackerState.publish(features, message)
             }
         } catch (e: Exception) {
+            attempt?.recordInvalid(EvaluationInvalidReason.PROCESSING_ERROR)
             main.post { if (!closing) fail("영상 처리 실패: ${e.message}") }
         } finally {
             if (upright !== raw) upright?.recycle()
@@ -186,7 +204,8 @@ class TrackingService : LifecycleService() {
 
     /** Require one continuous second within a small gaze region; re-arm after looking away. */
     private fun updateDwell(position: Pair<Double, Double>?): Float {
-        if (!GazeAccessibilityService.isEnabled() || position == null) {
+        // Evaluation runs must never tap the screen.
+        if (EvaluationState.active || !GazeAccessibilityService.isEnabled() || position == null) {
             resetDwell()
             return 0f
         }
